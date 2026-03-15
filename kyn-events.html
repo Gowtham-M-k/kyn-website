@@ -1,0 +1,933 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>KYN Events — Discover, Book & Host Unforgettable Experiences</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,300;12..96,400;12..96,500;12..96,600;12..96,700;12..96,800&family=Instrument+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+
+:root{
+  --coral:#E8573A;--coral-l:#F06D52;--coral-d:#C94429;
+  --teal:#1A3A4A;--teal-d:#0F2630;--teal-l:#245568;
+  --gold:#F5A623;--green:#2ECC87;--green-d:#1FA96E;
+  --cream:#FFF8F2;--off:#FEFCFA;--white:#fff;
+  --dark:#0C1F28;--txt:#1C2D35;--txt-l:#5A7484;--txt-m:#8DA4B0;
+  --bdr:#E4E8EA;--surf:#F4F6F7;
+  --display:'Bricolage Grotesque',sans-serif;
+  --body:'Instrument Sans',sans-serif;
+  --shadow-s:0 1px 3px rgba(12,31,40,.06);
+  --shadow-m:0 4px 20px rgba(12,31,40,.08);
+  --shadow-l:0 12px 40px rgba(12,31,40,.1);
+  --shadow-c:0 8px 30px rgba(232,87,58,.2);
+  --r-s:8px;--r-m:14px;--r-l:20px;--r-xl:28px;
+}
+
+html{scroll-behavior:smooth;font-size:16px}
+body{font-family:var(--body);background:var(--off);color:var(--txt);overflow-x:hidden;-webkit-font-smoothing:antialiased}
+::selection{background:rgba(232,87,58,.12);color:var(--coral-d)}
+::-webkit-scrollbar{width:5px}
+::-webkit-scrollbar-track{background:var(--cream)}
+::-webkit-scrollbar-thumb{background:var(--coral);border-radius:3px}
+
+.ctr{max-width:1200px;margin:0 auto;padding:0 clamp(1.5rem,4vw,3rem)}
+.coral-g{background:linear-gradient(135deg,var(--coral),var(--coral-l));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+
+/* ═══ NAV ═══ */
+nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:1rem 0;background:rgba(255,252,250,.88);backdrop-filter:blur(20px) saturate(1.4);border-bottom:1px solid transparent;transition:.4s}
+nav.scrolled{padding:.6rem 0;border-bottom-color:var(--bdr);box-shadow:var(--shadow-s)}
+.nav-in{display:flex;align-items:center;justify-content:space-between;max-width:1200px;margin:0 auto;padding:0 clamp(1.5rem,4vw,3rem)}
+.logo{display:flex;align-items:center;gap:.35rem;text-decoration:none}
+.logo-m{width:34px;height:34px;border-radius:9px;background:linear-gradient(135deg,var(--coral),var(--coral-l));display:flex;align-items:center;justify-content:center;font-family:var(--display);font-weight:800;font-size:1rem;color:#fff;box-shadow:0 2px 8px rgba(232,87,58,.25)}
+.logo-t{font-family:var(--display);font-weight:700;font-size:1.25rem;color:var(--teal-d);letter-spacing:-.02em}
+.logo-t span{color:var(--coral)}
+.logo-tag{font-size:.6rem;font-weight:600;color:var(--coral);background:rgba(232,87,58,.08);padding:.15rem .5rem;border-radius:50px;margin-left:.4rem;letter-spacing:.05em;text-transform:uppercase}
+.nav-l{display:flex;gap:2rem;align-items:center;list-style:none}
+.nav-l a{color:var(--txt-l);text-decoration:none;font-size:.85rem;font-weight:500;transition:.3s;position:relative}
+.nav-l a::after{content:'';position:absolute;bottom:-3px;left:0;width:0;height:2px;background:var(--coral);transition:.3s;border-radius:1px}
+.nav-l a:hover{color:var(--teal)}.nav-l a:hover::after{width:100%}
+.btn-n{background:var(--coral);color:#fff;border:none;padding:.6rem 1.3rem;border-radius:50px;font-weight:600;font-size:.82rem;cursor:pointer;transition:.3s;font-family:var(--body);box-shadow:var(--shadow-c)}
+.btn-n:hover{background:var(--coral-d);transform:translateY(-1px)}
+.ham{display:none;background:none;border:none;cursor:pointer;padding:.5rem}
+.ham span{display:block;width:22px;height:2px;background:var(--teal);margin:5px 0;border-radius:1px;transition:.3s}
+
+/* ═══ HERO ═══ */
+.hero{min-height:100vh;display:flex;align-items:center;position:relative;overflow:hidden;padding:7rem 0 3rem;background:linear-gradient(160deg,var(--off) 0%,var(--cream) 40%,#FFF0E6 100%)}
+.hero-deco{position:absolute;border-radius:50%;pointer-events:none}
+.hd1{top:-15%;right:-8%;width:500px;height:500px;background:radial-gradient(circle,rgba(232,87,58,.07) 0%,transparent 70%)}
+.hd2{bottom:-10%;left:-5%;width:350px;height:350px;background:radial-gradient(circle,rgba(26,58,74,.04) 0%,transparent 70%)}
+.hero-dots{position:absolute;top:8%;right:4%;width:180px;height:180px;background-image:radial-gradient(circle,rgba(232,87,58,.1) 1.5px,transparent 1.5px);background-size:18px 18px;opacity:.5}
+
+.hero-inner{position:relative;z-index:2;text-align:center;max-width:780px;margin:0 auto}
+.hero-chip{display:inline-flex;align-items:center;gap:.5rem;background:#fff;border:1px solid var(--bdr);padding:.35rem .9rem .35rem .4rem;border-radius:50px;font-size:.75rem;font-weight:600;color:var(--txt-l);margin-bottom:1.5rem;box-shadow:var(--shadow-s);animation:fadeUp .6s ease-out}
+.chip-dot{width:8px;height:8px;border-radius:50%;background:var(--green);animation:pulse 2s ease infinite}
+@keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.5;transform:scale(1.4)}}
+.hero h1{font-family:var(--display);font-weight:800;font-size:clamp(2.4rem,5.5vw,4rem);line-height:1.1;letter-spacing:-.04em;color:var(--teal-d);margin-bottom:1rem;animation:fadeUp .6s ease-out .1s both}
+.hero p{font-size:clamp(1rem,1.5vw,1.12rem);color:var(--txt-l);line-height:1.7;max-width:540px;margin:0 auto 2rem;animation:fadeUp .6s ease-out .2s both}
+.hero-btns{display:flex;gap:.7rem;justify-content:center;flex-wrap:wrap;animation:fadeUp .6s ease-out .3s both}
+.btn-p{background:linear-gradient(135deg,var(--coral),var(--coral-l));color:#fff;border:none;padding:.85rem 1.8rem;border-radius:50px;font-weight:600;font-size:.92rem;cursor:pointer;transition:.3s;font-family:var(--body);box-shadow:var(--shadow-c)}
+.btn-p:hover{transform:translateY(-2px);box-shadow:0 12px 35px rgba(232,87,58,.3)}
+.btn-s{background:#fff;color:var(--teal);border:1.5px solid var(--bdr);padding:.85rem 1.8rem;border-radius:50px;font-weight:500;font-size:.92rem;cursor:pointer;transition:.3s;font-family:var(--body)}
+.btn-s:hover{border-color:var(--coral);color:var(--coral)}
+
+/* Category pills */
+.cat-pills{display:flex;flex-wrap:wrap;gap:.5rem;justify-content:center;margin-top:2.5rem;animation:fadeUp .6s ease-out .4s both}
+.pill{padding:.4rem .9rem;border-radius:50px;font-size:.72rem;font-weight:600;border:1px solid var(--bdr);background:#fff;color:var(--txt-l);cursor:pointer;transition:.3s;white-space:nowrap}
+.pill:hover,.pill.active{background:var(--coral);color:#fff;border-color:var(--coral);box-shadow:var(--shadow-c)}
+.pill .em{margin-right:.3rem}
+
+@keyframes fadeUp{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:translateY(0)}}
+
+/* ═══ SECTION COMMON ═══ */
+section{padding:clamp(3.5rem,9vw,6.5rem) 0}
+.s-label{font-size:.7rem;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--coral);margin-bottom:.7rem;display:flex;align-items:center;gap:.6rem}
+.s-label::before{content:'';width:22px;height:2px;background:linear-gradient(90deg,var(--coral),rgba(232,87,58,.2));border-radius:1px}
+.s-label.cen{justify-content:center}
+.s-title{font-family:var(--display);font-weight:800;font-size:clamp(1.7rem,3.8vw,2.5rem);line-height:1.12;letter-spacing:-.03em;color:var(--teal-d);margin-bottom:.8rem}
+.s-title.cen{text-align:center}
+.s-desc{font-size:.95rem;color:var(--txt-l);line-height:1.65;max-width:500px}
+.s-desc.cen{text-align:center;margin:0 auto}
+
+/* ═══ HOW IT WORKS ═══ */
+.how{background:#fff;border-top:1px solid var(--bdr);border-bottom:1px solid var(--bdr)}
+.how-header{text-align:center;margin-bottom:2.5rem}
+.how-tabs{display:flex;justify-content:center;gap:.3rem;margin-top:1.2rem;background:var(--surf);border-radius:50px;padding:3px;display:inline-flex}
+.how-header .how-tabs{display:inline-flex}
+.htab{background:transparent;border:none;color:var(--txt-m);padding:.5rem 1.3rem;border-radius:50px;font-size:.82rem;font-weight:600;cursor:pointer;transition:.3s;font-family:var(--body)}
+.htab.active{background:var(--coral);color:#fff;box-shadow:var(--shadow-c)}
+
+.steps{display:grid;grid-template-columns:repeat(3,1fr);gap:2rem;margin-top:1.5rem}
+.step{text-align:center;position:relative}
+.step-num{width:48px;height:48px;border-radius:50%;background:linear-gradient(135deg,rgba(232,87,58,.08),rgba(245,166,35,.06));border:2px solid rgba(232,87,58,.12);display:flex;align-items:center;justify-content:center;font-family:var(--display);font-weight:800;font-size:1.1rem;color:var(--coral);margin:0 auto 1rem}
+.step h3{font-family:var(--display);font-weight:700;font-size:1rem;color:var(--teal-d);margin-bottom:.35rem}
+.step p{font-size:.84rem;color:var(--txt-l);line-height:1.55;max-width:260px;margin:0 auto}
+.step-arrow{position:absolute;top:24px;right:-1rem;font-size:1.2rem;color:var(--bdr)}
+
+/* ═══ FOR YOU ═══ */
+.foryou-top{display:grid;grid-template-columns:1fr 1fr;gap:3rem;align-items:center;margin-bottom:3rem}
+.foryou-visual{background:var(--teal-d);border-radius:var(--r-xl);padding:2rem;overflow:hidden;position:relative;min-height:380px}
+.fv-pattern{position:absolute;inset:0;background-image:radial-gradient(circle,rgba(255,255,255,.03) 1px,transparent 1px);background-size:20px 20px}
+.fv-content{position:relative;z-index:2}
+.fv-bar{display:flex;gap:.5rem;margin-bottom:1rem;flex-wrap:wrap}
+.fv-chip{padding:.3rem .7rem;border-radius:50px;font-size:.6rem;font-weight:600;border:1px solid rgba(255,255,255,.1);color:rgba(255,255,255,.5);cursor:pointer;transition:.3s}
+.fv-chip.on{background:var(--coral);color:#fff;border-color:var(--coral)}
+.fv-cards{display:grid;grid-template-columns:1fr 1fr;gap:.7rem}
+.fv-card{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.06);border-radius:12px;padding:.8rem;transition:.3s}
+.fv-card:hover{background:rgba(255,255,255,.08);transform:translateY(-2px)}
+.fv-img{width:100%;height:60px;border-radius:8px;margin-bottom:.5rem}
+.fv-img-1{background:linear-gradient(135deg,#E8573A,#F5A623)}
+.fv-img-2{background:linear-gradient(135deg,#2ECC87,#1A9E6A)}
+.fv-img-3{background:linear-gradient(135deg,#5B7FE8,#3B5DC9)}
+.fv-img-4{background:linear-gradient(135deg,#F5A623,#E8573A)}
+.fv-img span{display:flex;height:100%;align-items:center;justify-content:center;color:#fff;font-size:.6rem;font-weight:700;font-family:var(--display)}
+.fv-tag{display:inline-block;padding:.12rem .45rem;border-radius:50px;font-size:.5rem;font-weight:600;margin-bottom:.2rem}
+.fv-tag-free{background:rgba(46,204,135,.15);color:var(--green)}
+.fv-tag-paid{background:rgba(232,87,58,.15);color:var(--coral-l)}
+.fv-name{font-family:var(--display);font-weight:600;font-size:.65rem;color:#fff;margin-bottom:.1rem}
+.fv-meta{font-size:.5rem;color:rgba(255,255,255,.35)}
+
+.cat-grid{display:grid;grid-template-columns:repeat(8,1fr);gap:.6rem}
+.cat-item{text-align:center;padding:.8rem .4rem;border-radius:var(--r-m);border:1px solid var(--bdr);background:#fff;transition:.3s;cursor:pointer}
+.cat-item:hover{border-color:rgba(232,87,58,.2);box-shadow:var(--shadow-m);transform:translateY(-3px)}
+.cat-em{font-size:1.4rem;display:block;margin-bottom:.3rem}
+.cat-name{font-size:.65rem;font-weight:600;color:var(--txt-l)}
+
+/* ═══ FEATURES USERS/ORG ═══ */
+.feat{background:#fff;border-top:1px solid var(--bdr)}
+.feat-header{text-align:center;margin-bottom:1rem}
+.feat-tabs{display:flex;justify-content:center;gap:.3rem;margin:1.2rem 0 2.5rem;background:var(--surf);border-radius:50px;padding:3px;display:inline-flex}
+.feat-header .feat-tabs{display:inline-flex}
+.ftab{background:transparent;border:none;color:var(--txt-m);padding:.5rem 1.3rem;border-radius:50px;font-size:.82rem;font-weight:600;cursor:pointer;transition:.3s;font-family:var(--body)}
+.ftab.active{background:var(--teal-d);color:#fff}
+
+.feat-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem}
+.fc{background:var(--off);border:1px solid var(--bdr);border-radius:var(--r-l);padding:1.6rem;transition:.4s;position:relative;overflow:hidden}
+.fc::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--coral),var(--gold));transform:scaleX(0);transform-origin:left;transition:.4s}
+.fc:hover{border-color:rgba(232,87,58,.15);box-shadow:var(--shadow-m);transform:translateY(-3px)}
+.fc:hover::before{transform:scaleX(1)}
+.fc-icon{width:42px;height:42px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:1.2rem;margin-bottom:1rem;background:linear-gradient(135deg,rgba(232,87,58,.08),rgba(245,166,35,.05));border:1px solid rgba(232,87,58,.08)}
+.fc h3{font-family:var(--display);font-weight:700;font-size:.95rem;color:var(--teal-d);margin-bottom:.35rem}
+.fc p{font-size:.82rem;color:var(--txt-l);line-height:1.55}
+
+/* ═══ GALLERY ═══ */
+.gallery{position:relative;overflow:hidden}
+.gallery-bg{position:absolute;inset:0;background:linear-gradient(180deg,var(--teal-d) 0%,#0A1E28 100%)}
+.gallery .ctr{position:relative;z-index:2}
+.gallery .s-label{color:var(--gold)}
+.gallery .s-label::before{background:linear-gradient(90deg,var(--gold),rgba(245,166,35,.2))}
+.gallery .s-title{color:#fff}
+.gallery .s-desc{color:rgba(255,255,255,.55)}
+
+.event-showcase{margin-top:2.5rem}
+.ev-card{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.06);border-radius:var(--r-xl);overflow:hidden;margin-bottom:2rem;transition:.4s}
+.ev-card:hover{border-color:rgba(232,87,58,.15);box-shadow:0 16px 50px rgba(0,0,0,.3)}
+.ev-top{display:grid;grid-template-columns:1.2fr 1fr;min-height:320px}
+.ev-visual{position:relative;overflow:hidden}
+.ev-bg{position:absolute;inset:0;display:flex;align-items:center;justify-content:center}
+.ev-bg-u1{background:linear-gradient(135deg,#1a0a2e,#0f0620,#2d1054);background-size:200% 200%;animation:gradShift 6s ease infinite}
+.ev-bg-kyn{background:linear-gradient(135deg,#E8573A,#F5A623,#E8573A);background-size:200% 200%;animation:gradShift 6s ease infinite}
+@keyframes gradShift{0%,100%{background-position:0% 50%}50%{background-position:100% 50%}}
+.ev-bg-content{position:relative;z-index:2;text-align:center;padding:2rem}
+.ev-logo{font-family:var(--display);font-weight:900;font-size:2.2rem;color:#fff;letter-spacing:-.03em;line-height:1.1;text-shadow:0 4px 20px rgba(0,0,0,.3)}
+.ev-logo sub{font-size:.7rem;font-weight:600;display:block;color:rgba(255,255,255,.6);letter-spacing:.1em;text-transform:uppercase;margin-top:.3rem}
+.ev-live-badge{display:inline-flex;align-items:center;gap:.4rem;background:rgba(255,255,255,.15);backdrop-filter:blur(8px);padding:.3rem .8rem;border-radius:50px;font-size:.65rem;font-weight:600;color:#fff;margin-top:.8rem}
+
+.ev-info{padding:2rem 2.5rem;display:flex;flex-direction:column;justify-content:center}
+.ev-label{font-size:.65rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--coral-l);margin-bottom:.6rem}
+.ev-title{font-family:var(--display);font-weight:800;font-size:1.6rem;color:#fff;letter-spacing:-.02em;margin-bottom:.6rem;line-height:1.15}
+.ev-desc{font-size:.88rem;color:rgba(255,255,255,.5);line-height:1.6;margin-bottom:1.2rem}
+.ev-meta-row{display:flex;flex-wrap:wrap;gap:.6rem;margin-bottom:1rem}
+.ev-m{display:flex;align-items:center;gap:.35rem;font-size:.75rem;color:rgba(255,255,255,.4);background:rgba(255,255,255,.04);padding:.3rem .7rem;border-radius:50px;border:1px solid rgba(255,255,255,.06)}
+.ev-m .em{font-size:.8rem}
+.ev-stats{display:flex;gap:1.5rem;padding-top:1rem;border-top:1px solid rgba(255,255,255,.06)}
+.ev-stat-num{font-family:var(--display);font-weight:800;font-size:1.3rem;color:var(--coral-l)}
+.ev-stat-lbl{font-size:.65rem;color:rgba(255,255,255,.35);text-transform:uppercase;letter-spacing:.06em}
+
+/* Ticket tiers */
+.ev-tiers{padding:1.2rem 2.5rem 1.5rem;border-top:1px solid rgba(255,255,255,.04);display:flex;gap:.5rem;flex-wrap:wrap}
+.tier{padding:.35rem .8rem;border-radius:50px;font-size:.65rem;font-weight:600;border:1px solid rgba(255,255,255,.08);color:rgba(255,255,255,.45);transition:.3s}
+.tier:hover{border-color:var(--coral);color:var(--coral-l)}
+.tier-label{font-size:.6rem;color:rgba(255,255,255,.25);margin-right:.3rem}
+
+/* Artist lineup */
+.ev-artists{padding:0 2.5rem 1.5rem;display:flex;gap:.6rem;flex-wrap:wrap}
+.artist{display:flex;align-items:center;gap:.4rem;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.06);padding:.3rem .7rem .3rem .35rem;border-radius:50px;transition:.3s}
+.artist:hover{background:rgba(255,255,255,.08)}
+.artist-dot{width:24px;height:24px;border-radius:50%;background:linear-gradient(135deg,var(--coral),var(--gold));display:flex;align-items:center;justify-content:center;font-size:.55rem;color:#fff;font-weight:700}
+.artist-name{font-size:.7rem;font-weight:600;color:rgba(255,255,255,.7)}
+
+/* ═══ TICKETING SHOWCASE ═══ */
+.tix{background:#fff;border-top:1px solid var(--bdr)}
+.tix-header{text-align:center;margin-bottom:2.5rem}
+.tix-flow{display:grid;grid-template-columns:repeat(4,1fr);gap:1rem}
+.tix-step{background:var(--off);border:1px solid var(--bdr);border-radius:var(--r-l);padding:1.5rem;text-align:center;transition:.3s;position:relative}
+.tix-step:hover{border-color:rgba(232,87,58,.15);box-shadow:var(--shadow-m);transform:translateY(-3px)}
+.tix-step::after{content:'→';position:absolute;right:-.7rem;top:50%;transform:translateY(-50%);color:var(--bdr);font-size:1.2rem;font-weight:700}
+.tix-step:last-child::after{display:none}
+.tix-ico{font-size:1.8rem;margin-bottom:.7rem}
+.tix-step h4{font-family:var(--display);font-weight:700;font-size:.9rem;color:var(--teal-d);margin-bottom:.25rem}
+.tix-step p{font-size:.78rem;color:var(--txt-l);line-height:1.5}
+
+/* Multi-tier visual */
+.tier-visual{margin-top:2.5rem;background:var(--teal-d);border-radius:var(--r-xl);padding:2rem;overflow:hidden;position:relative}
+.tier-visual-pat{position:absolute;inset:0;background-image:radial-gradient(circle,rgba(255,255,255,.02) 1px,transparent 1px);background-size:20px 20px}
+.tier-visual .content{position:relative;z-index:2}
+.tier-row{display:grid;grid-template-columns:repeat(5,1fr);gap:.7rem}
+.t-tier{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.06);border-radius:var(--r-m);padding:1rem;text-align:center;transition:.3s}
+.t-tier:hover{background:rgba(255,255,255,.08);transform:translateY(-3px)}
+.t-tier.vip{background:linear-gradient(135deg,rgba(232,87,58,.12),rgba(245,166,35,.08));border-color:rgba(232,87,58,.2)}
+.t-name{font-family:var(--display);font-weight:700;font-size:.85rem;color:#fff;margin-bottom:.15rem}
+.t-price{font-family:var(--display);font-weight:800;font-size:1.2rem;color:var(--coral-l);margin-bottom:.3rem}
+.t-perks{font-size:.6rem;color:rgba(255,255,255,.35);line-height:1.5}
+.tier-caption{text-align:center;margin-top:1rem;font-size:.7rem;color:rgba(255,255,255,.3)}
+
+/* ═══ CTA ═══ */
+.cta-wrap{padding:1rem 0 3rem}
+.cta-box{position:relative;overflow:hidden;background:linear-gradient(135deg,var(--coral),var(--coral-d));border-radius:var(--r-xl);padding:clamp(2.5rem,5vw,4rem);display:grid;grid-template-columns:1fr 1fr;gap:3rem;align-items:center}
+.cta-box::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at 20% 50%,rgba(245,166,35,.25),transparent 60%)}
+.cta-box *{position:relative;z-index:1}
+.cta-left h2{font-family:var(--display);font-weight:800;font-size:clamp(1.6rem,3vw,2.2rem);color:#fff;letter-spacing:-.02em;margin-bottom:.6rem}
+.cta-left p{font-size:.95rem;color:rgba(255,255,255,.8);line-height:1.6}
+.cta-right{display:flex;gap:.8rem;flex-wrap:wrap;justify-content:flex-end}
+.btn-cta-w{background:#fff;color:var(--coral);border:none;padding:.9rem 2rem;border-radius:50px;font-weight:700;font-size:.9rem;cursor:pointer;transition:.3s;font-family:var(--body)}
+.btn-cta-w:hover{transform:translateY(-2px);box-shadow:0 8px 30px rgba(0,0,0,.15)}
+.btn-cta-o{background:transparent;color:#fff;border:1.5px solid rgba(255,255,255,.3);padding:.9rem 2rem;border-radius:50px;font-weight:600;font-size:.9rem;cursor:pointer;transition:.3s;font-family:var(--body)}
+.btn-cta-o:hover{border-color:#fff;background:rgba(255,255,255,.1)}
+
+/* ═══ FOOTER ═══ */
+footer{background:var(--teal-d);color:rgba(255,255,255,.5);padding:3rem 0 1.5rem}
+.f-grid{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:2.5rem;margin-bottom:2rem}
+.f-brand .logo{margin-bottom:.7rem;display:inline-flex}
+.f-brand .logo .logo-m{box-shadow:none}
+.f-brand .logo .logo-t{color:#fff}
+.f-brand>p{font-size:.82rem;line-height:1.6;max-width:250px;color:rgba(255,255,255,.35)}
+.f-col h4{font-family:var(--display);font-weight:600;font-size:.78rem;color:#fff;margin-bottom:.7rem;text-transform:uppercase;letter-spacing:.08em}
+.f-col ul{list-style:none}
+.f-col li{margin-bottom:.35rem}
+.f-col a{color:rgba(255,255,255,.4);text-decoration:none;font-size:.82rem;transition:.3s}
+.f-col a:hover{color:var(--coral-l)}
+.f-bottom{display:flex;justify-content:space-between;align-items:center;padding-top:1.2rem;border-top:1px solid rgba(255,255,255,.06)}
+.f-bottom p{font-size:.72rem;color:rgba(255,255,255,.25)}
+.f-socials{display:flex;gap:.5rem}
+.f-socials a{width:32px;height:32px;border-radius:50%;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.07);display:flex;align-items:center;justify-content:center;color:rgba(255,255,255,.45);text-decoration:none;font-size:.7rem;transition:.3s}
+.f-socials a:hover{background:var(--coral);color:#fff;border-color:var(--coral)}
+
+/* ═══ REVEAL ═══ */
+.reveal{opacity:0;transform:translateY(28px);transition:opacity .6s ease,transform .6s ease}
+.reveal.vis{opacity:1;transform:translateY(0)}
+
+/* ═══ RESPONSIVE ═══ */
+@media(max-width:1024px){
+  .feat-grid{grid-template-columns:repeat(2,1fr)}
+  .cat-grid{grid-template-columns:repeat(4,1fr)}
+  .tix-flow{grid-template-columns:repeat(2,1fr)}
+  .tix-step::after{display:none}
+  .tier-row{grid-template-columns:repeat(3,1fr)}
+  .f-grid{grid-template-columns:1fr 1fr;gap:1.5rem}
+}
+@media(max-width:768px){
+  .nav-l{display:none}.ham{display:block}
+  .foryou-top{grid-template-columns:1fr}
+  .feat-grid{grid-template-columns:1fr}
+  .ev-top{grid-template-columns:1fr}
+  .ev-info{padding:1.5rem}
+  .ev-tiers,.ev-artists{padding:0 1.5rem 1rem}
+  .cat-grid{grid-template-columns:repeat(4,1fr)}
+  .tix-flow{grid-template-columns:1fr}
+  .tier-row{grid-template-columns:repeat(2,1fr)}
+  .cta-box{grid-template-columns:1fr;text-align:center}
+  .cta-right{justify-content:center}
+  .f-grid{grid-template-columns:1fr}
+  .f-bottom{flex-direction:column;gap:.7rem;text-align:center}
+  .s-label{justify-content:center}
+  .s-title,.s-desc{text-align:center}
+  .s-desc{margin-inline:auto}
+  .steps{grid-template-columns:1fr;gap:1.5rem}
+  .step-arrow{display:none}
+}
+</style>
+</head>
+<body>
+
+<!-- ═══ NAV ═══ -->
+<nav id="nb">
+  <div class="nav-in">
+    <a href="https://kynhood.com" class="logo">
+      <div class="logo-m">K</div>
+      <div class="logo-t">kyn<span>hood</span></div>
+      <span class="logo-tag">Events</span>
+    </a>
+    <ul class="nav-l">
+      <li><a href="#foryou">Discover</a></li>
+      <li><a href="#features">Features</a></li>
+      <li><a href="#gallery">Showcases</a></li>
+      <li><a href="#ticketing">Ticketing</a></li>
+      <li><a href="#organisers">For Organisers</a></li>
+    </ul>
+    <button class="btn-n" onclick="document.getElementById('cta').scrollIntoView({behavior:'smooth'})">Host an Event</button>
+    <button class="ham" aria-label="Menu"><span></span><span></span><span></span></button>
+  </div>
+</nav>
+
+<!-- ═══ HERO ═══ -->
+<section class="hero">
+  <div class="hero-deco hd1"></div>
+  <div class="hero-deco hd2"></div>
+  <div class="hero-dots"></div>
+  <div class="ctr">
+    <div class="hero-inner">
+      <div class="hero-chip"><span class="chip-dot"></span> Powered by Kynhood</div>
+      <h1>Discover Events<br>That <span class="coral-g">Move You</span></h1>
+      <p>From massive concerts to intimate workshops — find, book, and host events that match your passions. Personalized for you, powered by community.</p>
+      <div class="hero-btns">
+        <button class="btn-p" onclick="document.getElementById('foryou').scrollIntoView({behavior:'smooth'})">Explore Events</button>
+        <button class="btn-s" onclick="document.getElementById('organisers').scrollIntoView({behavior:'smooth'})">I'm an Organiser →</button>
+      </div>
+      <div class="cat-pills">
+        <span class="pill active"><span class="em">🔥</span> All</span>
+        <span class="pill"><span class="em">🎵</span> Live Shows</span>
+        <span class="pill"><span class="em">🎨</span> Arts</span>
+        <span class="pill"><span class="em">🧘</span> Wellness</span>
+        <span class="pill"><span class="em">🍕</span> Food</span>
+        <span class="pill"><span class="em">🏃</span> Sports</span>
+        <span class="pill"><span class="em">🎭</span> Experiences</span>
+        <span class="pill"><span class="em">🤝</span> Meetups</span>
+        <span class="pill"><span class="em">🌙</span> Nightlife</span>
+        <span class="pill"><span class="em">👶</span> Kids</span>
+        <span class="pill"><span class="em">🎪</span> Pop-ups</span>
+        <span class="pill"><span class="em">🖼️</span> Exhibitions</span>
+        <span class="pill"><span class="em">🛠️</span> Workshops</span>
+        <span class="pill"><span class="em">💸</span> Free</span>
+        <span class="pill"><span class="em">🍸</span> Hangout</span>
+        <span class="pill"><span class="em">📦</span> Others</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ HOW IT WORKS ═══ -->
+<section class="how" id="how">
+  <div class="ctr">
+    <div class="how-header reveal">
+      <span class="s-label cen">How It Works</span>
+      <h2 class="s-title cen">Simple for Everyone</h2>
+      <div style="text-align:center"><div class="how-tabs">
+        <button class="htab active" onclick="switchHow(this,'user')">For Attendees</button>
+        <button class="htab" onclick="switchHow(this,'org')">For Organisers</button>
+      </div></div>
+    </div>
+    <div id="how-user" class="steps reveal">
+      <div class="step">
+        <div class="step-num">1</div>
+        <h3>Discover</h3>
+        <p>Browse curated events by category, location, or interest. Our "For You" feed learns what you love.</p>
+        <span class="step-arrow">→</span>
+      </div>
+      <div class="step">
+        <div class="step-num">2</div>
+        <h3>Book Instantly</h3>
+        <p>Pick your venue, date slot, ticket tier, and apply discounts. Pre-register for upcoming drops or book directly.</p>
+        <span class="step-arrow">→</span>
+      </div>
+      <div class="step">
+        <div class="step-num">3</div>
+        <h3>Show Up & Enjoy</h3>
+        <p>Get your QR ticket, scan at the gate, and dive into the experience. Rate and share with your tribe after.</p>
+      </div>
+    </div>
+    <div id="how-org" class="steps reveal" style="display:none">
+      <div class="step">
+        <div class="step-num">1</div>
+        <h3>Create Event</h3>
+        <p>Set up free or paid events in minutes. Add multiple venues, date slots, and ticket tiers. Online or offline.</p>
+        <span class="step-arrow">→</span>
+      </div>
+      <div class="step">
+        <div class="step-num">2</div>
+        <h3>Go Live & Track</h3>
+        <p>Publish and watch real-time analytics — ticket sales, demographics, and revenue. All from your dashboard.</p>
+        <span class="step-arrow">→</span>
+      </div>
+      <div class="step">
+        <div class="step-num">3</div>
+        <h3>Scan & Get Paid</h3>
+        <p>Use QR scanner for entry verification. Get weekly payouts or T+2 day payouts on paid plans.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ FOR YOU ═══ -->
+<section id="foryou">
+  <div class="ctr">
+    <div class="foryou-top reveal">
+      <div>
+        <span class="s-label">Personalized Discovery</span>
+        <h2 class="s-title">Your <span class="coral-g">"For You"</span> Feed</h2>
+        <p class="s-desc">Events curated to your interests, location, and past activity. From free workshops to VIP concerts — the algorithm surfaces what matters to you.</p>
+        <div style="margin-top:1.5rem;display:flex;flex-direction:column;gap:.8rem">
+          <div style="display:flex;align-items:flex-start;gap:.7rem">
+            <span style="font-size:1.1rem">📍</span>
+            <div><strong style="font-size:.88rem;color:var(--teal-d)">Location-Based</strong><br><span style="font-size:.82rem;color:var(--txt-l)">Events near you, filterable by city, area, or venue.</span></div>
+          </div>
+          <div style="display:flex;align-items:flex-start;gap:.7rem">
+            <span style="font-size:1.1rem">🏷️</span>
+            <div><strong style="font-size:.88rem;color:var(--teal-d)">16 Categories</strong><br><span style="font-size:.82rem;color:var(--txt-l)">Free, workshops, arts, wellness, live shows, nightlife, kids, and more.</span></div>
+          </div>
+          <div style="display:flex;align-items:flex-start;gap:.7rem">
+            <span style="font-size:1.1rem">🔔</span>
+            <div><strong style="font-size:.88rem;color:var(--teal-d)">Pre-Registration</strong><br><span style="font-size:.82rem;color:var(--txt-l)">Get early access to hot drops before tickets go live.</span></div>
+          </div>
+          <div style="display:flex;align-items:flex-start;gap:.7rem">
+            <span style="font-size:1.1rem">💰</span>
+            <div><strong style="font-size:.88rem;color:var(--teal-d)">Smart Discounts</strong><br><span style="font-size:.82rem;color:var(--txt-l)">Early bird pricing, promo codes, and member-only deals.</span></div>
+          </div>
+        </div>
+      </div>
+      <div class="foryou-visual">
+        <div class="fv-pattern"></div>
+        <div class="fv-content">
+          <div class="fv-bar">
+            <span class="fv-chip on">For You</span>
+            <span class="fv-chip">Trending</span>
+            <span class="fv-chip">Free</span>
+            <span class="fv-chip">This Week</span>
+            <span class="fv-chip">Near Me</span>
+          </div>
+          <div class="fv-cards">
+            <div class="fv-card">
+              <div class="fv-img fv-img-1"><span>🎵 LIVE</span></div>
+              <span class="fv-tag fv-tag-paid">₹499</span>
+              <div class="fv-name">Yuvan Live in Concert</div>
+              <div class="fv-meta">Dec 13 · YMCA Nandanam</div>
+            </div>
+            <div class="fv-card">
+              <div class="fv-img fv-img-2"><span>🧘 WELLNESS</span></div>
+              <span class="fv-tag fv-tag-free">FREE</span>
+              <div class="fv-name">Morning Yoga — Marina Beach</div>
+              <div class="fv-meta">Every Sat · 6 AM</div>
+            </div>
+            <div class="fv-card">
+              <div class="fv-img fv-img-3"><span>🎨 ARTS</span></div>
+              <span class="fv-tag fv-tag-paid">₹199</span>
+              <div class="fv-name">Watercolor Workshop</div>
+              <div class="fv-meta">Sun · Besant Nagar</div>
+            </div>
+            <div class="fv-card">
+              <div class="fv-img fv-img-4"><span>🍕 FOOD</span></div>
+              <span class="fv-tag fv-tag-free">FREE</span>
+              <div class="fv-name">Street Food Crawl — T. Nagar</div>
+              <div class="fv-meta">Fri · 7 PM</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <h3 class="s-title cen reveal" style="font-size:1.3rem;margin-bottom:1.5rem">Browse by Category</h3>
+    <div class="cat-grid reveal">
+      <div class="cat-item"><span class="cat-em">💸</span><span class="cat-name">Free</span></div>
+      <div class="cat-item"><span class="cat-em">🛠️</span><span class="cat-name">Workshops</span></div>
+      <div class="cat-item"><span class="cat-em">🎨</span><span class="cat-name">Arts</span></div>
+      <div class="cat-item"><span class="cat-em">🧘</span><span class="cat-name">Wellness</span></div>
+      <div class="cat-item"><span class="cat-em">🍸</span><span class="cat-name">Hangout</span></div>
+      <div class="cat-item"><span class="cat-em">🎵</span><span class="cat-name">Live Shows</span></div>
+      <div class="cat-item"><span class="cat-em">🎭</span><span class="cat-name">Experiences</span></div>
+      <div class="cat-item"><span class="cat-em">🏃</span><span class="cat-name">Sports</span></div>
+      <div class="cat-item"><span class="cat-em">🤝</span><span class="cat-name">Meetups</span></div>
+      <div class="cat-item"><span class="cat-em">🍕</span><span class="cat-name">Food</span></div>
+      <div class="cat-item"><span class="cat-em">🖼️</span><span class="cat-name">Exhibitions</span></div>
+      <div class="cat-item"><span class="cat-em">📦</span><span class="cat-name">Others</span></div>
+      <div class="cat-item"><span class="cat-em">👶</span><span class="cat-name">Kids</span></div>
+      <div class="cat-item"><span class="cat-em">🎪</span><span class="cat-name">Pop-ups</span></div>
+      <div class="cat-item"><span class="cat-em">🌙</span><span class="cat-name">Nightlife</span></div>
+      <div class="cat-item"><span class="cat-em">🎫</span><span class="cat-name">All Events</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ KEY FEATURES ═══ -->
+<section class="feat" id="features">
+  <div class="ctr">
+    <div class="feat-header reveal">
+      <span class="s-label cen">Key Features</span>
+      <h2 class="s-title cen">Built for the <span class="coral-g">Full Experience</span></h2>
+      <div style="text-align:center"><div class="feat-tabs">
+        <button class="ftab active" onclick="switchFeat(this,'users')" id="feat-users-btn">For Users</button>
+        <button class="ftab" onclick="switchFeat(this,'org')" id="feat-org-btn">For Organisers</button>
+      </div></div>
+    </div>
+
+    <div id="feat-users" class="feat-grid reveal">
+      <div class="fc">
+        <div class="fc-icon">🎯</div>
+        <h3>For You Feed</h3>
+        <p>Personalized event recommendations based on your interests, location, and booking history.</p>
+      </div>
+      <div class="fc">
+        <div class="fc-icon">🗓️</div>
+        <h3>Multi-Slot Booking</h3>
+        <p>Same event, different venues, dates, and time slots. Pick what works for you — each slot has its own ticket types.</p>
+      </div>
+      <div class="fc">
+        <div class="fc-icon">🔔</div>
+        <h3>Pre-Registration</h3>
+        <p>Sign up for upcoming events before tickets drop. Get notified first and never miss a hot release.</p>
+      </div>
+      <div class="fc">
+        <div class="fc-icon">🎫</div>
+        <h3>Tiered Ticketing</h3>
+        <p>Bronze to VIP — choose your experience level. Different tiers per slot with transparent pricing.</p>
+      </div>
+      <div class="fc">
+        <div class="fc-icon">💸</div>
+        <h3>Discounts & Promos</h3>
+        <p>Early bird pricing, promo codes, member-only deals, and zero convenience fee launches.</p>
+      </div>
+      <div class="fc">
+        <div class="fc-icon">📱</div>
+        <h3>QR Ticket Entry</h3>
+        <p>Digital QR ticket on your phone. Quick scan at the venue — no printouts, no queues.</p>
+      </div>
+      <div class="fc">
+        <div class="fc-icon">📍</div>
+        <h3>Location Filters</h3>
+        <p>Find events by city, area, or specific venue. Your neighbourhood, your events.</p>
+      </div>
+      <div class="fc">
+        <div class="fc-icon">🏷️</div>
+        <h3>16 Categories</h3>
+        <p>From free workshops to nightlife, kids events to exhibitions. Every type of experience covered.</p>
+      </div>
+      <div class="fc">
+        <div class="fc-icon">⚡</div>
+        <h3>Instant Booking</h3>
+        <p>Pick, pay, done. Secure checkout with multiple payment options and instant confirmation.</p>
+      </div>
+    </div>
+
+    <div id="feat-org" class="feat-grid reveal" style="display:none">
+      <div class="fc">
+        <div class="fc-icon">✏️</div>
+        <h3>Create Any Event</h3>
+        <p>Free or paid, online or offline. Set up in minutes with our intuitive event builder.</p>
+      </div>
+      <div class="fc">
+        <div class="fc-icon">🗺️</div>
+        <h3>Multi-Venue Support</h3>
+        <p>One event, multiple venues and locations. Different date slots per location with unique ticket types per slot.</p>
+      </div>
+      <div class="fc">
+        <div class="fc-icon">📊</div>
+        <h3>Real-Time Analytics</h3>
+        <p>Live dashboard showing ticket sales, revenue, attendee demographics, and conversion rates.</p>
+      </div>
+      <div class="fc">
+        <div class="fc-icon">📲</div>
+        <h3>QR Scanner</h3>
+        <p>Built-in QR scanner for entry verification. Scan tickets at the gate — real-time validation, no manual checks.</p>
+      </div>
+      <div class="fc">
+        <div class="fc-icon">💰</div>
+        <h3>Weekly Payouts</h3>
+        <p>Get paid weekly for your bookings. Paid plan organisers get T+2 day express payouts.</p>
+      </div>
+      <div class="fc">
+        <div class="fc-icon">🎟️</div>
+        <h3>Flexible Ticketing</h3>
+        <p>Create multiple ticket tiers per slot. Set capacity limits, early bird pricing, and promo codes.</p>
+      </div>
+      <div class="fc">
+        <div class="fc-icon">🌐</div>
+        <h3>Online & Offline</h3>
+        <p>Host virtual events with streaming links or physical events with on-ground QR scanning support.</p>
+      </div>
+      <div class="fc">
+        <div class="fc-icon">📈</div>
+        <h3>Discovery Boost</h3>
+        <p>Your event gets surfaced in the "For You" feed, category pages, and location-based recommendations.</p>
+      </div>
+      <div class="fc">
+        <div class="fc-icon">🔒</div>
+        <h3>Secure & Compliant</h3>
+        <p>PCI-compliant payments, GDPR-ready data handling, and automated GST invoicing.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ GALLERY ═══ -->
+<section class="gallery" id="gallery">
+  <div class="gallery-bg"></div>
+  <div class="ctr">
+    <span class="s-label cen reveal">Event Showcases</span>
+    <h2 class="s-title cen reveal" style="color:#fff">Powered by <span class="coral-g">KYN</span></h2>
+    <p class="s-desc cen reveal" style="color:rgba(255,255,255,.5)">From record-breaking concerts to city-wide fusion festivals — these flagship events were ticketed, managed, and powered entirely on Kynhood.</p>
+
+    <div class="event-showcase">
+      <!-- U1NIVERSE -->
+      <div class="ev-card reveal">
+        <div class="ev-top">
+          <div class="ev-visual">
+            <div class="ev-bg ev-bg-u1">
+              <div class="ev-bg-content">
+                <div class="ev-logo">U1NIVERSE<sub>The Tour</sub></div>
+                <div class="ev-live-badge"><span class="chip-dot" style="width:6px;height:6px"></span> Powered by KYN</div>
+              </div>
+            </div>
+          </div>
+          <div class="ev-info">
+            <div class="ev-label">🌟 Kynhood Original</div>
+            <div class="ev-title">U1NIVERSE — Yuvan's Biggest Ever Live In Concert</div>
+            <div class="ev-desc">The inaugural showcase of The U1niverse Tour. Yuvan Shankar Raja brought his biggest-ever concert to Chennai with an electrifying performance that drew fans from across the country. KYN partnered with Chennai Metro (CMRL) for sponsored metro rides to the venue.</div>
+            <div class="ev-meta-row">
+              <span class="ev-m"><span class="em">📅</span> Dec 13, 2025</span>
+              <span class="ev-m"><span class="em">📍</span> YMCA Nandanam, Chennai</span>
+              <span class="ev-m"><span class="em">⏰</span> 6 PM Onwards</span>
+            </div>
+            <div class="ev-stats">
+              <div><div class="ev-stat-num">20K+</div><div class="ev-stat-lbl">Attendees</div></div>
+              <div><div class="ev-stat-num">Sold Out</div><div class="ev-stat-lbl">All Tiers</div></div>
+              <div><div class="ev-stat-num">₹999+</div><div class="ev-stat-lbl">Starting Price</div></div>
+            </div>
+          </div>
+        </div>
+        <div class="ev-tiers">
+          <span class="tier-label">Ticket Tiers:</span>
+          <span class="tier">Bronze</span>
+          <span class="tier">Bronze+</span>
+          <span class="tier">Silver</span>
+          <span class="tier">Silver+</span>
+          <span class="tier">Gold</span>
+          <span class="tier">Gold+</span>
+          <span class="tier" style="border-color:rgba(232,87,58,.3);color:var(--coral-l)">VIP</span>
+          <span class="tier" style="border-color:rgba(245,166,35,.3);color:var(--gold)">Selfie with U1 (10 Fans)</span>
+        </div>
+      </div>
+
+      <!-- KYN LIVE -->
+      <div class="ev-card reveal">
+        <div class="ev-top">
+          <div class="ev-visual">
+            <div class="ev-bg ev-bg-kyn">
+              <div class="ev-bg-content">
+                <div class="ev-logo" style="font-size:2.5rem">KYN LIVE<sub>Chennai's Biggest Fusion Concert</sub></div>
+                <div class="ev-live-badge"><span class="chip-dot" style="width:6px;height:6px"></span> Kynhood Original</div>
+              </div>
+            </div>
+          </div>
+          <div class="ev-info">
+            <div class="ev-label">🎵 Kynhood Original</div>
+            <div class="ev-title">KYN Live — Chennai's Biggest Fusion Concert</div>
+            <div class="ev-desc">A first-of-its-kind fusion concert bringing together four powerhouse artists from different musical backgrounds. Over 17,000 fans witnessed the extravaganza. Featured a Meet & Greet at Phoenix Marketcity and CMRL-sponsored metro rides.</div>
+            <div class="ev-meta-row">
+              <span class="ev-m"><span class="em">📅</span> Mar 29, 2025</span>
+              <span class="ev-m"><span class="em">📍</span> YMCA Grounds, Nandanam</span>
+              <span class="ev-m"><span class="em">⏰</span> 6:30 PM – 10 PM</span>
+            </div>
+            <div class="ev-stats">
+              <div><div class="ev-stat-num">17K+</div><div class="ev-stat-lbl">Attendees</div></div>
+              <div><div class="ev-stat-num">15K+</div><div class="ev-stat-lbl">Tickets Sold</div></div>
+              <div><div class="ev-stat-num">₹699+</div><div class="ev-stat-lbl">Starting Price</div></div>
+            </div>
+          </div>
+        </div>
+        <div class="ev-artists">
+          <div class="artist"><div class="artist-dot">AJ</div><span class="artist-name">Andrea Jeremiah</span></div>
+          <div class="artist"><div class="artist-dot">PK</div><span class="artist-name">Pradeep Kumar</span></div>
+          <div class="artist"><div class="artist-dot">PD</div><span class="artist-name">Paal Dabba</span></div>
+          <div class="artist"><div class="artist-dot">AK</div><span class="artist-name">Asal Kolaar</span></div>
+        </div>
+        <div class="ev-tiers">
+          <span class="tier-label">Ticket Tiers:</span>
+          <span class="tier">Bronze — ₹699</span>
+          <span class="tier">Fan Pit 4 — ₹1,099</span>
+          <span class="tier">Fan Pit 3 — ₹1,999</span>
+          <span class="tier">Fan Pit 2 — ₹2,999</span>
+          <span class="tier">Fan Pit 1 — ₹4,099</span>
+          <span class="tier" style="border-color:rgba(245,166,35,.3);color:var(--gold)">VIP — ₹8,999</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ TICKETING SHOWCASE ═══ -->
+<section class="tix" id="ticketing">
+  <div class="ctr">
+    <div class="tix-header reveal">
+      <span class="s-label cen">Smart Ticketing</span>
+      <h2 class="s-title cen">From Browse to <span class="coral-g">Entry Gate</span></h2>
+      <p class="s-desc cen">A seamless flow from discovery to door — with multi-venue, multi-date, and multi-tier support baked in.</p>
+    </div>
+    <div class="tix-flow reveal">
+      <div class="tix-step">
+        <div class="tix-ico">🔍</div>
+        <h4>Find Event</h4>
+        <p>Browse by category, location, or "For You" recommendations. Filter by date, price, or venue.</p>
+      </div>
+      <div class="tix-step">
+        <div class="tix-ico">📍</div>
+        <h4>Pick Your Slot</h4>
+        <p>Choose venue → date → time slot. Each slot can have different ticket tiers and pricing.</p>
+      </div>
+      <div class="tix-step">
+        <div class="tix-ico">💳</div>
+        <h4>Book & Pay</h4>
+        <p>Select tier, apply discounts or promo codes, and pay securely. Instant QR ticket confirmation.</p>
+      </div>
+      <div class="tix-step">
+        <div class="tix-ico">📲</div>
+        <h4>Scan & Enter</h4>
+        <p>Show QR at the gate. Organiser scans with KYN Scanner. Real-time validation — you're in.</p>
+      </div>
+    </div>
+
+    <div class="tier-visual reveal">
+      <div class="tier-visual-pat"></div>
+      <div class="content">
+        <h3 style="font-family:var(--display);font-weight:700;font-size:1.1rem;color:#fff;text-align:center;margin-bottom:1.2rem">Multi-Tier Ticketing in Action</h3>
+        <div class="tier-row">
+          <div class="t-tier">
+            <div class="t-name">Bronze</div>
+            <div class="t-price">₹699</div>
+            <div class="t-perks">General admission<br>Standing area</div>
+          </div>
+          <div class="t-tier">
+            <div class="t-name">Silver</div>
+            <div class="t-price">₹1,999</div>
+            <div class="t-perks">Better viewing<br>Closer to stage</div>
+          </div>
+          <div class="t-tier">
+            <div class="t-name">Gold</div>
+            <div class="t-price">₹2,999</div>
+            <div class="t-perks">Premium section<br>Fast-track entry</div>
+          </div>
+          <div class="t-tier">
+            <div class="t-name">Platinum</div>
+            <div class="t-price">₹4,099</div>
+            <div class="t-perks">Front zone<br>Exclusive merch</div>
+          </div>
+          <div class="t-tier vip">
+            <div class="t-name">VIP</div>
+            <div class="t-price">₹8,999</div>
+            <div class="t-perks">Stage-side access<br>Meet & greet<br>Lounge access</div>
+          </div>
+        </div>
+        <div class="tier-caption">Each venue & date slot can have its own tier structure and pricing</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ ORGANISER DEEP DIVE ═══ -->
+<section id="organisers">
+  <div class="ctr">
+    <span class="s-label reveal">For Organisers</span>
+    <h2 class="s-title reveal">Everything to <span class="coral-g">Host & Grow</span></h2>
+    <p class="s-desc reveal">From a local meetup to a 20K-capacity concert — the tools scale with your ambition.</p>
+
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-top:2.5rem">
+      <div class="fc reveal" style="background:var(--cream)">
+        <div class="fc-icon">🆓</div>
+        <h3>Free & Paid Events</h3>
+        <p>Create community meetups for free or sell tiered tickets for premium experiences. Both fully supported with the same powerful tools.</p>
+      </div>
+      <div class="fc reveal" style="background:var(--cream)">
+        <div class="fc-icon">🌐</div>
+        <h3>Online & Offline</h3>
+        <p>Virtual events with streaming links or physical events with on-ground QR scanning. Or hybrid — mix both in one listing.</p>
+      </div>
+      <div class="fc reveal" style="background:var(--cream)">
+        <div class="fc-icon">📲</div>
+        <h3>QR Scanner App</h3>
+        <p>Scan attendee QR codes at the venue entrance. Real-time validation, duplicate detection, and capacity tracking built in.</p>
+      </div>
+      <div class="fc reveal" style="background:var(--cream)">
+        <div class="fc-icon">📊</div>
+        <h3>Real-Time Dashboard</h3>
+        <p>Live view of ticket sales, revenue, check-ins, attendee demographics, and conversion funnels. Export reports anytime.</p>
+      </div>
+      <div class="fc reveal" style="background:var(--cream)">
+        <div class="fc-icon">💰</div>
+        <h3>Fast Payouts</h3>
+        <p>Weekly payouts on all bookings. Upgrade to paid organiser plan for T+2 day express payouts directly to your bank.</p>
+      </div>
+      <div class="fc reveal" style="background:var(--cream)">
+        <div class="fc-icon">🗺️</div>
+        <h3>Multi-Venue, Multi-Slot</h3>
+        <p>One event listing → multiple venues → different date/time slots per venue → unique ticket tiers per slot. Full flexibility.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ CTA ═══ -->
+<div class="cta-wrap" id="cta">
+  <div class="ctr">
+    <div class="cta-box reveal">
+      <div class="cta-left">
+        <h2>Ready to Discover or Host?</h2>
+        <p>Join thousands of attendees and organisers already on Kynhood. Find your next experience or launch your own event today.</p>
+      </div>
+      <div class="cta-right">
+        <button class="btn-cta-w" onclick="window.open('https://tickets.kynhood.com','_blank')">Explore Events</button>
+        <button class="btn-cta-o" onclick="window.open('https://kynhood.com','_blank')">Host an Event →</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ FOOTER ═══ -->
+<footer>
+  <div class="ctr">
+    <div class="f-grid">
+      <div class="f-brand">
+        <a href="https://kynhood.com" class="logo">
+          <div class="logo-m">K</div>
+          <div class="logo-t">kyn<span>hood</span></div>
+        </a>
+        <p>Discover, book, and host events that bring people together. Powered by community, built for connection.</p>
+      </div>
+      <div class="f-col">
+        <h4>Events</h4>
+        <ul>
+          <li><a href="#foryou">Discover</a></li>
+          <li><a href="#features">Features</a></li>
+          <li><a href="#gallery">Showcases</a></li>
+          <li><a href="#ticketing">Ticketing</a></li>
+        </ul>
+      </div>
+      <div class="f-col">
+        <h4>Organisers</h4>
+        <ul>
+          <li><a href="#organisers">How It Works</a></li>
+          <li><a href="https://kynhood.com" target="_blank">Dashboard</a></li>
+          <li><a href="mailto:partner@kynhood.com">Partner With Us</a></li>
+          <li><a href="mailto:advertise@kynhood.com">Advertise</a></li>
+        </ul>
+      </div>
+      <div class="f-col">
+        <h4>Legal</h4>
+        <ul>
+          <li><a href="https://kynhood.com/privacy/kyn" target="_blank">Privacy Policy</a></li>
+          <li><a href="https://kynhood.com/terms&condition/kyn" target="_blank">Terms & Conditions</a></li>
+          <li><a href="https://kynhood.com/communityguidelines/kyn" target="_blank">Community Guidelines</a></li>
+          <li><a href="https://kynhood.com/grievance/kyn" target="_blank">Grievance</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="f-bottom">
+      <p>© 2026 Kynhood Technologies. All rights reserved. — <a href="https://kynhood.com" style="color:rgba(255,255,255,.4)">kynhood.com</a></p>
+      <div class="f-socials">
+        <a href="https://www.instagram.com/kynhood/" target="_blank">IG</a>
+        <a href="https://twitter.com/kyn_hood" target="_blank">X</a>
+        <a href="https://www.linkedin.com/company/kynhood/" target="_blank">in</a>
+        <a href="https://www.facebook.com/kynhoodofficial/" target="_blank">fb</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script>
+// Nav
+const nb=document.getElementById('nb');
+window.addEventListener('scroll',()=>nb.classList.toggle('scrolled',window.scrollY>40));
+
+// Reveal
+const rvs=document.querySelectorAll('.reveal');
+const ob=new IntersectionObserver(es=>{es.forEach((e,i)=>{if(e.isIntersecting){setTimeout(()=>e.target.classList.add('vis'),i*50);ob.unobserve(e.target)}})},{threshold:.06,rootMargin:'0px 0px -30px 0px'});
+rvs.forEach(el=>ob.observe(el));
+
+// How tabs
+function switchHow(btn,t){
+  document.querySelectorAll('.htab').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+  document.getElementById('how-user').style.display=t==='user'?'grid':'none';
+  document.getElementById('how-org').style.display=t==='org'?'grid':'none';
+}
+
+// Feature tabs
+function switchFeat(btn,t){
+  document.querySelectorAll('.ftab').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+  document.getElementById('feat-users').style.display=t==='users'?'grid':'none';
+  document.getElementById('feat-org').style.display=t==='org'?'grid':'none';
+}
+
+// Pill click
+document.querySelectorAll('.pill').forEach(p=>{
+  p.addEventListener('click',()=>{
+    document.querySelectorAll('.pill').forEach(x=>x.classList.remove('active'));
+    p.classList.add('active');
+  });
+});
+
+// Cat hover
+document.querySelectorAll('.cat-item').forEach(c=>{
+  c.addEventListener('click',()=>{
+    document.querySelectorAll('.cat-item').forEach(x=>x.style.borderColor='');
+    c.style.borderColor='var(--coral)';
+  });
+});
+
+// Smooth scroll
+document.querySelectorAll('a[href^="#"]').forEach(a=>{
+  a.addEventListener('click',e=>{e.preventDefault();const t=document.querySelector(a.getAttribute('href'));if(t)t.scrollIntoView({behavior:'smooth'})});
+});
+
+// Hamburger
+document.querySelector('.ham').addEventListener('click',function(){
+  const l=document.querySelector('.nav-l');
+  if(l.style.display==='flex'){l.style.display='none'}else{
+    l.style.display='flex';l.style.flexDirection='column';l.style.position='absolute';
+    l.style.top='100%';l.style.left='0';l.style.right='0';l.style.background='#fff';
+    l.style.padding='1rem 2rem';l.style.boxShadow='0 8px 30px rgba(0,0,0,.08)';
+    l.style.borderRadius='0 0 16px 16px';l.style.gap='1rem';
+  }
+});
+</script>
+</body>
+</html>

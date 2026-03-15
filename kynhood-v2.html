@@ -1,0 +1,1327 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Kynhood — Discover & Connect Through Events & Community</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&family=Outfit:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+/* ═══════════════════════════════════════════
+   KYNHOOD — BLENDED REDESIGN
+   Brand palette from existing site + new layout
+   ═══════════════════════════════════════════ */
+
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+:root {
+  /* KYN brand colors — derived from existing site */
+  --kyn-coral: #E8573A;
+  --kyn-coral-light: #F06D52;
+  --kyn-coral-deep: #C94429;
+  --kyn-teal: #1A3A4A;
+  --kyn-teal-deep: #0F2630;
+  --kyn-teal-light: #245568;
+  --kyn-gold: #F5A623;
+  --kyn-green: #2ECC87;
+  --kyn-cream: #FFF8F2;
+  --kyn-offwhite: #FEFCFA;
+  --kyn-dark: #0C1F28;
+  --kyn-text: #1C2D35;
+  --kyn-text-light: #5A7484;
+  --kyn-text-muted: #8DA4B0;
+  --kyn-border: #E4E8EA;
+  --kyn-surface: #F4F6F7;
+
+  --font-display: 'Outfit', sans-serif;
+  --font-body: 'DM Sans', sans-serif;
+
+  --shadow-sm: 0 1px 3px rgba(12, 31, 40, 0.06);
+  --shadow-md: 0 4px 20px rgba(12, 31, 40, 0.08);
+  --shadow-lg: 0 12px 40px rgba(12, 31, 40, 0.1);
+  --shadow-coral: 0 8px 30px rgba(232, 87, 58, 0.2);
+
+  --radius-sm: 8px;
+  --radius-md: 14px;
+  --radius-lg: 20px;
+  --radius-xl: 28px;
+}
+
+html { scroll-behavior: smooth; font-size: 16px; }
+
+body {
+  font-family: var(--font-body);
+  background: var(--kyn-offwhite);
+  color: var(--kyn-text);
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+
+::selection { background: rgba(232, 87, 58, 0.15); color: var(--kyn-coral-deep); }
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: var(--kyn-cream); }
+::-webkit-scrollbar-thumb { background: var(--kyn-coral); border-radius: 3px; }
+
+/* ── UTILITY ── */
+.container { max-width: 1200px; margin: 0 auto; padding: 0 clamp(1.5rem, 4vw, 3rem); }
+
+.coral-gradient {
+  background: linear-gradient(135deg, var(--kyn-coral), var(--kyn-coral-light));
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+}
+.teal-gradient {
+  background: linear-gradient(135deg, var(--kyn-teal), var(--kyn-teal-light));
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+}
+
+/* ═══════════ NAVIGATION ═══════════ */
+nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+  padding: 1rem 0;
+  background: rgba(255, 252, 250, 0.85);
+  backdrop-filter: blur(20px) saturate(1.4);
+  border-bottom: 1px solid transparent;
+  transition: all 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+}
+nav.scrolled {
+  padding: 0.6rem 0;
+  border-bottom-color: var(--kyn-border);
+  box-shadow: var(--shadow-sm);
+}
+.nav-inner {
+  display: flex; align-items: center; justify-content: space-between;
+  max-width: 1200px; margin: 0 auto; padding: 0 clamp(1.5rem, 4vw, 3rem);
+}
+
+/* KYN Logo — recreated from brand */
+.logo { display: flex; align-items: center; gap: 0.3rem; text-decoration: none; }
+.logo-mark {
+  width: 38px; height: 38px; border-radius: 10px;
+  background: linear-gradient(135deg, var(--kyn-coral), var(--kyn-coral-light));
+  display: flex; align-items: center; justify-content: center;
+  font-family: var(--font-display); font-weight: 800; font-size: 1.1rem;
+  color: white; letter-spacing: -0.02em;
+  box-shadow: 0 2px 8px rgba(232, 87, 58, 0.25);
+}
+.logo-text {
+  font-family: var(--font-display); font-weight: 700; font-size: 1.35rem;
+  color: var(--kyn-teal-deep); letter-spacing: -0.03em;
+}
+.logo-text span { color: var(--kyn-coral); }
+
+.nav-links { display: flex; gap: 2rem; align-items: center; list-style: none; }
+.nav-links a {
+  color: var(--kyn-text-light); text-decoration: none; font-size: 0.88rem;
+  font-weight: 500; transition: color 0.3s; position: relative;
+}
+.nav-links a::after {
+  content: ''; position: absolute; bottom: -4px; left: 0;
+  width: 0; height: 2px; background: var(--kyn-coral);
+  border-radius: 1px; transition: width 0.3s;
+}
+.nav-links a:hover { color: var(--kyn-teal); }
+.nav-links a:hover::after { width: 100%; }
+
+.btn-nav {
+  background: var(--kyn-coral); color: white; border: none;
+  padding: 0.6rem 1.4rem; border-radius: 50px; font-weight: 600;
+  font-size: 0.85rem; cursor: pointer; transition: all 0.3s;
+  font-family: var(--font-body); box-shadow: var(--shadow-coral);
+}
+.btn-nav:hover { background: var(--kyn-coral-deep); transform: translateY(-1px); }
+
+.hamburger { display: none; background: none; border: none; cursor: pointer; padding: 0.5rem; }
+.hamburger span { display: block; width: 22px; height: 2px; background: var(--kyn-teal); margin: 5px 0; transition: 0.3s; border-radius: 1px; }
+
+/* ═══════════ HERO ═══════════ */
+.hero {
+  min-height: 100vh; display: flex; align-items: center;
+  position: relative; overflow: hidden;
+  padding: 7rem 0 4rem;
+  background: linear-gradient(160deg, var(--kyn-offwhite) 0%, var(--kyn-cream) 40%, #FFF0E6 100%);
+}
+.hero-deco-1 {
+  position: absolute; top: -20%; right: -10%; width: 600px; height: 600px;
+  background: radial-gradient(circle, rgba(232, 87, 58, 0.06) 0%, transparent 70%);
+  border-radius: 50%; pointer-events: none;
+}
+.hero-deco-2 {
+  position: absolute; bottom: -15%; left: -5%; width: 400px; height: 400px;
+  background: radial-gradient(circle, rgba(26, 58, 74, 0.04) 0%, transparent 70%);
+  border-radius: 50%; pointer-events: none;
+}
+/* Geometric dots pattern */
+.hero-dots {
+  position: absolute; top: 10%; right: 5%; width: 200px; height: 200px;
+  background-image: radial-gradient(circle, rgba(232, 87, 58, 0.12) 1.5px, transparent 1.5px);
+  background-size: 20px 20px; opacity: 0.6;
+}
+
+.hero-grid {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: center;
+}
+.hero-content { position: relative; z-index: 2; }
+.hero-badge {
+  display: inline-flex; align-items: center; gap: 0.5rem;
+  background: white; border: 1px solid var(--kyn-border);
+  padding: 0.4rem 1rem 0.4rem 0.5rem; border-radius: 50px;
+  font-size: 0.78rem; font-weight: 600; color: var(--kyn-text-light);
+  margin-bottom: 1.5rem; box-shadow: var(--shadow-sm);
+  animation: fadeSlideUp 0.6s ease-out;
+}
+.badge-dot {
+  width: 22px; height: 22px; border-radius: 50%;
+  background: linear-gradient(135deg, var(--kyn-green), #28B878);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 0.65rem; color: white;
+}
+
+.hero h1 {
+  font-family: var(--font-display); font-weight: 800;
+  font-size: clamp(2.6rem, 5.5vw, 4.2rem); line-height: 1.08;
+  letter-spacing: -0.04em; color: var(--kyn-teal-deep);
+  margin-bottom: 1.2rem;
+  animation: fadeSlideUp 0.6s ease-out 0.1s both;
+}
+.hero h1 .line { display: block; }
+.hero p {
+  font-size: clamp(1rem, 1.6vw, 1.15rem); color: var(--kyn-text-light);
+  line-height: 1.7; max-width: 480px; margin-bottom: 2rem;
+  animation: fadeSlideUp 0.6s ease-out 0.2s both;
+}
+.hero-actions {
+  display: flex; gap: 0.8rem; flex-wrap: wrap;
+  animation: fadeSlideUp 0.6s ease-out 0.3s both;
+}
+.btn-primary {
+  background: linear-gradient(135deg, var(--kyn-coral), var(--kyn-coral-light));
+  color: white; border: none; padding: 0.9rem 2rem;
+  border-radius: 50px; font-weight: 600; font-size: 0.95rem;
+  cursor: pointer; transition: all 0.3s; font-family: var(--font-body);
+  box-shadow: var(--shadow-coral); position: relative; overflow: hidden;
+}
+.btn-primary:hover { transform: translateY(-2px); box-shadow: 0 12px 35px rgba(232, 87, 58, 0.3); }
+.btn-secondary {
+  background: white; color: var(--kyn-teal);
+  border: 1.5px solid var(--kyn-border); padding: 0.9rem 2rem;
+  border-radius: 50px; font-weight: 500; font-size: 0.95rem;
+  cursor: pointer; transition: all 0.3s; font-family: var(--font-body);
+}
+.btn-secondary:hover { border-color: var(--kyn-coral); color: var(--kyn-coral); background: rgba(232, 87, 58, 0.03); }
+
+/* Hero visual — connection illustration */
+.hero-visual {
+  position: relative; display: flex; justify-content: center; align-items: center;
+  animation: fadeSlideUp 0.8s ease-out 0.2s both;
+}
+.hero-phone {
+  width: 280px; height: 520px; background: var(--kyn-teal-deep);
+  border-radius: 36px; position: relative; overflow: hidden;
+  box-shadow: 0 30px 60px rgba(12, 31, 40, 0.2), 0 0 0 1px rgba(255,255,255,0.1);
+  border: 6px solid #1C3A48;
+}
+.phone-notch {
+  width: 120px; height: 28px; background: var(--kyn-teal-deep);
+  border-radius: 0 0 16px 16px; margin: 0 auto; position: relative; z-index: 5;
+}
+.phone-screen {
+  padding: 0.8rem; height: calc(100% - 28px);
+  background: linear-gradient(180deg, #152E3A 0%, #0F2630 100%);
+  display: flex; flex-direction: column; gap: 0.6rem; overflow: hidden;
+}
+.phone-header {
+  display: flex; justify-content: space-between; align-items: center; padding: 0.4rem 0.2rem;
+}
+.phone-logo { font-family: var(--font-display); font-weight: 700; font-size: 0.9rem; color: white; }
+.phone-logo span { color: var(--kyn-coral); }
+.phone-icon { width: 24px; height: 24px; border-radius: 50%; background: rgba(255,255,255,0.1); }
+
+.phone-card {
+  background: rgba(255, 255, 255, 0.06); border-radius: 14px;
+  padding: 0.7rem; border: 1px solid rgba(255,255,255,0.05);
+  transition: transform 0.3s;
+}
+.phone-card:hover { transform: scale(1.02); }
+.card-img {
+  width: 100%; height: 90px; border-radius: 10px; margin-bottom: 0.5rem;
+  overflow: hidden;
+}
+.card-img-inner {
+  width: 100%; height: 100%;
+}
+.card-img-1 { background: linear-gradient(135deg, #E8573A, #F5A623); }
+.card-img-2 { background: linear-gradient(135deg, #2ECC87, #1A9E6A); }
+.card-img-3 { background: linear-gradient(135deg, #5B7FE8, #3B5DC9); }
+.card-tag {
+  display: inline-block; padding: 0.15rem 0.5rem; border-radius: 50px;
+  font-size: 0.55rem; font-weight: 600; margin-bottom: 0.3rem;
+  background: rgba(232, 87, 58, 0.15); color: var(--kyn-coral-light);
+}
+.card-tag.green { background: rgba(46, 204, 135, 0.15); color: var(--kyn-green); }
+.card-title { font-family: var(--font-display); font-weight: 600; font-size: 0.72rem; color: white; margin-bottom: 0.15rem; }
+.card-meta { font-size: 0.55rem; color: rgba(255,255,255,0.4); }
+
+/* Floating badges around phone */
+.float-badge {
+  position: absolute; background: white; border-radius: 14px;
+  padding: 0.6rem 1rem; box-shadow: var(--shadow-lg);
+  display: flex; align-items: center; gap: 0.5rem;
+  font-size: 0.75rem; font-weight: 600; color: var(--kyn-teal);
+  animation: floatBadge 5s ease-in-out infinite;
+}
+.float-badge-1 { top: 8%; left: -15%; animation-delay: 0s; }
+.float-badge-2 { bottom: 20%; right: -18%; animation-delay: -2s; }
+.float-badge-3 { top: 45%; left: -22%; animation-delay: -3.5s; }
+.float-icon {
+  width: 28px; height: 28px; border-radius: 8px;
+  display: flex; align-items: center; justify-content: center; font-size: 0.85rem;
+}
+.fi-coral { background: rgba(232, 87, 58, 0.1); }
+.fi-green { background: rgba(46, 204, 135, 0.1); }
+.fi-gold { background: rgba(245, 166, 35, 0.1); }
+
+@keyframes floatBadge {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-10px); }
+}
+@keyframes fadeSlideUp {
+  from { opacity: 0; transform: translateY(25px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* Hero stats bar */
+.hero-stats-bar {
+  display: flex; gap: 2rem; margin-top: 3rem; padding-top: 2rem;
+  border-top: 1px solid rgba(26, 58, 74, 0.08);
+  animation: fadeSlideUp 0.6s ease-out 0.4s both;
+}
+.stat { display: flex; flex-direction: column; }
+.stat-num {
+  font-family: var(--font-display); font-weight: 800; font-size: 1.6rem;
+  color: var(--kyn-teal-deep); letter-spacing: -0.02em;
+}
+.stat-label { font-size: 0.72rem; color: var(--kyn-text-muted); font-weight: 500; text-transform: uppercase; letter-spacing: 0.06em; margin-top: 0.15rem; }
+
+/* ═══════════ ABOUT ═══════════ */
+section { padding: clamp(4rem, 10vw, 7rem) 0; }
+.section-label {
+  font-size: 0.72rem; font-weight: 600; letter-spacing: 0.14em;
+  text-transform: uppercase; color: var(--kyn-coral); margin-bottom: 0.8rem;
+  display: flex; align-items: center; gap: 0.6rem;
+}
+.section-label::before {
+  content: ''; width: 24px; height: 2px;
+  background: linear-gradient(90deg, var(--kyn-coral), rgba(232, 87, 58, 0.2));
+  border-radius: 1px;
+}
+.section-title {
+  font-family: var(--font-display); font-weight: 800;
+  font-size: clamp(1.8rem, 4vw, 2.8rem); line-height: 1.12;
+  letter-spacing: -0.03em; color: var(--kyn-teal-deep); margin-bottom: 1rem;
+}
+.section-desc { font-size: 1rem; color: var(--kyn-text-light); line-height: 1.7; max-width: 520px; }
+
+.about { position: relative; }
+.about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; align-items: center; }
+
+.about-visual {
+  position: relative; background: linear-gradient(135deg, var(--kyn-teal-deep), var(--kyn-teal));
+  border-radius: var(--radius-xl); height: 440px; overflow: hidden;
+  box-shadow: var(--shadow-lg);
+}
+.about-pattern {
+  position: absolute; inset: 0;
+  background-image: radial-gradient(circle, rgba(255,255,255,0.04) 1px, transparent 1px);
+  background-size: 24px 24px;
+}
+.about-visual-content {
+  position: absolute; inset: 0; display: flex; flex-direction: column;
+  align-items: center; justify-content: center; gap: 1rem;
+}
+.tribe-ring {
+  width: 200px; height: 200px; border-radius: 50%;
+  border: 2px dashed rgba(232, 87, 58, 0.3);
+  display: flex; align-items: center; justify-content: center;
+  position: relative;
+  animation: slowSpin 30s linear infinite;
+}
+@keyframes slowSpin { to { transform: rotate(360deg); } }
+.tribe-center {
+  width: 70px; height: 70px; border-radius: 50%;
+  background: linear-gradient(135deg, var(--kyn-coral), var(--kyn-coral-light));
+  display: flex; align-items: center; justify-content: center;
+  font-family: var(--font-display); font-weight: 800; font-size: 1.5rem;
+  color: white; box-shadow: 0 0 40px rgba(232, 87, 58, 0.4);
+  animation: slowSpin 30s linear infinite reverse;
+}
+.tribe-node {
+  position: absolute; width: 42px; height: 42px; border-radius: 50%;
+  background: rgba(255, 255, 255, 0.08); border: 1px solid rgba(255, 255, 255, 0.12);
+  display: flex; align-items: center; justify-content: center; font-size: 1rem;
+  animation: slowSpin 30s linear infinite reverse;
+}
+.tribe-node:nth-child(2) { top: -21px; left: 50%; margin-left: -21px; }
+.tribe-node:nth-child(3) { top: 15%; right: -10px; }
+.tribe-node:nth-child(4) { bottom: 15%; right: -10px; }
+.tribe-node:nth-child(5) { bottom: -21px; left: 50%; margin-left: -21px; }
+.tribe-node:nth-child(6) { bottom: 15%; left: -10px; }
+.tribe-node:nth-child(7) { top: 15%; left: -10px; }
+
+.about-caption {
+  color: rgba(255, 255, 255, 0.5); font-size: 0.75rem; font-weight: 500;
+  letter-spacing: 0.1em; text-transform: uppercase;
+}
+
+.values-list { margin-top: 2rem; display: flex; flex-direction: column; gap: 1rem; }
+.value-row {
+  display: flex; align-items: flex-start; gap: 0.9rem;
+  padding: 1rem 1.2rem; border-radius: var(--radius-md);
+  background: white; border: 1px solid var(--kyn-border);
+  transition: all 0.3s; box-shadow: var(--shadow-sm);
+}
+.value-row:hover { border-color: rgba(232, 87, 58, 0.2); box-shadow: var(--shadow-md); transform: translateX(4px); }
+.val-icon {
+  width: 38px; height: 38px; border-radius: 10px; flex-shrink: 0;
+  display: flex; align-items: center; justify-content: center; font-size: 1.1rem;
+  background: var(--kyn-cream);
+}
+.val-text h4 { font-family: var(--font-display); font-weight: 700; font-size: 0.92rem; color: var(--kyn-teal-deep); margin-bottom: 0.15rem; }
+.val-text p { font-size: 0.82rem; color: var(--kyn-text-muted); line-height: 1.5; }
+
+/* ═══════════ FEATURES ═══════════ */
+.features {
+  background: white; position: relative;
+  border-top: 1px solid var(--kyn-border); border-bottom: 1px solid var(--kyn-border);
+}
+.features-header { text-align: center; margin-bottom: 3.5rem; }
+.features-header .section-label { justify-content: center; }
+.features-header .section-desc { margin: 0 auto; }
+
+.features-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.2rem; }
+.f-card {
+  background: var(--kyn-offwhite); border: 1px solid var(--kyn-border);
+  border-radius: var(--radius-lg); padding: 1.8rem; transition: all 0.4s;
+  position: relative; overflow: hidden;
+}
+.f-card::before {
+  content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px;
+  background: linear-gradient(90deg, var(--kyn-coral), var(--kyn-gold));
+  transform: scaleX(0); transform-origin: left; transition: transform 0.4s;
+}
+.f-card:hover { border-color: rgba(232, 87, 58, 0.15); box-shadow: var(--shadow-md); transform: translateY(-4px); }
+.f-card:hover::before { transform: scaleX(1); }
+.f-icon {
+  width: 48px; height: 48px; border-radius: 12px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1.3rem; margin-bottom: 1.2rem;
+  background: linear-gradient(135deg, rgba(232, 87, 58, 0.08), rgba(245, 166, 35, 0.06));
+  border: 1px solid rgba(232, 87, 58, 0.08);
+}
+.f-card h3 { font-family: var(--font-display); font-weight: 700; font-size: 1.05rem; color: var(--kyn-teal-deep); margin-bottom: 0.5rem; }
+.f-card p { font-size: 0.88rem; color: var(--kyn-text-light); line-height: 1.6; }
+.f-tag {
+  display: inline-block; margin-top: 1rem; padding: 0.25rem 0.7rem;
+  background: rgba(46, 204, 135, 0.08); border: 1px solid rgba(46, 204, 135, 0.12);
+  border-radius: 50px; font-size: 0.65rem; color: var(--kyn-green);
+  font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em;
+}
+
+/* ═══════════ SOLUTIONS ═══════════ */
+.solutions-header { margin-bottom: 3rem; }
+.solutions-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.2rem; }
+.sol-card {
+  background: white; border: 1px solid var(--kyn-border);
+  border-radius: var(--radius-lg); padding: 2rem; transition: all 0.4s;
+  position: relative; overflow: hidden;
+}
+.sol-card::after {
+  content: ''; position: absolute; bottom: 0; left: 1.5rem; right: 1.5rem;
+  height: 2px; background: linear-gradient(90deg, var(--kyn-coral), var(--kyn-gold), var(--kyn-green));
+  opacity: 0; transition: opacity 0.4s;
+}
+.sol-card:hover { box-shadow: var(--shadow-md); transform: translateY(-3px); }
+.sol-card:hover::after { opacity: 1; }
+.sol-num {
+  font-family: var(--font-display); font-weight: 900; font-size: 2.5rem;
+  background: linear-gradient(135deg, rgba(232, 87, 58, 0.12), rgba(232, 87, 58, 0.03));
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+  line-height: 1; margin-bottom: 0.8rem;
+}
+.sol-card h3 { font-family: var(--font-display); font-weight: 700; font-size: 1.15rem; color: var(--kyn-teal-deep); margin-bottom: 0.6rem; }
+.sol-card p { font-size: 0.88rem; color: var(--kyn-text-light); line-height: 1.6; margin-bottom: 0.8rem; }
+.sol-list { list-style: none; }
+.sol-list li {
+  font-size: 0.82rem; color: var(--kyn-text-muted); padding: 0.25rem 0 0.25rem 1.1rem;
+  position: relative;
+}
+.sol-list li::before { content: '→'; position: absolute; left: 0; color: var(--kyn-coral); font-weight: 600; }
+
+/* ═══════════ PRICING ═══════════ */
+.pricing { background: white; border-top: 1px solid var(--kyn-border); }
+.pricing-header { text-align: center; margin-bottom: 3.5rem; }
+.pricing-header .section-label { justify-content: center; }
+.pricing-header .section-desc { margin: 0 auto; }
+
+.pricing-toggle {
+  display: flex; justify-content: center; gap: 0; margin-top: 1.5rem;
+  background: var(--kyn-surface); border-radius: 50px; padding: 4px;
+  display: inline-flex;
+}
+.pricing-header .pricing-toggle { display: inline-flex; }
+.tog-btn {
+  background: transparent; border: none; color: var(--kyn-text-muted);
+  padding: 0.5rem 1.5rem; border-radius: 50px;
+  font-size: 0.85rem; font-weight: 600; cursor: pointer;
+  transition: all 0.3s; font-family: var(--font-body);
+}
+.tog-btn.active { background: var(--kyn-coral); color: white; box-shadow: var(--shadow-coral); }
+
+.pricing-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.2rem; margin-top: 0.5rem; }
+.p-card {
+  background: var(--kyn-offwhite); border: 1px solid var(--kyn-border);
+  border-radius: var(--radius-lg); padding: 2rem; transition: all 0.4s;
+  display: flex; flex-direction: column;
+}
+.p-card.pop {
+  background: linear-gradient(180deg, #FFF5F0, var(--kyn-offwhite));
+  border-color: rgba(232, 87, 58, 0.2); position: relative;
+  box-shadow: var(--shadow-md);
+}
+.p-card.pop::before {
+  content: 'MOST POPULAR'; position: absolute; top: -11px; left: 50%; transform: translateX(-50%);
+  background: linear-gradient(135deg, var(--kyn-coral), var(--kyn-coral-light));
+  color: white; font-size: 0.6rem; font-weight: 700;
+  padding: 0.3rem 0.9rem; border-radius: 50px; letter-spacing: 0.08em;
+}
+.p-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-md); }
+.p-name { font-family: var(--font-display); font-weight: 700; font-size: 1.05rem; color: var(--kyn-teal-deep); margin-bottom: 0.2rem; }
+.p-desc { font-size: 0.82rem; color: var(--kyn-text-muted); margin-bottom: 1.2rem; }
+.p-price {
+  font-family: var(--font-display); font-weight: 800; font-size: 2.4rem;
+  color: var(--kyn-teal-deep); letter-spacing: -0.02em; margin-bottom: 1.5rem;
+}
+.p-price span { font-size: 0.85rem; font-weight: 400; color: var(--kyn-text-muted); }
+.p-features { list-style: none; flex: 1; margin-bottom: 1.5rem; }
+.p-features li {
+  padding: 0.45rem 0; font-size: 0.85rem; color: var(--kyn-text-light);
+  display: flex; align-items: center; gap: 0.6rem;
+  border-bottom: 1px solid rgba(0,0,0,0.03);
+}
+.p-features li::before { content: '✓'; color: var(--kyn-green); font-weight: 700; font-size: 0.75rem; }
+.btn-pricing {
+  width: 100%; padding: 0.85rem; border-radius: 50px; font-weight: 600;
+  font-size: 0.88rem; cursor: pointer; transition: all 0.3s;
+  font-family: var(--font-body); text-align: center;
+}
+.btn-pricing-fill { background: var(--kyn-coral); color: white; border: none; box-shadow: var(--shadow-coral); }
+.btn-pricing-fill:hover { background: var(--kyn-coral-deep); }
+.btn-pricing-ghost { background: transparent; color: var(--kyn-teal); border: 1.5px solid var(--kyn-border); }
+.btn-pricing-ghost:hover { border-color: var(--kyn-coral); color: var(--kyn-coral); }
+
+/* ═══════════ TESTIMONIALS ═══════════ */
+.test-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.2rem; margin-top: 2.5rem; }
+.t-card {
+  background: white; border: 1px solid var(--kyn-border);
+  border-radius: var(--radius-lg); padding: 1.8rem; transition: all 0.3s;
+}
+.t-card:hover { box-shadow: var(--shadow-md); transform: translateY(-3px); }
+.t-stars { color: var(--kyn-gold); font-size: 0.8rem; letter-spacing: 2px; margin-bottom: 0.8rem; }
+.t-card blockquote { font-size: 0.92rem; color: var(--kyn-text); line-height: 1.65; margin-bottom: 1.2rem; font-style: italic; }
+.t-author { display: flex; align-items: center; gap: 0.7rem; }
+.t-avatar {
+  width: 38px; height: 38px; border-radius: 50%;
+  background: linear-gradient(135deg, var(--kyn-coral), var(--kyn-gold));
+  display: flex; align-items: center; justify-content: center;
+  font-weight: 700; font-size: 0.75rem; color: white;
+  font-family: var(--font-display);
+}
+.t-info h4 { font-size: 0.85rem; font-weight: 600; color: var(--kyn-teal-deep); }
+.t-info p { font-size: 0.72rem; color: var(--kyn-text-muted); }
+
+/* ═══════════ TEAM ═══════════ */
+.team-section { background: white; border-top: 1px solid var(--kyn-border); }
+.team-header { text-align: center; margin-bottom: 3rem; }
+.team-header .section-label { justify-content: center; }
+.team-header .section-desc { margin: 0 auto; }
+.team-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1.5rem; }
+.tm-card { text-align: center; }
+.tm-avatar {
+  width: 90px; height: 90px; border-radius: 20px; margin: 0 auto 0.8rem;
+  background: linear-gradient(135deg, rgba(232, 87, 58, 0.08), rgba(245, 166, 35, 0.06));
+  border: 1px solid rgba(232, 87, 58, 0.08);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 2rem; transition: all 0.3s;
+}
+.tm-card:hover .tm-avatar { transform: translateY(-4px); box-shadow: var(--shadow-md); }
+.tm-card h4 { font-family: var(--font-display); font-weight: 700; font-size: 0.95rem; color: var(--kyn-teal-deep); margin-bottom: 0.15rem; }
+.tm-card p { font-size: 0.78rem; color: var(--kyn-text-muted); }
+
+/* ═══════════ CTA BANNER ═══════════ */
+.cta-wrap { padding: 2rem 0 4rem; }
+.cta-banner {
+  position: relative; overflow: hidden;
+  background: linear-gradient(135deg, var(--kyn-teal-deep), var(--kyn-teal));
+  border-radius: var(--radius-xl); padding: clamp(3rem, 6vw, 4.5rem);
+  text-align: center;
+}
+.cta-banner::before {
+  content: ''; position: absolute; inset: 0;
+  background: radial-gradient(ellipse at 30% 50%, rgba(232, 87, 58, 0.15), transparent 60%);
+}
+.cta-banner * { position: relative; z-index: 1; }
+.cta-banner h2 {
+  font-family: var(--font-display); font-weight: 800;
+  font-size: clamp(1.8rem, 3.5vw, 2.6rem); color: white;
+  letter-spacing: -0.03em; margin-bottom: 0.8rem;
+}
+.cta-banner p { font-size: 1.05rem; color: rgba(255,255,255,0.7); margin-bottom: 2rem; max-width: 450px; margin-inline: auto; }
+.btn-cta {
+  background: var(--kyn-coral); color: white; border: none;
+  padding: 1rem 2.5rem; border-radius: 50px; font-weight: 700;
+  font-size: 1rem; cursor: pointer; transition: all 0.3s;
+  font-family: var(--font-body); box-shadow: var(--shadow-coral);
+}
+.btn-cta:hover { background: var(--kyn-coral-light); transform: translateY(-2px); }
+.cta-sub { margin-top: 1rem; font-size: 0.78rem; color: rgba(255,255,255,0.4); }
+.cta-sub a { color: rgba(255,255,255,0.6); text-decoration: underline; }
+
+/* ═══════════ CONTACT ═══════════ */
+.contact-grid { display: grid; grid-template-columns: 1fr 1.2fr; gap: 4rem; margin-top: 2.5rem; }
+.c-items { display: flex; flex-direction: column; gap: 1.5rem; }
+.c-item { display: flex; gap: 0.8rem; align-items: flex-start; }
+.c-icon {
+  width: 42px; height: 42px; border-radius: 12px; flex-shrink: 0;
+  background: var(--kyn-cream); border: 1px solid rgba(232, 87, 58, 0.08);
+  display: flex; align-items: center; justify-content: center; font-size: 1rem;
+}
+.c-item h4 { font-family: var(--font-display); font-weight: 600; font-size: 0.88rem; color: var(--kyn-teal-deep); margin-bottom: 0.15rem; }
+.c-item p { font-size: 0.85rem; color: var(--kyn-text-muted); line-height: 1.5; }
+.c-item a { color: var(--kyn-coral); text-decoration: none; font-weight: 500; }
+.c-item a:hover { text-decoration: underline; }
+.c-form { display: flex; flex-direction: column; gap: 0.8rem; }
+.c-row { display: grid; grid-template-columns: 1fr 1fr; gap: 0.8rem; }
+.c-form input, .c-form textarea, .c-form select {
+  width: 100%; background: white;
+  border: 1.5px solid var(--kyn-border);
+  border-radius: var(--radius-sm); padding: 0.85rem 1rem;
+  color: var(--kyn-text); font-family: var(--font-body); font-size: 0.88rem;
+  transition: border-color 0.3s, box-shadow 0.3s; outline: none;
+}
+.c-form input:focus, .c-form textarea:focus, .c-form select:focus {
+  border-color: var(--kyn-coral); box-shadow: 0 0 0 3px rgba(232, 87, 58, 0.08);
+}
+.c-form input::placeholder, .c-form textarea::placeholder { color: var(--kyn-text-muted); }
+.c-form textarea { min-height: 110px; resize: vertical; }
+.btn-submit {
+  background: var(--kyn-coral); color: white; border: none;
+  padding: 0.9rem 2rem; border-radius: 50px; font-weight: 600;
+  font-size: 0.9rem; cursor: pointer; transition: all 0.3s;
+  font-family: var(--font-body); align-self: flex-start;
+  box-shadow: var(--shadow-coral);
+}
+.btn-submit:hover { background: var(--kyn-coral-deep); transform: translateY(-1px); }
+
+/* ═══════════ FOOTER ═══════════ */
+footer {
+  background: var(--kyn-teal-deep); color: rgba(255,255,255,0.6);
+  padding: 3.5rem 0 1.5rem; margin-top: 2rem;
+}
+.footer-grid { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 2.5rem; margin-bottom: 2.5rem; }
+.footer-brand .logo { margin-bottom: 0.8rem; display: inline-flex; }
+.footer-brand .logo .logo-mark { box-shadow: none; }
+.footer-brand .logo .logo-text { color: white; }
+.footer-brand > p { font-size: 0.85rem; line-height: 1.6; max-width: 260px; color: rgba(255,255,255,0.45); }
+.footer-col h4 {
+  font-family: var(--font-display); font-weight: 600; font-size: 0.8rem;
+  color: white; margin-bottom: 0.8rem; text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+.footer-col ul { list-style: none; }
+.footer-col li { margin-bottom: 0.4rem; }
+.footer-col a { color: rgba(255,255,255,0.45); text-decoration: none; font-size: 0.85rem; transition: color 0.3s; }
+.footer-col a:hover { color: var(--kyn-coral-light); }
+
+.app-badges { display: flex; gap: 0.5rem; margin-top: 1rem; }
+.app-badge {
+  display: inline-flex; align-items: center; gap: 0.4rem;
+  background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.1);
+  padding: 0.4rem 0.8rem; border-radius: 8px; color: rgba(255,255,255,0.7);
+  font-size: 0.7rem; font-weight: 500; text-decoration: none; transition: all 0.3s;
+}
+.app-badge:hover { background: rgba(255,255,255,0.1); color: white; }
+
+.footer-bottom {
+  display: flex; justify-content: space-between; align-items: center;
+  padding-top: 1.5rem; border-top: 1px solid rgba(255,255,255,0.06);
+}
+.footer-bottom p { font-size: 0.75rem; color: rgba(255,255,255,0.3); }
+.footer-socials { display: flex; gap: 0.6rem; }
+.footer-socials a {
+  width: 34px; height: 34px; border-radius: 50%;
+  background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.08);
+  display: flex; align-items: center; justify-content: center;
+  color: rgba(255,255,255,0.5); text-decoration: none; font-size: 0.75rem;
+  transition: all 0.3s;
+}
+.footer-socials a:hover { background: var(--kyn-coral); color: white; border-color: var(--kyn-coral); }
+.footer-legal { display: flex; gap: 1.5rem; margin-top: 1rem; justify-content: center; }
+.footer-legal a { color: rgba(255,255,255,0.3); font-size: 0.72rem; text-decoration: none; transition: color 0.3s; }
+.footer-legal a:hover { color: rgba(255,255,255,0.6); }
+
+/* ═══════════ SCROLL REVEAL ═══════════ */
+.reveal {
+  opacity: 0; transform: translateY(30px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+.reveal.visible { opacity: 1; transform: translateY(0); }
+
+/* ═══════════ RESPONSIVE ═══════════ */
+@media (max-width: 1024px) {
+  .features-grid { grid-template-columns: repeat(2, 1fr); }
+  .pricing-grid { grid-template-columns: repeat(2, 1fr); }
+  .team-grid { grid-template-columns: repeat(2, 1fr); }
+  .footer-grid { grid-template-columns: 1fr 1fr; gap: 2rem; }
+}
+@media (max-width: 768px) {
+  .nav-links { display: none; }
+  .hamburger { display: block; }
+  .hero-grid { grid-template-columns: 1fr; text-align: center; }
+  .hero p { margin-inline: auto; }
+  .hero-actions { justify-content: center; }
+  .hero-stats-bar { justify-content: center; flex-wrap: wrap; }
+  .hero-visual { display: none; }
+  .about-grid, .contact-grid { grid-template-columns: 1fr; gap: 2rem; }
+  .about-visual { height: 280px; }
+  .features-grid, .solutions-grid, .pricing-grid, .test-grid { grid-template-columns: 1fr; }
+  .team-grid { grid-template-columns: repeat(2, 1fr); }
+  .c-row { grid-template-columns: 1fr; }
+  .footer-grid { grid-template-columns: 1fr; }
+  .footer-bottom { flex-direction: column; gap: 0.8rem; text-align: center; }
+  .cta-banner { margin: 0 1rem; }
+  .section-label { justify-content: center; }
+  .section-title, .section-desc { text-align: center; }
+  .section-desc { margin-inline: auto; }
+}
+</style>
+</head>
+<body>
+
+<!-- ═══════════ NAV ═══════════ -->
+<nav id="navbar">
+  <div class="nav-inner">
+    <a href="#" class="logo">
+      <div class="logo-mark">K</div>
+      <div class="logo-text">kyn<span>hood</span></div>
+    </a>
+    <ul class="nav-links">
+      <li><a href="#about">About</a></li>
+      <li><a href="#features">Platform</a></li>
+      <li><a href="#solutions">Solutions</a></li>
+      <li><a href="#pricing">Pricing</a></li>
+      <li><a href="#community">Community</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+    <button class="btn-nav" onclick="document.getElementById('contact').scrollIntoView({behavior:'smooth'})">Get Started</button>
+    <button class="hamburger" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+
+<!-- ═══════════ HERO ═══════════ -->
+<section class="hero">
+  <div class="hero-deco-1"></div>
+  <div class="hero-deco-2"></div>
+  <div class="hero-dots"></div>
+  <div class="container">
+    <div class="hero-grid">
+      <div class="hero-content">
+        <div class="hero-badge">
+          <div class="badge-dot">✦</div>
+          Connecting People Through Experiences
+        </div>
+        <h1>
+          <span class="line">Discover Events.</span>
+          <span class="line">Join <span class="coral-gradient">Tribes</span>.</span>
+          <span class="line">Build Community.</span>
+        </h1>
+        <p>Kynhood is the platform where like-minded people connect through curated events, vibrant communities, and shared passions. Your tribe is waiting.</p>
+        <div class="hero-actions">
+          <button class="btn-primary" onclick="document.getElementById('features').scrollIntoView({behavior:'smooth'})">Explore the Platform</button>
+          <button class="btn-secondary" onclick="document.getElementById('solutions').scrollIntoView({behavior:'smooth'})">For Organisers →</button>
+        </div>
+        <div class="hero-stats-bar">
+          <div class="stat">
+            <div class="stat-num" data-target="10000">10,000+</div>
+            <div class="stat-label">Users</div>
+          </div>
+          <div class="stat">
+            <div class="stat-num">500+</div>
+            <div class="stat-label">Experiences Hosted</div>
+          </div>
+          <div class="stat">
+            <div class="stat-num">120+</div>
+            <div class="stat-label">Interest Groups</div>
+          </div>
+          <div class="stat">
+            <div class="stat-num">50K+</div>
+            <div class="stat-label">Tickets Sold</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="hero-visual">
+        <!-- Floating badges -->
+        <div class="float-badge float-badge-1">
+          <div class="float-icon fi-coral">🎫</div>
+          <div><strong>2.4K</strong><br><span style="font-size:0.65rem;color:var(--kyn-text-muted)">tickets today</span></div>
+        </div>
+        <div class="float-badge float-badge-2">
+          <div class="float-icon fi-green">👥</div>
+          <div><strong>New Tribe</strong><br><span style="font-size:0.65rem;color:var(--kyn-text-muted)">Chennai Foodies</span></div>
+        </div>
+        <div class="float-badge float-badge-3">
+          <div class="float-icon fi-gold">⚡</div>
+          <div><strong>Live Now</strong><br><span style="font-size:0.65rem;color:var(--kyn-text-muted)">KYN Music Fest</span></div>
+        </div>
+
+        <!-- Phone mockup -->
+        <div class="hero-phone">
+          <div class="phone-notch"></div>
+          <div class="phone-screen">
+            <div class="phone-header">
+              <div class="phone-logo">kyn<span>hood</span></div>
+              <div class="phone-icon"></div>
+            </div>
+            <div class="phone-card">
+              <div class="card-img"><div class="card-img-inner card-img-1" style="display:flex;align-items:center;justify-content:center;color:white;font-family:var(--font-display);font-weight:700;font-size:0.7rem;">🎵 KYN LIVE</div></div>
+              <div class="card-tag">Trending</div>
+              <div class="card-title">Yuvan Live in Concert</div>
+              <div class="card-meta">Mar 28 · Chennai · ₹499 onwards</div>
+            </div>
+            <div class="phone-card">
+              <div class="card-img"><div class="card-img-inner card-img-2" style="display:flex;align-items:center;justify-content:center;color:white;font-family:var(--font-display);font-weight:700;font-size:0.7rem;">🏃 RUN CLUB</div></div>
+              <div class="card-tag green">Tribe</div>
+              <div class="card-title">Chennai Running Tribe</div>
+              <div class="card-meta">342 members · 12 upcoming events</div>
+            </div>
+            <div class="phone-card">
+              <div class="card-img"><div class="card-img-inner card-img-3" style="display:flex;align-items:center;justify-content:center;color:white;font-family:var(--font-display);font-weight:700;font-size:0.7rem;">🎨 ART WALK</div></div>
+              <div class="card-tag">This Weekend</div>
+              <div class="card-title">Street Art Walk — T. Nagar</div>
+              <div class="card-meta">Sat, 5 PM · Free entry</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════ ABOUT ═══════════ -->
+<section class="about" id="about">
+  <div class="container">
+    <div class="about-grid reveal">
+      <div class="about-visual">
+        <div class="about-pattern"></div>
+        <div class="about-visual-content">
+          <div class="tribe-ring">
+            <div class="tribe-center">K</div>
+            <div class="tribe-node">🎵</div>
+            <div class="tribe-node">🎨</div>
+            <div class="tribe-node">💡</div>
+            <div class="tribe-node">🏃</div>
+            <div class="tribe-node">📸</div>
+            <div class="tribe-node">🎮</div>
+          </div>
+          <div class="about-caption">Your Passions. Your People. Your Tribe.</div>
+        </div>
+      </div>
+      <div class="about-text">
+        <span class="section-label">Who We Are</span>
+        <h2 class="section-title">Built for <span class="coral-gradient">Connection</span></h2>
+        <p class="section-desc">Kynhood Technologies is the platform that turns shared passions into thriving communities. We believe the best experiences happen when the right people come together — and we make that effortless.</p>
+        <div class="values-list">
+          <div class="value-row">
+            <div class="val-icon">🔥</div>
+            <div class="val-text">
+              <h4>Tribe-First Thinking</h4>
+              <p>Every feature strengthens the bond between community members.</p>
+            </div>
+          </div>
+          <div class="value-row">
+            <div class="val-icon">⚡</div>
+            <div class="val-text">
+              <h4>Seamless Event Tech</h4>
+              <p>From ticketing to stall management, built for events of any scale.</p>
+            </div>
+          </div>
+          <div class="value-row">
+            <div class="val-icon">🌍</div>
+            <div class="val-text">
+              <h4>Online Meets Offline</h4>
+              <p>Bridging digital communities with real-world experiences.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════ FEATURES ═══════════ -->
+<section class="features" id="features">
+  <div class="container">
+    <div class="features-header reveal">
+      <span class="section-label">The Platform</span>
+      <h2 class="section-title">Everything to <span class="coral-gradient">Build & Grow</span></h2>
+      <p class="section-desc">A full-stack ecosystem for community builders, event organisers, and people who love showing up.</p>
+    </div>
+    <div class="features-grid">
+      <div class="f-card reveal">
+        <div class="f-icon">🎪</div>
+        <h3>Event Hosting & Ticketing</h3>
+        <p>Create, manage, and sell tickets for events of every size. From intimate meetups to massive concerts — online and offline.</p>
+        <span class="f-tag">Core Platform</span>
+      </div>
+      <div class="f-card reveal">
+        <div class="f-icon">🏛️</div>
+        <h3>Tribe Communities</h3>
+        <p>Launch paid or free tribes where members access exclusive content, discussions, and member-only events.</p>
+        <span class="f-tag">Community</span>
+      </div>
+      <div class="f-card reveal">
+        <div class="f-icon">📱</div>
+        <h3>Content Hub</h3>
+        <p>Share updates, media, and resources within your tribe. Keep your community engaged between events.</p>
+        <span class="f-tag">Engagement</span>
+      </div>
+      <div class="f-card reveal">
+        <div class="f-icon">🎫</div>
+        <h3>Offline Ticketing</h3>
+        <p>On-ground support for large venues — theme parks, farms, festivals. Real-time scanning and validation.</p>
+        <span class="f-tag">Enterprise</span>
+      </div>
+      <div class="f-card reveal">
+        <div class="f-icon">📊</div>
+        <h3>Organiser Dashboard</h3>
+        <p>Real-time analytics on ticket sales, attendee demographics, revenue, and community growth.</p>
+        <span class="f-tag">Analytics</span>
+      </div>
+      <div class="f-card reveal">
+        <div class="f-icon">🤝</div>
+        <h3>Discovery & Matching</h3>
+        <p>Smart recommendations connect people with the tribes and events that match their passions.</p>
+        <span class="f-tag">AI-Powered</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════ SOLUTIONS ═══════════ -->
+<section class="solutions" id="solutions">
+  <div class="container">
+    <div class="solutions-header reveal">
+      <span class="section-label">Solutions</span>
+      <h2 class="section-title">Multiple Ways to <span class="coral-gradient">Win Together</span></h2>
+      <p class="section-desc">Whether you're an organiser, a venue, or a brand — Kynhood gives you the tools and audience to succeed.</p>
+    </div>
+    <div class="solutions-grid">
+      <div class="sol-card reveal">
+        <div class="sol-num">01</div>
+        <h3>Kynhood Originals</h3>
+        <p>Flagship events curated and hosted by Kynhood — concerts, festivals, and cultural experiences.</p>
+        <ul class="sol-list">
+          <li>Yuvan concerts & headliner shows</li>
+          <li>Multi-city festival circuits</li>
+          <li>Premium VIP experiences</li>
+        </ul>
+      </div>
+      <div class="sol-card reveal">
+        <div class="sol-num">02</div>
+        <h3>Platform Marketplace</h3>
+        <p>Organisers host on Kynhood and we handle ticketing, payments, and discovery — with a platform fee per booking.</p>
+        <ul class="sol-list">
+          <li>Zero setup friction</li>
+          <li>Built-in audience & discovery</li>
+          <li>Transparent platform fees</li>
+        </ul>
+      </div>
+      <div class="sol-card reveal">
+        <div class="sol-num">03</div>
+        <h3>Offline & Venue Tech</h3>
+        <p>End-to-end ticketing for large physical venues — theme parks, farms, activity centres.</p>
+        <ul class="sol-list">
+          <li>On-ground activity ticketing</li>
+          <li>QR-based entry validation</li>
+          <li>Live capacity dashboards</li>
+        </ul>
+      </div>
+      <div class="sol-card reveal">
+        <div class="sol-num">04</div>
+        <h3>Bulk Event Tech Services</h3>
+        <p>White-label event management — custom websites, stall management, and full tech support.</p>
+        <ul class="sol-list">
+          <li>Custom event microsites</li>
+          <li>Stall & vendor management</li>
+          <li>Dedicated tech support</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════ PRICING ═══════════ -->
+<section class="pricing" id="pricing">
+  <div class="container">
+    <div class="pricing-header reveal">
+      <span class="section-label">Pricing</span>
+      <h2 class="section-title">Plans That <span class="coral-gradient">Scale With You</span></h2>
+      <p class="section-desc">Start free, upgrade when you're ready. Every plan includes core community and event features.</p>
+      <div style="text-align:center;margin-top:1.5rem;">
+        <div class="pricing-toggle">
+          <button class="tog-btn active" onclick="switchPlan(this,'user')">For Users</button>
+          <button class="tog-btn" onclick="switchPlan(this,'org')">For Organisers</button>
+        </div>
+      </div>
+    </div>
+
+    <div id="plan-user" class="pricing-grid">
+      <div class="p-card reveal">
+        <div class="p-name">Free</div>
+        <div class="p-desc">Explore and connect</div>
+        <div class="p-price">₹0 <span>/ month</span></div>
+        <ul class="p-features">
+          <li>Join unlimited free tribes</li>
+          <li>Browse & discover events</li>
+          <li>Basic community access</li>
+          <li>Standard event booking</li>
+        </ul>
+        <button class="btn-pricing btn-pricing-ghost">Get Started Free</button>
+      </div>
+      <div class="p-card pop reveal">
+        <div class="p-name">Pro Member</div>
+        <div class="p-desc">The full Kynhood experience</div>
+        <div class="p-price">₹299 <span>/ month</span></div>
+        <ul class="p-features">
+          <li>Everything in Free</li>
+          <li>2 free event tickets / month</li>
+          <li>Access to paid tribes</li>
+          <li>Exclusive member content</li>
+          <li>Priority event booking</li>
+          <li>Early access to Originals</li>
+        </ul>
+        <button class="btn-pricing btn-pricing-fill">Upgrade to Pro</button>
+      </div>
+      <div class="p-card reveal">
+        <div class="p-name">Annual</div>
+        <div class="p-desc">Best value — save 30%</div>
+        <div class="p-price">₹2,499 <span>/ year</span></div>
+        <ul class="p-features">
+          <li>Everything in Pro</li>
+          <li>4 free event tickets / month</li>
+          <li>VIP access to flagship events</li>
+          <li>Tribe creator badge</li>
+          <li>Priority support</li>
+        </ul>
+        <button class="btn-pricing btn-pricing-ghost">Go Annual</button>
+      </div>
+    </div>
+
+    <div id="plan-org" class="pricing-grid" style="display:none;">
+      <div class="p-card reveal">
+        <div class="p-name">Starter</div>
+        <div class="p-desc">For new organisers</div>
+        <div class="p-price">Free</div>
+        <ul class="p-features">
+          <li>Host up to 3 events / month</li>
+          <li>Basic ticketing</li>
+          <li>Standard analytics</li>
+          <li>Community page</li>
+          <li>Platform fee on bookings</li>
+        </ul>
+        <button class="btn-pricing btn-pricing-ghost">Start Organising</button>
+      </div>
+      <div class="p-card pop reveal">
+        <div class="p-name">Pro Organiser</div>
+        <div class="p-desc">Unlock full potential</div>
+        <div class="p-price">₹999 <span>/ month</span></div>
+        <ul class="p-features">
+          <li>Unlimited events / month</li>
+          <li>Advanced analytics & reports</li>
+          <li>Custom branding</li>
+          <li>Reduced platform fee</li>
+          <li>Priority event placement</li>
+          <li>Dedicated support</li>
+        </ul>
+        <button class="btn-pricing btn-pricing-fill">Go Pro</button>
+      </div>
+      <div class="p-card reveal">
+        <div class="p-name">Enterprise</div>
+        <div class="p-desc">Venues & large orgs</div>
+        <div class="p-price">Custom</div>
+        <ul class="p-features">
+          <li>White-label event sites</li>
+          <li>Offline ticketing infra</li>
+          <li>Stall & vendor management</li>
+          <li>API access & integrations</li>
+          <li>Dedicated account manager</li>
+          <li>Custom SLA & support</li>
+        </ul>
+        <button class="btn-pricing btn-pricing-ghost">Contact Sales</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════ TESTIMONIALS ═══════════ -->
+<section id="community">
+  <div class="container">
+    <span class="section-label reveal">Community Love</span>
+    <h2 class="section-title reveal">Hear From the <span class="coral-gradient">Tribe</span></h2>
+    <div class="test-grid">
+      <div class="t-card reveal">
+        <div class="t-stars">★★★★★</div>
+        <blockquote>"Kynhood completely changed how I discover events in my city. The tribe feature keeps me connected with people who share my passions."</blockquote>
+        <div class="t-author">
+          <div class="t-avatar">AK</div>
+          <div class="t-info"><h4>Arun Kumar</h4><p>Community Member, Chennai</p></div>
+        </div>
+      </div>
+      <div class="t-card reveal">
+        <div class="t-stars">★★★★★</div>
+        <blockquote>"As an event organiser, the platform fee model is fair and ticketing is seamless. Our sell-out rate jumped 3x since switching to Kynhood."</blockquote>
+        <div class="t-author">
+          <div class="t-avatar">PS</div>
+          <div class="t-info"><h4>Priya Sharma</h4><p>Event Organiser, Bangalore</p></div>
+        </div>
+      </div>
+      <div class="t-card reveal">
+        <div class="t-stars">★★★★★</div>
+        <blockquote>"Offline ticketing at our venue was flawless. Real-time capacity tracking saved us from overselling during peak weekends."</blockquote>
+        <div class="t-author">
+          <div class="t-avatar">RV</div>
+          <div class="t-info"><h4>Ravi Venkat</h4><p>Venue Manager, Hyderabad</p></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════ TEAM ═══════════ -->
+<section class="team-section" id="team">
+  <div class="container">
+    <div class="team-header reveal">
+      <span class="section-label">The Team</span>
+      <h2 class="section-title">People Behind the <span class="coral-gradient">Tribes</span></h2>
+      <p class="section-desc">A passionate crew of builders, dreamers, and community nerds.</p>
+    </div>
+    <div class="team-grid">
+      <div class="tm-card reveal">
+        <div class="tm-avatar">👤</div>
+        <h4>Founder & CEO</h4>
+        <p>Vision & Strategy</p>
+      </div>
+      <div class="tm-card reveal">
+        <div class="tm-avatar">👤</div>
+        <h4>CTO</h4>
+        <p>Engineering & Platform</p>
+      </div>
+      <div class="tm-card reveal">
+        <div class="tm-avatar">👤</div>
+        <h4>Head of Community</h4>
+        <p>Tribes & Engagement</p>
+      </div>
+      <div class="tm-card reveal">
+        <div class="tm-avatar">👤</div>
+        <h4>Head of Events</h4>
+        <p>Kynhood Originals</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════ CTA ═══════════ -->
+<div class="cta-wrap">
+  <div class="container">
+    <div class="cta-banner reveal">
+      <h2>Ready to Find Your Tribe?</h2>
+      <p>Join thousands already connecting, hosting, and thriving on Kynhood.</p>
+      <button class="btn-cta" onclick="document.getElementById('contact').scrollIntoView({behavior:'smooth'})">Get Started Free →</button>
+      <div class="cta-sub">Also available on <a href="https://apps.apple.com/in/app/kyn/id1668807082" target="_blank">App Store</a> & <a href="https://play.google.com/store/apps/details?id=com.theproindia.kyn" target="_blank">Google Play</a></div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════ CONTACT ═══════════ -->
+<section id="contact">
+  <div class="container">
+    <span class="section-label reveal">Get In Touch</span>
+    <h2 class="section-title reveal">Let's <span class="coral-gradient">Connect</span></h2>
+    <p class="section-desc reveal">Whether you want to partner, organise an event, or just say hello.</p>
+    <div class="contact-grid">
+      <div class="c-items reveal">
+        <div class="c-item">
+          <div class="c-icon">📍</div>
+          <div>
+            <h4>Headquarters</h4>
+            <p>Kynhood Technologies<br>Chennai, Tamil Nadu, India</p>
+          </div>
+        </div>
+        <div class="c-item">
+          <div class="c-icon">✉️</div>
+          <div>
+            <h4>Advertise With Us</h4>
+            <p><a href="mailto:advertise@kynhood.com">advertise@kynhood.com</a></p>
+          </div>
+        </div>
+        <div class="c-item">
+          <div class="c-icon">🤝</div>
+          <div>
+            <h4>Partner With Us</h4>
+            <p><a href="mailto:partner@kynhood.com">partner@kynhood.com</a></p>
+          </div>
+        </div>
+        <div class="c-item">
+          <div class="c-icon">💬</div>
+          <div>
+            <h4>Follow Us</h4>
+            <p><a href="https://www.instagram.com/kynhood/" target="_blank">Instagram</a> · <a href="https://twitter.com/kyn_hood" target="_blank">X</a> · <a href="https://www.linkedin.com/company/kynhood/" target="_blank">LinkedIn</a> · <a href="https://www.facebook.com/kynhoodofficial/" target="_blank">Facebook</a></p>
+          </div>
+        </div>
+      </div>
+      <form class="c-form reveal" onsubmit="event.preventDefault(); alert('Thanks! We\'ll be in touch soon.');">
+        <div class="c-row">
+          <input type="text" placeholder="Your Name" required>
+          <input type="email" placeholder="Email Address" required>
+        </div>
+        <select required>
+          <option value="" disabled selected>I'm interested in...</option>
+          <option>Hosting events on Kynhood</option>
+          <option>Enterprise / Venue solutions</option>
+          <option>Bulk event tech services</option>
+          <option>Advertising on Kynhood</option>
+          <option>Partnership opportunities</option>
+          <option>General enquiry</option>
+        </select>
+        <textarea placeholder="Tell us more..."></textarea>
+        <button type="submit" class="btn-submit">Send Message →</button>
+      </form>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════ FOOTER ═══════════ -->
+<footer>
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <a href="#" class="logo">
+          <div class="logo-mark">K</div>
+          <div class="logo-text">kyn<span>hood</span></div>
+        </a>
+        <p>Connecting like-minded people through communities and unforgettable events. Find your tribe, host your moment.</p>
+        <div class="app-badges">
+          <a href="https://apps.apple.com/in/app/kyn/id1668807082" target="_blank" class="app-badge">🍎 App Store</a>
+          <a href="https://play.google.com/store/apps/details?id=com.theproindia.kyn" target="_blank" class="app-badge">▶ Google Play</a>
+        </div>
+      </div>
+      <div class="footer-col">
+        <h4>Platform</h4>
+        <ul>
+          <li><a href="#features">Features</a></li>
+          <li><a href="#pricing">Pricing</a></li>
+          <li><a href="#solutions">Solutions</a></li>
+          <li><a href="#">API Docs</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Company</h4>
+        <ul>
+          <li><a href="#about">About</a></li>
+          <li><a href="#team">Team</a></li>
+          <li><a href="#">Careers</a></li>
+          <li><a href="#">Blog</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Legal</h4>
+        <ul>
+          <li><a href="https://kynhood.com/privacy/kyn" target="_blank">Privacy Policy</a></li>
+          <li><a href="https://kynhood.com/terms&condition/kyn" target="_blank">Terms & Conditions</a></li>
+          <li><a href="https://kynhood.com/communityguidelines/kyn" target="_blank">Community Guidelines</a></li>
+          <li><a href="https://kynhood.com/grievance/kyn" target="_blank">Grievance</a></li>
+          <li><a href="https://blogs.kynhood.com/compliance/MonthlyComplianceReport.jpg" target="_blank">Compliance</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2026 Kynhood Technologies. All rights reserved. — <a href="https://www.kynhood.com" style="color:rgba(255,255,255,0.45);">www.kynhood.com</a></p>
+      <div class="footer-socials">
+        <a href="https://www.instagram.com/kynhood/" target="_blank" title="Instagram">IG</a>
+        <a href="https://twitter.com/kyn_hood" target="_blank" title="X">X</a>
+        <a href="https://www.linkedin.com/company/kynhood/" target="_blank" title="LinkedIn">in</a>
+        <a href="https://www.facebook.com/kynhoodofficial/" target="_blank" title="Facebook">fb</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<!-- ═══════════ SCRIPTS ═══════════ -->
+<script>
+// Nav scroll
+const nav = document.getElementById('navbar');
+window.addEventListener('scroll', () => nav.classList.toggle('scrolled', window.scrollY > 40));
+
+// Scroll reveal
+const reveals = document.querySelectorAll('.reveal');
+const obs = new IntersectionObserver((entries) => {
+  entries.forEach((e, i) => {
+    if (e.isIntersecting) {
+      setTimeout(() => e.target.classList.add('visible'), i * 60);
+      obs.unobserve(e.target);
+    }
+  });
+}, { threshold: 0.08, rootMargin: '0px 0px -40px 0px' });
+reveals.forEach(el => obs.observe(el));
+
+// Pricing toggle
+function switchPlan(btn, type) {
+  document.querySelectorAll('.tog-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  document.getElementById('plan-user').style.display = type === 'user' ? 'grid' : 'none';
+  document.getElementById('plan-org').style.display = type === 'org' ? 'grid' : 'none';
+}
+
+// Smooth scroll
+document.querySelectorAll('a[href^="#"]').forEach(a => {
+  a.addEventListener('click', e => {
+    e.preventDefault();
+    const t = document.querySelector(a.getAttribute('href'));
+    if (t) t.scrollIntoView({ behavior: 'smooth' });
+  });
+});
+
+// Mobile hamburger
+document.querySelector('.hamburger').addEventListener('click', function() {
+  const links = document.querySelector('.nav-links');
+  if (links.style.display === 'flex') {
+    links.style.display = 'none';
+  } else {
+    links.style.display = 'flex';
+    links.style.flexDirection = 'column';
+    links.style.position = 'absolute';
+    links.style.top = '100%';
+    links.style.left = '0';
+    links.style.right = '0';
+    links.style.background = 'white';
+    links.style.padding = '1rem 2rem';
+    links.style.boxShadow = '0 8px 30px rgba(0,0,0,0.08)';
+    links.style.borderRadius = '0 0 16px 16px';
+    links.style.gap = '1rem';
+  }
+});
+</script>
+
+</body>
+</html>
