@@ -1,0 +1,548 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Kynhood — Discover & Connect Through Events & Community</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=JetBrains+Mono:wght@300;400;500;600;700&family=Instrument+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --crimson:#8B1A1A;--crimson-l:#A82828;--crimson-d:#5C1010;--crimson-dd:#3A0808;
+  --wine:#6B1515;--blood:#9E2020;
+  --glass:rgba(139,26,26,.35);--glass-l:rgba(160,40,40,.25);--glass-d:rgba(80,12,12,.5);
+  --glass-border:rgba(255,180,180,.1);--glass-border-l:rgba(255,200,200,.06);
+  --ember:#FF6B4A;--ember-l:#FF8A6E;--glow:#FF4D3A;
+  --cream:#FFE8E0;--cream-d:#FFCFC0;
+  --white:#fff;--white-90:rgba(255,255,255,.9);--white-70:rgba(255,255,255,.7);
+  --white-50:rgba(255,255,255,.5);--white-30:rgba(255,255,255,.3);
+  --white-15:rgba(255,255,255,.15);--white-08:rgba(255,255,255,.08);
+  --white-04:rgba(255,255,255,.04);
+  --display:'Bebas Neue',sans-serif;
+  --mono:'JetBrains Mono',monospace;
+  --body:'Instrument Sans',sans-serif;
+  --shadow-glass:0 8px 32px rgba(0,0,0,.3);
+  --r:12px;--r-l:20px;--r-xl:28px;
+}
+html{scroll-behavior:smooth;font-size:16px}
+body{font-family:var(--body);background:var(--crimson-dd);color:var(--white-70);overflow-x:hidden;-webkit-font-smoothing:antialiased}
+::selection{background:rgba(255,107,74,.3);color:#fff}
+::-webkit-scrollbar{width:4px}::-webkit-scrollbar-track{background:var(--crimson-dd)}::-webkit-scrollbar-thumb{background:var(--ember);border-radius:2px}
+.ctr{max-width:1200px;margin:0 auto;padding:0 clamp(1.5rem,4vw,3rem)}
+
+/* ═══ BACKGROUND ATMOSPHERE ═══ */
+body::before{
+  content:'';position:fixed;inset:0;z-index:-2;
+  background:
+    radial-gradient(ellipse 120% 80% at 50% 0%,var(--crimson) 0%,transparent 60%),
+    radial-gradient(ellipse 80% 60% at 0% 100%,rgba(158,32,32,.4) 0%,transparent 50%),
+    radial-gradient(ellipse 60% 80% at 100% 50%,rgba(139,26,26,.3) 0%,transparent 50%),
+    var(--crimson-dd);
+}
+body::after{
+  content:'';position:fixed;inset:0;z-index:-1;
+  background:url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.05'/%3E%3C/svg%3E");
+  pointer-events:none;
+}
+
+/* ═══ GLASS PANEL ═══ */
+.glass{
+  background:var(--glass);
+  backdrop-filter:blur(24px) saturate(1.2);
+  -webkit-backdrop-filter:blur(24px) saturate(1.2);
+  border:1px solid var(--glass-border);
+  border-radius:var(--r-l);
+}
+.glass-l{
+  background:var(--glass-l);
+  backdrop-filter:blur(16px);
+  -webkit-backdrop-filter:blur(16px);
+  border:1px solid var(--glass-border-l);
+  border-radius:var(--r);
+}
+
+/* ═══ NAV ═══ */
+nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:1rem 0;transition:.4s}
+nav.scrolled{background:rgba(58,8,8,.85);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border-bottom:1px solid var(--glass-border)}
+.nav-in{display:flex;align-items:center;justify-content:space-between;max-width:1200px;margin:0 auto;padding:0 clamp(1.5rem,4vw,3rem)}
+.logo{display:flex;align-items:center;gap:.5rem;text-decoration:none}
+.logo-m{font-family:var(--display);font-size:1.8rem;color:var(--white);letter-spacing:.05em;line-height:1}
+.logo-m span{color:var(--ember)}
+.logo-tag{font-family:var(--mono);font-size:.55rem;font-weight:400;color:var(--white-30);letter-spacing:.1em;margin-left:.3rem;border:1px solid var(--white-15);padding:.15rem .5rem;border-radius:3px}
+
+.nav-l{display:flex;gap:2rem;align-items:center;list-style:none}
+.nav-l a{font-family:var(--mono);color:var(--white-50);text-decoration:none;font-size:.72rem;font-weight:400;letter-spacing:.08em;text-transform:uppercase;transition:.3s;position:relative}
+.nav-l a:hover{color:var(--white)}
+.nav-l a::after{content:'';position:absolute;bottom:-3px;left:0;width:0;height:1px;background:var(--ember);transition:.3s}
+.nav-l a:hover::after{width:100%}
+
+.btn-n{font-family:var(--mono);background:transparent;color:var(--white-90);border:1px solid var(--white-30);padding:.5rem 1.2rem;border-radius:0;font-size:.7rem;font-weight:500;letter-spacing:.15em;text-transform:uppercase;cursor:pointer;transition:.3s}
+.btn-n:hover{background:var(--white);color:var(--crimson-dd);border-color:var(--white)}
+
+.ham{display:none;background:none;border:none;cursor:pointer;padding:.5rem}
+.ham span{display:block;width:22px;height:1.5px;background:var(--white-70);margin:5px 0;transition:.3s}
+
+/* ═══ HERO ═══ */
+.hero{min-height:100vh;display:flex;align-items:center;position:relative;overflow:hidden;padding:8rem 0 4rem}
+.hero-glow{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:800px;height:800px;background:radial-gradient(circle,rgba(255,77,58,.08) 0%,transparent 60%);pointer-events:none}
+
+.hero-panel{position:relative;z-index:2}
+.hero-glass{padding:clamp(2.5rem,5vw,4rem);max-width:900px}
+.hero-tag{font-family:var(--mono);font-size:.6rem;color:var(--white-30);letter-spacing:.2em;text-transform:uppercase;margin-bottom:1.5rem;display:flex;align-items:center;gap:.8rem;animation:fadeUp .6s ease-out}
+.hero-tag::before{content:'';width:40px;height:1px;background:linear-gradient(90deg,var(--ember),transparent)}
+.hero h1{font-family:var(--display);font-size:clamp(3.5rem,8vw,6.5rem);line-height:.95;letter-spacing:.03em;color:var(--white);margin-bottom:1.2rem;animation:fadeUp .6s ease-out .1s both}
+.hero h1 span{color:var(--ember)}
+.hero-desc{font-size:clamp(.9rem,1.4vw,1.05rem);color:var(--white-50);line-height:1.7;max-width:500px;margin-bottom:2rem;animation:fadeUp .6s ease-out .2s both}
+.hero-btns{display:flex;gap:.8rem;flex-wrap:wrap;animation:fadeUp .6s ease-out .3s both}
+.btn-hero{font-family:var(--mono);padding:.75rem 2rem;font-size:.75rem;font-weight:500;letter-spacing:.15em;text-transform:uppercase;cursor:pointer;transition:.3s;border-radius:0}
+.btn-hero-p{background:var(--ember);color:#fff;border:none}
+.btn-hero-p:hover{background:var(--ember-l);box-shadow:0 0 30px rgba(255,107,74,.3)}
+.btn-hero-s{background:transparent;color:var(--white-70);border:1px solid var(--white-15)}
+.btn-hero-s:hover{border-color:var(--white-50);color:var(--white)}
+
+.hero-stats{display:flex;gap:2.5rem;margin-top:2.5rem;padding-top:2rem;border-top:1px solid var(--white-08);animation:fadeUp .6s ease-out .4s both}
+.hs-num{font-family:var(--display);font-size:2rem;color:var(--white);letter-spacing:.03em;line-height:1}
+.hs-label{font-family:var(--mono);font-size:.55rem;color:var(--white-30);letter-spacing:.12em;text-transform:uppercase;margin-top:.2rem}
+
+@keyframes fadeUp{from{opacity:0;transform:translateY(22px)}to{opacity:1;transform:translateY(0)}}
+
+/* ═══ SECTION COMMON ═══ */
+section{padding:clamp(4rem,10vw,7rem) 0}
+.sl{font-family:var(--mono);font-size:.6rem;font-weight:400;letter-spacing:.2em;text-transform:uppercase;color:var(--ember);margin-bottom:.6rem;display:flex;align-items:center;gap:.6rem}
+.sl::before{content:'+';color:var(--white-15)}
+.sl.c{justify-content:center}
+.stitle{font-family:var(--display);font-size:clamp(2rem,4.5vw,3.5rem);line-height:1;letter-spacing:.03em;color:var(--white);margin-bottom:.8rem}
+.stitle.c{text-align:center}
+.stitle span{color:var(--ember)}
+.sdesc{font-size:.92rem;color:var(--white-50);line-height:1.65;max-width:480px}
+.sdesc.c{text-align:center;margin:0 auto}
+
+/* ═══ ABOUT ═══ */
+.about-grid{display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:center;margin-top:2rem}
+.about-visual{position:relative;height:400px;overflow:hidden;display:flex;align-items:center;justify-content:center}
+.about-visual.glass{padding:0}
+.tribe-ring{width:220px;height:220px;border-radius:50%;border:1px dashed var(--white-15);position:relative;animation:spin 30s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+.tr-center{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:70px;height:70px;border-radius:50%;background:linear-gradient(135deg,var(--ember),var(--glow));display:flex;align-items:center;justify-content:center;font-family:var(--display);font-size:1.5rem;color:#fff;box-shadow:0 0 50px rgba(255,77,58,.3);animation:spin 30s linear infinite reverse;z-index:3}
+.tr-node{position:absolute;width:44px;height:44px;border-radius:50%;background:var(--glass-d);border:1px solid var(--white-08);display:flex;align-items:center;justify-content:center;font-size:1rem;animation:spin 30s linear infinite reverse}
+.tr-node:nth-child(2){top:-22px;left:50%;margin-left:-22px}
+.tr-node:nth-child(3){top:12%;right:-8px}
+.tr-node:nth-child(4){bottom:12%;right:-8px}
+.tr-node:nth-child(5){bottom:-22px;left:50%;margin-left:-22px}
+.tr-node:nth-child(6){bottom:12%;left:-8px}
+.tr-node:nth-child(7){top:12%;left:-8px}
+
+.vals{margin-top:2rem;display:flex;flex-direction:column;gap:.8rem}
+.val{display:flex;align-items:flex-start;gap:.8rem;padding:.9rem 1rem;transition:.3s}
+.val.glass-l:hover{background:var(--glass);transform:translateX(4px)}
+.val-ico{width:34px;height:34px;border-radius:8px;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:1rem;background:rgba(255,107,74,.1);border:1px solid rgba(255,107,74,.15)}
+.val h4{font-family:var(--mono);font-weight:600;font-size:.78rem;color:var(--white-90);letter-spacing:.04em;margin-bottom:.15rem}
+.val p{font-size:.78rem;color:var(--white-30);line-height:1.45}
+
+/* ═══ FEATURES ═══ */
+.feat-header{text-align:center;margin-bottom:3rem}
+.feat-tabs{display:inline-flex;gap:0;border:1px solid var(--white-08);margin:1.2rem 0 0}
+.ftab{font-family:var(--mono);background:transparent;border:none;color:var(--white-30);padding:.5rem 1.3rem;font-size:.68rem;font-weight:500;letter-spacing:.12em;text-transform:uppercase;cursor:pointer;transition:.3s}
+.ftab.active{background:var(--ember);color:#fff}
+
+.feat-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;margin-top:1rem}
+.fc{padding:1.5rem;transition:.4s;position:relative;overflow:hidden}
+.fc::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--ember),var(--glow),transparent);transform:scaleX(0);transform-origin:left;transition:.4s}
+.fc:hover{background:var(--glass);transform:translateY(-3px)}.fc:hover::before{transform:scaleX(1)}
+.fc-ico{font-size:1.2rem;margin-bottom:.8rem}
+.fc h3{font-family:var(--mono);font-weight:600;font-size:.8rem;color:var(--white-90);letter-spacing:.04em;margin-bottom:.3rem}
+.fc p{font-size:.78rem;color:var(--white-30);line-height:1.5}
+.fc-tag{font-family:var(--mono);display:inline-block;margin-top:.8rem;font-size:.5rem;letter-spacing:.1em;text-transform:uppercase;color:var(--ember);border:1px solid rgba(255,107,74,.2);padding:.15rem .5rem}
+
+/* ═══ SOLUTIONS ═══ */
+.sol-grid{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-top:2rem}
+.sol{padding:2rem;transition:.4s;overflow:hidden;position:relative}
+.sol::after{content:'';position:absolute;bottom:0;left:1.5rem;right:1.5rem;height:1px;background:linear-gradient(90deg,var(--ember),var(--glow),transparent);opacity:0;transition:.4s}
+.sol:hover{background:var(--glass)}.sol:hover::after{opacity:1}
+.sol-num{font-family:var(--display);font-size:3rem;color:rgba(255,107,74,.12);line-height:1;margin-bottom:.6rem;letter-spacing:.05em}
+.sol h3{font-family:var(--display);font-size:1.4rem;color:var(--white);letter-spacing:.04em;margin-bottom:.4rem}
+.sol p{font-size:.82rem;color:var(--white-30);line-height:1.55;margin-bottom:.6rem}
+.sol-list{list-style:none}
+.sol-list li{font-family:var(--mono);font-size:.68rem;color:var(--white-30);padding:.2rem 0 .2rem 1rem;position:relative}
+.sol-list li::before{content:'→';position:absolute;left:0;color:var(--ember)}
+
+/* ═══ PRICING ═══ */
+.pricing-header{text-align:center;margin-bottom:2.5rem}
+.ptoggle{display:inline-flex;border:1px solid var(--white-08);margin-top:1.2rem}
+.pt{font-family:var(--mono);background:transparent;border:none;color:var(--white-30);padding:.5rem 1.3rem;font-size:.68rem;font-weight:500;letter-spacing:.12em;text-transform:uppercase;cursor:pointer;transition:.3s}
+.pt.active{background:var(--ember);color:#fff}
+
+.pgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem}
+.pc{padding:2rem;display:flex;flex-direction:column;transition:.4s}
+.pc.pop{border-color:rgba(255,107,74,.25);position:relative;background:rgba(255,107,74,.06)}
+.pc.pop::before{content:'POPULAR';font-family:var(--mono);position:absolute;top:-10px;left:50%;transform:translateX(-50%);background:var(--ember);color:#fff;font-size:.5rem;font-weight:600;padding:.2rem .7rem;letter-spacing:.1em}
+.pc:hover{transform:translateY(-4px);border-color:rgba(255,107,74,.2)}
+.pc-name{font-family:var(--display);font-size:1.3rem;color:var(--white);letter-spacing:.04em;margin-bottom:.1rem}
+.pc-desc{font-family:var(--mono);font-size:.6rem;color:var(--white-30);letter-spacing:.06em;margin-bottom:1rem}
+.pc-price{font-family:var(--display);font-size:2.8rem;color:var(--white);letter-spacing:.02em;margin-bottom:1.2rem}
+.pc-price span{font-family:var(--mono);font-size:.65rem;color:var(--white-30);font-weight:400}
+.pc-feats{list-style:none;flex:1;margin-bottom:1.5rem}
+.pc-feats li{font-size:.78rem;color:var(--white-50);padding:.35rem 0;display:flex;align-items:center;gap:.5rem;border-bottom:1px solid var(--white-04)}
+.pc-feats li::before{content:'✓';color:var(--ember);font-weight:700;font-size:.7rem}
+.btn-pc{font-family:var(--mono);width:100%;padding:.75rem;font-size:.68rem;font-weight:500;letter-spacing:.12em;text-transform:uppercase;cursor:pointer;transition:.3s;border-radius:0}
+.btn-pc-f{background:var(--ember);color:#fff;border:none}
+.btn-pc-f:hover{background:var(--ember-l);box-shadow:0 0 25px rgba(255,107,74,.25)}
+.btn-pc-g{background:transparent;color:var(--white-70);border:1px solid var(--white-15)}
+.btn-pc-g:hover{border-color:var(--ember);color:var(--ember)}
+
+/* ═══ TESTIMONIALS ═══ */
+.test-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;margin-top:2rem}
+.tc{padding:1.5rem;transition:.3s}
+.tc:hover{background:var(--glass)}
+.tc-stars{font-family:var(--mono);font-size:.6rem;color:var(--ember);letter-spacing:3px;margin-bottom:.8rem}
+.tc blockquote{font-size:.85rem;color:var(--white-50);line-height:1.6;margin-bottom:1rem;font-style:italic}
+.tc-author{display:flex;align-items:center;gap:.6rem}
+.tc-av{width:34px;height:34px;border-radius:50%;background:linear-gradient(135deg,var(--ember),var(--glow));display:flex;align-items:center;justify-content:center;font-family:var(--mono);font-weight:700;font-size:.65rem;color:#fff}
+.tc-name{font-family:var(--mono);font-size:.72rem;font-weight:600;color:var(--white-70)}
+.tc-role{font-size:.6rem;color:var(--white-30)}
+
+/* ═══ TEAM ═══ */
+.team-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1.2rem;margin-top:2rem}
+.tm{text-align:center;padding:1.5rem;transition:.3s}
+.tm:hover{background:var(--glass);transform:translateY(-3px)}
+.tm-av{width:80px;height:80px;border-radius:16px;margin:0 auto .8rem;background:rgba(255,107,74,.08);border:1px solid rgba(255,107,74,.12);display:flex;align-items:center;justify-content:center;font-size:1.8rem;transition:.3s}
+.tm:hover .tm-av{box-shadow:0 0 30px rgba(255,107,74,.15)}
+.tm h4{font-family:var(--mono);font-weight:600;font-size:.78rem;color:var(--white-90);letter-spacing:.03em;margin-bottom:.1rem}
+.tm p{font-family:var(--mono);font-size:.6rem;color:var(--white-30);letter-spacing:.06em}
+
+/* ═══ CTA ═══ */
+.cta-wrap{padding:2rem 0 4rem}
+.cta-box{position:relative;overflow:hidden;padding:clamp(2.5rem,5vw,4rem);text-align:center;background:linear-gradient(135deg,rgba(255,107,74,.12),rgba(255,77,58,.06));border:1px solid rgba(255,107,74,.2)}
+.cta-box::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at 50% 0%,rgba(255,107,74,.1),transparent 60%)}
+.cta-box *{position:relative;z-index:1}
+.cta-box h2{font-family:var(--display);font-size:clamp(2rem,4vw,3.2rem);color:var(--white);letter-spacing:.03em;margin-bottom:.6rem}
+.cta-box p{font-size:.92rem;color:var(--white-50);margin-bottom:2rem;max-width:420px;margin-inline:auto}
+.cta-btns{display:flex;gap:.7rem;justify-content:center;flex-wrap:wrap}
+
+/* ═══ CONTACT ═══ */
+.contact-grid{display:grid;grid-template-columns:1fr 1.2fr;gap:3rem;margin-top:2rem}
+.c-items{display:flex;flex-direction:column;gap:1.2rem}
+.c-item{display:flex;gap:.7rem;align-items:flex-start}
+.c-ico{width:38px;height:38px;border-radius:8px;flex-shrink:0;background:rgba(255,107,74,.08);border:1px solid rgba(255,107,74,.12);display:flex;align-items:center;justify-content:center;font-size:.95rem}
+.c-item h4{font-family:var(--mono);font-weight:600;font-size:.75rem;color:var(--white-90);letter-spacing:.03em;margin-bottom:.1rem}
+.c-item p{font-size:.78rem;color:var(--white-30);line-height:1.45}
+.c-item a{color:var(--ember);text-decoration:none}.c-item a:hover{text-decoration:underline}
+
+.c-form{display:flex;flex-direction:column;gap:.7rem}
+.c-row{display:grid;grid-template-columns:1fr 1fr;gap:.7rem}
+.c-form input,.c-form textarea,.c-form select{
+  width:100%;background:var(--glass-d);border:1px solid var(--white-08);
+  border-radius:0;padding:.8rem 1rem;color:var(--white-70);
+  font-family:var(--mono);font-size:.78rem;transition:.3s;outline:none;
+}
+.c-form input:focus,.c-form textarea:focus,.c-form select:focus{border-color:rgba(255,107,74,.3);box-shadow:0 0 0 2px rgba(255,107,74,.08)}
+.c-form input::placeholder,.c-form textarea::placeholder{color:var(--white-15);font-family:var(--mono)}
+.c-form textarea{min-height:100px;resize:vertical}
+.c-form select{appearance:none;cursor:pointer}
+.c-form select option{background:var(--crimson-dd);color:var(--white-70)}
+.btn-sub{font-family:var(--mono);background:var(--ember);color:#fff;border:none;padding:.8rem 2rem;font-size:.7rem;font-weight:500;letter-spacing:.15em;text-transform:uppercase;cursor:pointer;transition:.3s;align-self:flex-start}
+.btn-sub:hover{background:var(--ember-l);box-shadow:0 0 25px rgba(255,107,74,.25)}
+
+/* ═══ FOOTER ═══ */
+footer{padding:3rem 0 1.5rem;border-top:1px solid var(--white-04)}
+.f-grid{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:2.5rem;margin-bottom:2rem}
+.f-brand .logo{margin-bottom:.7rem;display:inline-flex}
+.f-brand>p{font-size:.78rem;line-height:1.6;color:var(--white-15);max-width:250px}
+.f-col h4{font-family:var(--mono);font-weight:600;font-size:.6rem;color:var(--white-50);margin-bottom:.7rem;letter-spacing:.12em;text-transform:uppercase}
+.f-col ul{list-style:none}.f-col li{margin-bottom:.3rem}
+.f-col a{font-family:var(--mono);color:var(--white-15);text-decoration:none;font-size:.72rem;transition:.3s;letter-spacing:.02em}
+.f-col a:hover{color:var(--ember)}
+.app-badges{display:flex;gap:.4rem;margin-top:.8rem}
+.app-b{font-family:var(--mono);display:inline-flex;align-items:center;gap:.3rem;background:var(--white-04);border:1px solid var(--white-08);padding:.3rem .6rem;color:var(--white-30);font-size:.6rem;text-decoration:none;transition:.3s;letter-spacing:.04em}
+.app-b:hover{border-color:var(--ember);color:var(--ember)}
+.f-bottom{display:flex;justify-content:space-between;align-items:center;padding-top:1.2rem;border-top:1px solid var(--white-04)}
+.f-bottom p{font-family:var(--mono);font-size:.6rem;color:var(--white-15);letter-spacing:.04em}
+.f-soc{display:flex;gap:.4rem}
+.f-soc a{font-family:var(--mono);width:30px;height:30px;display:flex;align-items:center;justify-content:center;color:var(--white-15);text-decoration:none;font-size:.6rem;border:1px solid var(--white-04);transition:.3s;letter-spacing:.02em}
+.f-soc a:hover{border-color:var(--ember);color:var(--ember)}
+
+/* ═══ REVEAL ═══ */
+.reveal{opacity:0;transform:translateY(26px);transition:opacity .6s ease,transform .6s ease}
+.reveal.vis{opacity:1;transform:translateY(0)}
+
+/* ═══ RESPONSIVE ═══ */
+@media(max-width:1024px){.feat-grid,.test-grid{grid-template-columns:repeat(2,1fr)}.pgrid{grid-template-columns:repeat(2,1fr)}.team-grid{grid-template-columns:repeat(2,1fr)}.f-grid{grid-template-columns:1fr 1fr;gap:1.5rem}}
+@media(max-width:768px){
+  .nav-l{display:none}.ham{display:block}
+  .about-grid,.contact-grid{grid-template-columns:1fr;gap:2rem}
+  .about-visual{height:280px}
+  .feat-grid,.sol-grid,.test-grid,.pgrid{grid-template-columns:1fr}
+  .team-grid{grid-template-columns:repeat(2,1fr)}
+  .hero-stats{flex-wrap:wrap;gap:1.5rem}
+  .c-row{grid-template-columns:1fr}
+  .f-grid{grid-template-columns:1fr}
+  .f-bottom{flex-direction:column;gap:.7rem;text-align:center}
+  .cta-box{margin:0 1rem}
+  .sl{justify-content:center}.stitle,.sdesc{text-align:center}.sdesc{margin-inline:auto}
+}
+</style>
+</head>
+<body>
+
+<!-- ═══ NAV ═══ -->
+<nav id="nb">
+  <div class="nav-in">
+    <a href="#" class="logo">
+      <div class="logo-m">KYN<span>HOOD</span></div>
+      <span class="logo-tag">+2026</span>
+    </a>
+    <ul class="nav-l">
+      <li><a href="#about">About</a></li>
+      <li><a href="#features">Platform</a></li>
+      <li><a href="#solutions">Solutions</a></li>
+      <li><a href="#pricing">Pricing</a></li>
+      <li><a href="#community">Community</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+    <button class="btn-n" onclick="document.getElementById('contact').scrollIntoView({behavior:'smooth'})">GET STARTED</button>
+    <button class="ham" aria-label="Menu"><span></span><span></span><span></span></button>
+  </div>
+</nav>
+
+<!-- ═══ HERO ═══ -->
+<section class="hero">
+  <div class="hero-glow"></div>
+  <div class="ctr">
+    <div class="hero-panel">
+      <div class="hero-glass glass">
+        <div class="hero-tag">+KYN_01+ — Connecting People Through Experiences</div>
+        <h1>DISCOVER<br>EVENTS. JOIN<br><span>TRIBES.</span></h1>
+        <p class="hero-desc">Kynhood is the platform where like-minded people connect through curated events, vibrant communities, and shared passions. Your tribe is waiting.</p>
+        <div class="hero-btns">
+          <button class="btn-hero btn-hero-p" onclick="document.getElementById('features').scrollIntoView({behavior:'smooth'})">EXPLORE PLATFORM →</button>
+          <button class="btn-hero btn-hero-s" onclick="document.getElementById('solutions').scrollIntoView({behavior:'smooth'})">FOR ORGANISERS</button>
+        </div>
+        <div class="hero-stats">
+          <div><div class="hs-num">10,000+</div><div class="hs-label">Users</div></div>
+          <div><div class="hs-num">500+</div><div class="hs-label">Experiences</div></div>
+          <div><div class="hs-num">120+</div><div class="hs-label">Active Tribes</div></div>
+          <div><div class="hs-num">50K+</div><div class="hs-label">Tickets Sold</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ ABOUT ═══ -->
+<section id="about">
+  <div class="ctr">
+    <div class="about-grid">
+      <div class="about-visual glass reveal">
+        <div class="tribe-ring">
+          <div class="tr-center">K</div>
+          <div class="tr-node">🎵</div>
+          <div class="tr-node">🎨</div>
+          <div class="tr-node">💡</div>
+          <div class="tr-node">🏃</div>
+          <div class="tr-node">📸</div>
+          <div class="tr-node">🎮</div>
+        </div>
+      </div>
+      <div class="reveal">
+        <span class="sl">+About</span>
+        <h2 class="stitle">BUILT FOR<br><span>CONNECTION</span></h2>
+        <p class="sdesc">Kynhood Technologies is the platform that turns shared passions into thriving communities. The best experiences happen when the right people come together.</p>
+        <div class="vals">
+          <div class="val glass-l"><div class="val-ico">🔥</div><div><h4>Tribe-First Thinking</h4><p>Every feature strengthens the bond between community members.</p></div></div>
+          <div class="val glass-l"><div class="val-ico">⚡</div><div><h4>Seamless Event Tech</h4><p>From ticketing to stall management, built for events of any scale.</p></div></div>
+          <div class="val glass-l"><div class="val-ico">🌍</div><div><h4>Online Meets Offline</h4><p>Bridging digital communities with real-world experiences.</p></div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ FEATURES ═══ -->
+<section id="features">
+  <div class="ctr">
+    <div class="feat-header reveal">
+      <span class="sl c">+Platform</span>
+      <h2 class="stitle c">EVERYTHING TO<br><span>BUILD & GROW</span></h2>
+      <p class="sdesc c">A full-stack ecosystem for community builders, event organisers, and people who love showing up.</p>
+      <div style="text-align:center"><div class="feat-tabs">
+        <button class="ftab active" onclick="swFeat(this,'u')">USERS</button>
+        <button class="ftab" onclick="swFeat(this,'o')">ORGANISERS</button>
+      </div></div>
+    </div>
+    <div id="f-u" class="feat-grid">
+      <div class="fc glass-l reveal"><div class="fc-ico">🎪</div><h3>Event Hosting & Ticketing</h3><p>Create, manage, and sell tickets for events of every size. Online and offline.</p><span class="fc-tag">Core</span></div>
+      <div class="fc glass-l reveal"><div class="fc-ico">🏛️</div><h3>Tribe Communities</h3><p>Launch paid or free tribes. Exclusive content, discussions, and member-only events.</p><span class="fc-tag">Community</span></div>
+      <div class="fc glass-l reveal"><div class="fc-ico">📱</div><h3>Content Hub</h3><p>Share updates, media, and resources within your tribe. Stay engaged between events.</p><span class="fc-tag">Engagement</span></div>
+      <div class="fc glass-l reveal"><div class="fc-ico">🎫</div><h3>Offline Ticketing</h3><p>On-ground support for large venues. Real-time scanning and validation.</p><span class="fc-tag">Enterprise</span></div>
+      <div class="fc glass-l reveal"><div class="fc-ico">📊</div><h3>Organiser Dashboard</h3><p>Real-time analytics on sales, demographics, revenue, and community growth.</p><span class="fc-tag">Analytics</span></div>
+      <div class="fc glass-l reveal"><div class="fc-ico">🤝</div><h3>Discovery & Matching</h3><p>Smart recommendations connect people with the right tribes and events.</p><span class="fc-tag">AI</span></div>
+    </div>
+    <div id="f-o" class="feat-grid" style="display:none">
+      <div class="fc glass-l reveal"><div class="fc-ico">✏️</div><h3>Event Builder</h3><p>Free or paid, online or offline. Multi-venue, multi-slot, multi-tier support.</p><span class="fc-tag">Create</span></div>
+      <div class="fc glass-l reveal"><div class="fc-ico">📲</div><h3>QR Scanner</h3><p>Built-in scanner for entry verification. Real-time validation at the gate.</p><span class="fc-tag">Operations</span></div>
+      <div class="fc glass-l reveal"><div class="fc-ico">💰</div><h3>Fast Payouts</h3><p>Weekly payouts. Paid plan organisers get T+2 day express transfers.</p><span class="fc-tag">Finance</span></div>
+      <div class="fc glass-l reveal"><div class="fc-ico">📊</div><h3>Real-Time Analytics</h3><p>Live dashboard — ticket sales, revenue, demographics, conversion funnels.</p><span class="fc-tag">Data</span></div>
+      <div class="fc glass-l reveal"><div class="fc-ico">🏛️</div><h3>Tribe Integration</h3><p>Auto-create tribes from events. Keep attendees connected beyond the event.</p><span class="fc-tag">Growth</span></div>
+      <div class="fc glass-l reveal"><div class="fc-ico">🔧</div><h3>White-Label Tech</h3><p>Custom event microsites, stall management, and full tech support for large orgs.</p><span class="fc-tag">Enterprise</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ SOLUTIONS ═══ -->
+<section id="solutions">
+  <div class="ctr">
+    <span class="sl reveal">+Solutions</span>
+    <h2 class="stitle reveal">MULTIPLE WAYS<br>TO <span>WIN TOGETHER</span></h2>
+    <p class="sdesc reveal">Whether you're an organiser, a venue, or a brand — Kynhood gives you the tools and audience to succeed.</p>
+    <div class="sol-grid">
+      <div class="sol glass reveal"><div class="sol-num">01</div><h3>KYNHOOD ORIGINALS</h3><p>Flagship events curated and hosted by Kynhood — concerts, festivals, and cultural experiences.</p><ul class="sol-list"><li>Yuvan concerts & headliner shows</li><li>Multi-city festival circuits</li><li>Premium VIP experiences</li></ul></div>
+      <div class="sol glass reveal"><div class="sol-num">02</div><h3>PLATFORM MARKETPLACE</h3><p>Organisers host on Kynhood. We handle ticketing, payments, and discovery.</p><ul class="sol-list"><li>Zero setup friction</li><li>Built-in audience & discovery</li><li>Transparent platform fees</li></ul></div>
+      <div class="sol glass reveal"><div class="sol-num">03</div><h3>OFFLINE & VENUE TECH</h3><p>End-to-end ticketing for large physical venues — theme parks, farms, activity centres.</p><ul class="sol-list"><li>On-ground activity ticketing</li><li>QR-based entry validation</li><li>Live capacity dashboards</li></ul></div>
+      <div class="sol glass reveal"><div class="sol-num">04</div><h3>BULK EVENT SERVICES</h3><p>White-label event management — custom websites, stall management, full tech support.</p><ul class="sol-list"><li>Custom event microsites</li><li>Stall & vendor management</li><li>Dedicated tech support</li></ul></div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ PRICING ═══ -->
+<section id="pricing">
+  <div class="ctr">
+    <div class="pricing-header reveal">
+      <span class="sl c">+Pricing</span>
+      <h2 class="stitle c">PLANS THAT<br><span>SCALE WITH YOU</span></h2>
+      <p class="sdesc c">Start free, upgrade when you're ready.</p>
+      <div style="text-align:center"><div class="ptoggle">
+        <button class="pt active" onclick="swP(this,'u')">USERS</button>
+        <button class="pt" onclick="swP(this,'o')">ORGANISERS</button>
+      </div></div>
+    </div>
+    <div id="p-u" class="pgrid">
+      <div class="pc glass reveal"><div class="pc-name">FREE</div><div class="pc-desc">EXPLORE & CONNECT</div><div class="pc-price">₹0 <span>/ month</span></div><ul class="pc-feats"><li>Join unlimited free tribes</li><li>Browse & discover events</li><li>Basic community access</li><li>Standard event booking</li></ul><button class="btn-pc btn-pc-g">GET STARTED FREE</button></div>
+      <div class="pc glass pop reveal"><div class="pc-name">PRO MEMBER</div><div class="pc-desc">THE FULL EXPERIENCE</div><div class="pc-price">₹299 <span>/ month</span></div><ul class="pc-feats"><li>Everything in Free</li><li>2 free event tickets / month</li><li>Access to paid tribes</li><li>Exclusive member content</li><li>Priority event booking</li><li>Early access to Originals</li></ul><button class="btn-pc btn-pc-f">UPGRADE TO PRO</button></div>
+      <div class="pc glass reveal"><div class="pc-name">ANNUAL</div><div class="pc-desc">SAVE 30%</div><div class="pc-price">₹2,499 <span>/ year</span></div><ul class="pc-feats"><li>Everything in Pro</li><li>4 free event tickets / month</li><li>VIP access to flagship events</li><li>Tribe creator badge</li><li>Priority support</li></ul><button class="btn-pc btn-pc-g">GO ANNUAL</button></div>
+    </div>
+    <div id="p-o" class="pgrid" style="display:none">
+      <div class="pc glass reveal"><div class="pc-name">STARTER</div><div class="pc-desc">NEW ORGANISERS</div><div class="pc-price">FREE</div><ul class="pc-feats"><li>Host up to 3 events / month</li><li>Basic ticketing</li><li>Standard analytics</li><li>Community page</li><li>Platform fee on bookings</li></ul><button class="btn-pc btn-pc-g">START ORGANISING</button></div>
+      <div class="pc glass pop reveal"><div class="pc-name">PRO ORGANISER</div><div class="pc-desc">FULL POTENTIAL</div><div class="pc-price">₹999 <span>/ month</span></div><ul class="pc-feats"><li>Unlimited events / month</li><li>Advanced analytics</li><li>Custom branding</li><li>Reduced platform fee</li><li>Priority placement</li><li>Dedicated support</li></ul><button class="btn-pc btn-pc-f">GO PRO</button></div>
+      <div class="pc glass reveal"><div class="pc-name">ENTERPRISE</div><div class="pc-desc">VENUES & LARGE ORGS</div><div class="pc-price">CUSTOM</div><ul class="pc-feats"><li>White-label event sites</li><li>Offline ticketing infra</li><li>Stall & vendor management</li><li>API access & integrations</li><li>Dedicated account manager</li><li>Custom SLA</li></ul><button class="btn-pc btn-pc-g">CONTACT SALES</button></div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ TESTIMONIALS ═══ -->
+<section id="community">
+  <div class="ctr">
+    <span class="sl reveal">+Community</span>
+    <h2 class="stitle reveal">HEAR FROM<br>THE <span>TRIBE</span></h2>
+    <div class="test-grid">
+      <div class="tc glass reveal"><div class="tc-stars">★★★★★</div><blockquote>"Kynhood completely changed how I discover events. The tribe feature keeps me connected with my passions."</blockquote><div class="tc-author"><div class="tc-av">AK</div><div><div class="tc-name">Arun Kumar</div><div class="tc-role">Member, Chennai</div></div></div></div>
+      <div class="tc glass reveal"><div class="tc-stars">★★★★★</div><blockquote>"The platform fee model is fair and ticketing is seamless. Our sell-out rate jumped 3x since switching."</blockquote><div class="tc-author"><div class="tc-av">PS</div><div><div class="tc-name">Priya Sharma</div><div class="tc-role">Organiser, Bangalore</div></div></div></div>
+      <div class="tc glass reveal"><div class="tc-stars">★★★★★</div><blockquote>"Offline ticketing was flawless. Real-time capacity tracking saved us from overselling during peaks."</blockquote><div class="tc-author"><div class="tc-av">RV</div><div><div class="tc-name">Ravi Venkat</div><div class="tc-role">Venue Manager, Hyderabad</div></div></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ TEAM ═══ -->
+<section>
+  <div class="ctr">
+    <div style="text-align:center">
+      <span class="sl c reveal">+Team</span>
+      <h2 class="stitle c reveal">PEOPLE BEHIND<br>THE <span>TRIBES</span></h2>
+    </div>
+    <div class="team-grid">
+      <div class="tm glass reveal"><div class="tm-av">👤</div><h4>Founder & CEO</h4><p>VISION & STRATEGY</p></div>
+      <div class="tm glass reveal"><div class="tm-av">👤</div><h4>CTO</h4><p>ENGINEERING</p></div>
+      <div class="tm glass reveal"><div class="tm-av">👤</div><h4>Head of Community</h4><p>TRIBES & ENGAGEMENT</p></div>
+      <div class="tm glass reveal"><div class="tm-av">👤</div><h4>Head of Events</h4><p>KYN ORIGINALS</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ CTA ═══ -->
+<div class="cta-wrap">
+  <div class="ctr">
+    <div class="cta-box glass reveal">
+      <h2>READY TO FIND<br>YOUR <span>TRIBE?</span></h2>
+      <p>Join thousands already connecting, hosting, and thriving on Kynhood.</p>
+      <div class="cta-btns">
+        <button class="btn-hero btn-hero-p" onclick="document.getElementById('contact').scrollIntoView({behavior:'smooth'})">GET STARTED FREE →</button>
+        <button class="btn-hero btn-hero-s">DOWNLOAD APP</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ CONTACT ═══ -->
+<section id="contact">
+  <div class="ctr">
+    <span class="sl reveal">+Contact</span>
+    <h2 class="stitle reveal">LET'S<br><span>CONNECT</span></h2>
+    <div class="contact-grid">
+      <div class="c-items reveal">
+        <div class="c-item"><div class="c-ico">📍</div><div><h4>Headquarters</h4><p>Kynhood Technologies<br>Chennai, Tamil Nadu, India</p></div></div>
+        <div class="c-item"><div class="c-ico">✉️</div><div><h4>Advertise</h4><p><a href="mailto:advertise@kynhood.com">advertise@kynhood.com</a></p></div></div>
+        <div class="c-item"><div class="c-ico">🤝</div><div><h4>Partner</h4><p><a href="mailto:partner@kynhood.com">partner@kynhood.com</a></p></div></div>
+        <div class="c-item"><div class="c-ico">💬</div><div><h4>Socials</h4><p><a href="https://www.instagram.com/kynhood/" target="_blank">Instagram</a> · <a href="https://twitter.com/kyn_hood" target="_blank">X</a> · <a href="https://www.linkedin.com/company/kynhood/" target="_blank">LinkedIn</a></p></div></div>
+      </div>
+      <form class="c-form reveal" onsubmit="event.preventDefault();alert('Thanks! We\'ll be in touch soon.');">
+        <div class="c-row">
+          <input type="text" placeholder="YOUR NAME" required>
+          <input type="email" placeholder="EMAIL ADDRESS" required>
+        </div>
+        <select required>
+          <option value="" disabled selected>I'M INTERESTED IN...</option>
+          <option>Hosting events on Kynhood</option>
+          <option>Enterprise / Venue solutions</option>
+          <option>Bulk event tech services</option>
+          <option>Advertising on Kynhood</option>
+          <option>Partnership opportunities</option>
+          <option>General enquiry</option>
+        </select>
+        <textarea placeholder="TELL US MORE..."></textarea>
+        <button type="submit" class="btn-sub">SEND MESSAGE →</button>
+      </form>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ FOOTER ═══ -->
+<footer>
+  <div class="ctr">
+    <div class="f-grid">
+      <div class="f-brand">
+        <a href="#" class="logo"><div class="logo-m">KYN<span>HOOD</span></div></a>
+        <p>Connecting like-minded people through communities and unforgettable events.</p>
+        <div class="app-badges">
+          <a href="https://apps.apple.com/in/app/kyn/id1668807082" target="_blank" class="app-b">APP STORE</a>
+          <a href="https://play.google.com/store/apps/details?id=com.theproindia.kyn" target="_blank" class="app-b">GOOGLE PLAY</a>
+        </div>
+      </div>
+      <div class="f-col"><h4>PLATFORM</h4><ul><li><a href="#features">Features</a></li><li><a href="#pricing">Pricing</a></li><li><a href="#solutions">Solutions</a></li><li><a href="#">API Docs</a></li></ul></div>
+      <div class="f-col"><h4>COMPANY</h4><ul><li><a href="#about">About</a></li><li><a href="#">Careers</a></li><li><a href="#">Blog</a></li></ul></div>
+      <div class="f-col"><h4>LEGAL</h4><ul><li><a href="https://kynhood.com/privacy/kyn" target="_blank">Privacy</a></li><li><a href="https://kynhood.com/terms&condition/kyn" target="_blank">Terms</a></li><li><a href="https://kynhood.com/communityguidelines/kyn" target="_blank">Guidelines</a></li><li><a href="https://kynhood.com/grievance/kyn" target="_blank">Grievance</a></li></ul></div>
+    </div>
+    <div class="f-bottom">
+      <p>© 2026 KYNHOOD TECHNOLOGIES — ALL RIGHTS RESERVED</p>
+      <div class="f-soc">
+        <a href="https://www.instagram.com/kynhood/" target="_blank">IG</a>
+        <a href="https://twitter.com/kyn_hood" target="_blank">X</a>
+        <a href="https://www.linkedin.com/company/kynhood/" target="_blank">IN</a>
+        <a href="https://www.facebook.com/kynhoodofficial/" target="_blank">FB</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script>
+const nb=document.getElementById('nb');
+window.addEventListener('scroll',()=>nb.classList.toggle('scrolled',window.scrollY>40));
+const rvs=document.querySelectorAll('.reveal');
+const ob=new IntersectionObserver(es=>{es.forEach((e,i)=>{if(e.isIntersecting){setTimeout(()=>e.target.classList.add('vis'),i*50);ob.unobserve(e.target)}})},{threshold:.06,rootMargin:'0px 0px -30px 0px'});
+rvs.forEach(el=>ob.observe(el));
+function swFeat(b,t){document.querySelectorAll('.ftab').forEach(x=>x.classList.remove('active'));b.classList.add('active');document.getElementById('f-u').style.display=t==='u'?'grid':'none';document.getElementById('f-o').style.display=t==='o'?'grid':'none'}
+function swP(b,t){document.querySelectorAll('.pt').forEach(x=>x.classList.remove('active'));b.classList.add('active');document.getElementById('p-u').style.display=t==='u'?'grid':'none';document.getElementById('p-o').style.display=t==='o'?'grid':'none'}
+document.querySelectorAll('a[href^="#"]').forEach(a=>{a.addEventListener('click',e=>{e.preventDefault();const t=document.querySelector(a.getAttribute('href'));if(t)t.scrollIntoView({behavior:'smooth'})})});
+document.querySelector('.ham').addEventListener('click',function(){const l=document.querySelector('.nav-l');if(l.style.display==='flex'){l.style.display='none'}else{l.style.display='flex';l.style.flexDirection='column';l.style.position='absolute';l.style.top='100%';l.style.left='0';l.style.right='0';l.style.background='rgba(58,8,8,.95)';l.style.backdropFilter='blur(20px)';l.style.padding='1rem 2rem';l.style.gap='1rem';l.style.borderBottom='1px solid rgba(255,255,255,.06)'}});
+</script>
+</body>
+</html>
