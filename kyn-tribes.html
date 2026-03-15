@@ -1,0 +1,825 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>KYN Tribes — Find Your People, Build Your Community</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;0,9..144,600;0,9..144,700;0,9..144,800;0,9..144,900;1,9..144,400&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --coral:#E8573A;--coral-l:#F06D52;--coral-d:#C94429;
+  --warm:#F2E6D9;--warm-d:#E8D5C4;--warm-dd:#D4BFA8;
+  --sand:#FBF6F0;--linen:#FFF9F4;--ivory:#FFFDFB;
+  --earth:#6B4F3A;--earth-l:#8B6F5A;--earth-d:#4A3628;
+  --teal:#1A3A4A;--teal-d:#0F2630;
+  --green:#2ECC87;--green-d:#1FA96E;--green-l:#E8F8F0;
+  --gold:#F5A623;--gold-l:#FFF3DB;
+  --plum:#7C5295;--plum-l:#F3ECF8;
+  --sky:#4A9BD9;--sky-l:#EBF4FC;
+  --txt:#2C1810;--txt-l:#6B5A4E;--txt-m:#9B8A7E;
+  --bdr:#E8DDD2;--bdr-l:#F0E8DF;
+  --display:'Fraunces',serif;
+  --body:'Plus Jakarta Sans',sans-serif;
+  --shadow-s:0 1px 3px rgba(44,24,16,.05);
+  --shadow-m:0 4px 20px rgba(44,24,16,.07);
+  --shadow-l:0 12px 40px rgba(44,24,16,.09);
+  --shadow-c:0 8px 28px rgba(232,87,58,.18);
+  --r:12px;--r-l:20px;--r-xl:28px;
+}
+html{scroll-behavior:smooth;font-size:16px}
+body{font-family:var(--body);background:var(--ivory);color:var(--txt);overflow-x:hidden;-webkit-font-smoothing:antialiased}
+::selection{background:rgba(232,87,58,.1);color:var(--coral-d)}
+::-webkit-scrollbar{width:5px}::-webkit-scrollbar-track{background:var(--sand)}::-webkit-scrollbar-thumb{background:var(--coral);border-radius:3px}
+.ctr{max-width:1180px;margin:0 auto;padding:0 clamp(1.5rem,4vw,3rem)}
+.coral-g{background:linear-gradient(135deg,var(--coral),var(--coral-l));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+
+/* ═══ NAV ═══ */
+nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:1rem 0;background:rgba(255,253,251,.9);backdrop-filter:blur(20px) saturate(1.3);border-bottom:1px solid transparent;transition:.4s}
+nav.scrolled{padding:.6rem 0;border-bottom-color:var(--bdr);box-shadow:var(--shadow-s)}
+.nav-in{display:flex;align-items:center;justify-content:space-between;max-width:1180px;margin:0 auto;padding:0 clamp(1.5rem,4vw,3rem)}
+.logo{display:flex;align-items:center;gap:.35rem;text-decoration:none}
+.logo-m{width:34px;height:34px;border-radius:10px;background:linear-gradient(135deg,var(--coral),var(--coral-l));display:flex;align-items:center;justify-content:center;font-family:var(--display);font-weight:800;font-size:1rem;color:#fff;box-shadow:0 2px 8px rgba(232,87,58,.2)}
+.logo-t{font-family:var(--display);font-weight:700;font-size:1.25rem;color:var(--earth-d);letter-spacing:-.02em}
+.logo-t span{color:var(--coral)}
+.logo-tag{font-size:.58rem;font-weight:700;color:var(--plum);background:var(--plum-l);padding:.18rem .55rem;border-radius:50px;margin-left:.4rem;letter-spacing:.06em;text-transform:uppercase}
+.nav-l{display:flex;gap:2rem;align-items:center;list-style:none}
+.nav-l a{color:var(--txt-l);text-decoration:none;font-size:.85rem;font-weight:500;transition:.3s;position:relative}
+.nav-l a::after{content:'';position:absolute;bottom:-3px;left:0;width:0;height:2px;background:var(--coral);transition:.3s;border-radius:1px}
+.nav-l a:hover{color:var(--earth-d)}.nav-l a:hover::after{width:100%}
+.btn-n{background:var(--coral);color:#fff;border:none;padding:.6rem 1.3rem;border-radius:50px;font-weight:600;font-size:.82rem;cursor:pointer;transition:.3s;font-family:var(--body);box-shadow:var(--shadow-c)}
+.btn-n:hover{background:var(--coral-d);transform:translateY(-1px)}
+.ham{display:none;background:none;border:none;cursor:pointer;padding:.5rem}
+.ham span{display:block;width:22px;height:2px;background:var(--earth);margin:5px 0;border-radius:1px}
+
+/* ═══ HERO ═══ */
+.hero{min-height:100vh;display:flex;align-items:center;position:relative;overflow:hidden;padding:7rem 0 3rem;background:linear-gradient(170deg,var(--ivory) 0%,var(--sand) 30%,var(--warm) 100%)}
+.hero-blob{position:absolute;border-radius:50%;filter:blur(80px);pointer-events:none;opacity:.5}
+.hb1{width:500px;height:500px;background:rgba(232,87,58,.08);top:-10%;right:-5%}
+.hb2{width:350px;height:350px;background:rgba(124,82,149,.06);bottom:0;left:-3%}
+.hb3{width:250px;height:250px;background:rgba(245,166,35,.07);top:40%;right:20%}
+.hero-tex{position:absolute;inset:0;background-image:url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23D4BFA8' fill-opacity='0.08'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");opacity:.6}
+
+.hero-grid{display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:center;position:relative;z-index:2}
+.hero-content{max-width:520px}
+.hero-chip{display:inline-flex;align-items:center;gap:.5rem;background:#fff;border:1px solid var(--bdr);padding:.35rem .9rem .35rem .45rem;border-radius:50px;font-size:.75rem;font-weight:600;color:var(--txt-l);margin-bottom:1.5rem;box-shadow:var(--shadow-s);animation:fadeUp .6s ease-out}
+.chip-ppl{display:flex;margin-right:.2rem}
+.chip-ppl span{width:20px;height:20px;border-radius:50%;border:2px solid #fff;margin-left:-6px;display:flex;align-items:center;justify-content:center;font-size:.5rem;color:#fff;font-weight:700}
+.chip-ppl span:nth-child(1){background:var(--coral);margin-left:0}
+.chip-ppl span:nth-child(2){background:var(--green)}
+.chip-ppl span:nth-child(3){background:var(--gold)}
+.chip-ppl span:nth-child(4){background:var(--plum)}
+
+.hero h1{font-family:var(--display);font-weight:800;font-size:clamp(2.4rem,5.2vw,3.8rem);line-height:1.1;letter-spacing:-.03em;color:var(--earth-d);margin-bottom:1rem;animation:fadeUp .6s ease-out .1s both}
+.hero h1 em{font-style:italic;color:var(--coral);-webkit-text-fill-color:var(--coral)}
+.hero>p,.hero-content>p{font-size:clamp(.95rem,1.4vw,1.08rem);color:var(--txt-l);line-height:1.7;margin-bottom:2rem;animation:fadeUp .6s ease-out .2s both}
+.hero-btns{display:flex;gap:.7rem;flex-wrap:wrap;animation:fadeUp .6s ease-out .3s both}
+.btn-p{background:linear-gradient(135deg,var(--coral),var(--coral-l));color:#fff;border:none;padding:.88rem 1.8rem;border-radius:50px;font-weight:600;font-size:.92rem;cursor:pointer;transition:.3s;font-family:var(--body);box-shadow:var(--shadow-c)}
+.btn-p:hover{transform:translateY(-2px);box-shadow:0 12px 35px rgba(232,87,58,.28)}
+.btn-s{background:#fff;color:var(--earth);border:1.5px solid var(--bdr);padding:.88rem 1.8rem;border-radius:50px;font-weight:500;font-size:.92rem;cursor:pointer;transition:.3s;font-family:var(--body)}
+.btn-s:hover{border-color:var(--coral);color:var(--coral)}
+
+/* Hero visual — tribe mosaic */
+.hero-vis{position:relative;animation:fadeUp .7s ease-out .2s both}
+.tribe-mosaic{display:grid;grid-template-columns:1fr 1fr;gap:.7rem;transform:rotate(-2deg)}
+.tm-card{background:#fff;border:1px solid var(--bdr-l);border-radius:16px;padding:1rem;box-shadow:var(--shadow-s);transition:.3s;overflow:hidden}
+.tm-card:hover{transform:translateY(-3px) rotate(1deg);box-shadow:var(--shadow-m)}
+.tm-card:nth-child(2){transform:translateY(20px)}
+.tm-card:nth-child(3){transform:translateY(-10px)}
+.tm-cover{width:100%;height:55px;border-radius:10px;margin-bottom:.6rem;display:flex;align-items:center;justify-content:center;font-size:.65rem;font-weight:700;color:#fff;font-family:var(--display)}
+.tc-1{background:linear-gradient(135deg,#E8573A,#F5A623)}
+.tc-2{background:linear-gradient(135deg,#2ECC87,#1A9E6A)}
+.tc-3{background:linear-gradient(135deg,#7C5295,#A86BD1)}
+.tc-4{background:linear-gradient(135deg,#4A9BD9,#2E7BB8)}
+.tm-name{font-family:var(--display);font-weight:700;font-size:.78rem;color:var(--earth-d);margin-bottom:.15rem}
+.tm-meta{font-size:.6rem;color:var(--txt-m);display:flex;align-items:center;gap:.4rem}
+.tm-badge{display:inline-block;padding:.1rem .4rem;border-radius:50px;font-size:.5rem;font-weight:700}
+.tb-free{background:var(--green-l);color:var(--green-d)}
+.tb-paid{background:rgba(232,87,58,.08);color:var(--coral)}
+.tm-members{display:flex;margin-top:.5rem}
+.tm-members span{width:18px;height:18px;border-radius:50%;border:2px solid #fff;margin-left:-5px;font-size:.4rem;display:flex;align-items:center;justify-content:center;color:#fff;font-weight:700}
+.tm-members span:first-child{margin-left:0}
+.tm-count{font-size:.55rem;color:var(--txt-m);margin-left:.3rem;align-self:center}
+
+/* Floating elements */
+.hero-float{position:absolute;background:#fff;border-radius:14px;padding:.6rem .9rem;box-shadow:var(--shadow-l);display:flex;align-items:center;gap:.5rem;font-size:.72rem;font-weight:600;color:var(--earth);animation:floatY 5s ease-in-out infinite;z-index:5}
+.hf1{top:5%;right:-8%;animation-delay:0s}
+.hf2{bottom:15%;left:-10%;animation-delay:-2s}
+.hf3{top:55%;right:-12%;animation-delay:-3.5s}
+.hf-ico{width:26px;height:26px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:.8rem}
+.hfi-g{background:var(--green-l)}.hfi-c{background:rgba(232,87,58,.08)}.hfi-p{background:var(--plum-l)}
+@keyframes floatY{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}
+@keyframes fadeUp{from{opacity:0;transform:translateY(22px)}to{opacity:1;transform:translateY(0)}}
+
+/* ═══ COMMON ═══ */
+section{padding:clamp(3.5rem,9vw,6rem) 0}
+.sl{font-size:.7rem;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--coral);margin-bottom:.7rem;display:flex;align-items:center;gap:.6rem}
+.sl::before{content:'';width:22px;height:2px;background:linear-gradient(90deg,var(--coral),rgba(232,87,58,.2));border-radius:1px}
+.sl.c{justify-content:center}
+.st{font-family:var(--display);font-weight:800;font-size:clamp(1.7rem,3.6vw,2.4rem);line-height:1.15;letter-spacing:-.025em;color:var(--earth-d);margin-bottom:.8rem}
+.st.c{text-align:center}
+.sd{font-size:.95rem;color:var(--txt-l);line-height:1.65;max-width:500px}
+.sd.c{text-align:center;margin:0 auto}
+
+/* ═══ WHAT IS A TRIBE ═══ */
+.what{background:#fff;border-top:1px solid var(--bdr-l);border-bottom:1px solid var(--bdr-l)}
+.what-header{text-align:center;margin-bottom:3rem}
+.type-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.2rem}
+.type-card{border-radius:var(--r-l);padding:2rem;text-align:center;transition:.4s;position:relative;overflow:hidden;border:1.5px solid var(--bdr-l)}
+.type-card:hover{transform:translateY(-4px);box-shadow:var(--shadow-m)}
+.type-card::before{content:'';position:absolute;top:0;left:0;right:0;height:4px;border-radius:4px 4px 0 0}
+.type-open::before{background:var(--green)}.type-open{background:var(--green-l)}
+.type-gated::before{background:var(--gold)}.type-gated{background:var(--gold-l)}
+.type-paid::before{background:var(--coral)}.type-paid{background:rgba(232,87,58,.05)}
+.type-ico{font-size:2.2rem;margin-bottom:.8rem}
+.type-card h3{font-family:var(--display);font-weight:700;font-size:1.1rem;color:var(--earth-d);margin-bottom:.3rem}
+.type-card p{font-size:.84rem;color:var(--txt-l);line-height:1.55;margin-bottom:.8rem}
+.type-ex{font-size:.7rem;color:var(--txt-m);font-style:italic}
+
+/* Extra types row */
+.type-extra{display:grid;grid-template-columns:1fr 1fr;gap:1.2rem;margin-top:1.2rem}
+.type-sm{display:flex;align-items:center;gap:1rem;background:var(--sand);border:1px solid var(--bdr-l);border-radius:var(--r);padding:1.2rem 1.5rem;transition:.3s}
+.type-sm:hover{box-shadow:var(--shadow-m);transform:translateY(-2px)}
+.type-sm-ico{font-size:1.5rem;flex-shrink:0}
+.type-sm h4{font-family:var(--display);font-weight:700;font-size:.92rem;color:var(--earth-d);margin-bottom:.15rem}
+.type-sm p{font-size:.78rem;color:var(--txt-l);line-height:1.45}
+
+/* ═══ FLYWHEEL ═══ */
+.flywheel-grid{display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:center;margin-top:2rem}
+.fw-visual{position:relative;display:flex;justify-content:center;align-items:center;height:380px}
+.fw-ring{width:280px;height:280px;border-radius:50%;border:2px dashed var(--bdr);position:relative;animation:spin 25s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+.fw-center{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:80px;height:80px;border-radius:50%;background:linear-gradient(135deg,var(--coral),var(--coral-l));display:flex;align-items:center;justify-content:center;box-shadow:0 0 40px rgba(232,87,58,.25);z-index:3;animation:spin 25s linear infinite reverse}
+.fw-center-txt{font-family:var(--display);font-weight:900;font-size:.85rem;color:#fff;text-align:center;line-height:1.1}
+.fw-node{position:absolute;width:56px;height:56px;border-radius:50%;background:#fff;border:2px solid var(--bdr);display:flex;align-items:center;justify-content:center;font-size:1.2rem;box-shadow:var(--shadow-s);animation:spin 25s linear infinite reverse}
+.fw-node:nth-child(2){top:-28px;left:50%;margin-left:-28px}
+.fw-node:nth-child(3){top:15%;right:-10px}
+.fw-node:nth-child(4){bottom:15%;right:-10px}
+.fw-node:nth-child(5){bottom:-28px;left:50%;margin-left:-28px}
+.fw-node:nth-child(6){bottom:15%;left:-10px}
+.fw-node:nth-child(7){top:15%;left:-10px}
+.fw-arrows{position:absolute;inset:0;display:flex;align-items:center;justify-content:center}
+
+.fw-steps{display:flex;flex-direction:column;gap:1rem}
+.fw-step{display:flex;align-items:flex-start;gap:.8rem;padding:.8rem 1rem;border-radius:var(--r);background:var(--sand);border:1px solid var(--bdr-l);transition:.3s}
+.fw-step:hover{background:#fff;box-shadow:var(--shadow-m);transform:translateX(4px)}
+.fw-step-num{width:30px;height:30px;border-radius:50%;background:linear-gradient(135deg,var(--coral),var(--coral-l));display:flex;align-items:center;justify-content:center;font-family:var(--display);font-weight:800;font-size:.75rem;color:#fff;flex-shrink:0}
+.fw-step h4{font-family:var(--display);font-weight:700;font-size:.88rem;color:var(--earth-d);margin-bottom:.1rem}
+.fw-step p{font-size:.78rem;color:var(--txt-l);line-height:1.45}
+
+/* ═══ FEATURES ═══ */
+.feat{background:#fff;border-top:1px solid var(--bdr-l)}
+.feat-header{text-align:center;margin-bottom:1rem}
+.feat-tabs{display:inline-flex;gap:0;background:var(--sand);border-radius:50px;padding:3px;margin:1rem 0 2.5rem}
+.ftab{background:transparent;border:none;color:var(--txt-m);padding:.5rem 1.3rem;border-radius:50px;font-size:.82rem;font-weight:600;cursor:pointer;transition:.3s;font-family:var(--body)}
+.ftab.active{background:var(--earth-d);color:#fff}
+.feat-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem}
+.fc{background:var(--sand);border:1px solid var(--bdr-l);border-radius:var(--r-l);padding:1.5rem;transition:.4s;position:relative;overflow:hidden}
+.fc::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--coral),var(--gold));transform:scaleX(0);transform-origin:left;transition:.4s}
+.fc:hover{border-color:rgba(232,87,58,.15);box-shadow:var(--shadow-m);transform:translateY(-3px)}.fc:hover::before{transform:scaleX(1)}
+.fc-ico{width:40px;height:40px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:1.1rem;margin-bottom:.9rem;background:#fff;border:1px solid var(--bdr-l)}
+.fc h3{font-family:var(--display);font-weight:700;font-size:.92rem;color:var(--earth-d);margin-bottom:.3rem}
+.fc p{font-size:.8rem;color:var(--txt-l);line-height:1.55}
+
+/* ═══ CATEGORIES ═══ */
+.cat-grid{display:grid;grid-template-columns:repeat(8,1fr);gap:.6rem;margin-top:2rem}
+.cat{text-align:center;padding:.75rem .3rem;border-radius:var(--r);border:1px solid var(--bdr-l);background:#fff;transition:.3s;cursor:pointer}
+.cat:hover{border-color:rgba(232,87,58,.2);box-shadow:var(--shadow-m);transform:translateY(-3px)}
+.cat-em{font-size:1.3rem;display:block;margin-bottom:.25rem}
+.cat-nm{font-size:.6rem;font-weight:600;color:var(--txt-l)}
+
+/* ═══ FEATURED TRIBES ═══ */
+.featured{background:linear-gradient(180deg,var(--earth-d),var(--teal-d));position:relative;overflow:hidden}
+.featured::before{content:'';position:absolute;inset:0;background-image:url("data:image/svg+xml,%3Csvg width='40' height='40' viewBox='0 0 40 40' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none'%3E%3Ccircle cx='20' cy='20' r='1' fill='%23ffffff' fill-opacity='0.03'/%3E%3C/g%3E%3C/svg%3E")}
+.featured .sl{color:var(--gold)}.featured .sl::before{background:linear-gradient(90deg,var(--gold),rgba(245,166,35,.2))}
+.featured .st{color:#fff}
+.featured .sd{color:rgba(255,255,255,.5)}
+.ft-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.2rem;margin-top:2.5rem}
+.ft-card{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.06);border-radius:var(--r-l);overflow:hidden;transition:.4s}
+.ft-card:hover{border-color:rgba(255,255,255,.12);box-shadow:0 12px 40px rgba(0,0,0,.2);transform:translateY(-4px)}
+.ft-cover{height:110px;position:relative;display:flex;align-items:center;justify-content:center;overflow:hidden}
+.ft-c1{background:linear-gradient(135deg,#1a0a2e,#2d1054)}
+.ft-c2{background:linear-gradient(135deg,#E8573A,#F5A623)}
+.ft-c3{background:linear-gradient(135deg,#0a3d2e,#1a6b4a)}
+.ft-cover-txt{font-family:var(--display);font-weight:800;font-size:1.1rem;color:#fff;text-align:center;line-height:1.15;z-index:2;position:relative}
+.ft-cover-txt sub{display:block;font-size:.55rem;font-weight:500;color:rgba(255,255,255,.5);letter-spacing:.08em;text-transform:uppercase;margin-top:.2rem}
+.ft-body{padding:1.2rem 1.5rem}
+.ft-type{display:inline-block;padding:.15rem .5rem;border-radius:50px;font-size:.55rem;font-weight:700;margin-bottom:.5rem}
+.ft-type-paid{background:rgba(232,87,58,.15);color:var(--coral-l)}
+.ft-type-free{background:rgba(46,204,135,.15);color:var(--green)}
+.ft-name{font-family:var(--display);font-weight:700;font-size:1rem;color:#fff;margin-bottom:.25rem}
+.ft-desc{font-size:.78rem;color:rgba(255,255,255,.4);line-height:1.5;margin-bottom:.8rem}
+.ft-stats{display:flex;gap:1.2rem;padding-top:.7rem;border-top:1px solid rgba(255,255,255,.05)}
+.ft-stat strong{font-family:var(--display);font-weight:700;font-size:.9rem;color:var(--coral-l);display:block}
+.ft-stat span{font-size:.55rem;color:rgba(255,255,255,.3);text-transform:uppercase;letter-spacing:.05em}
+.ft-artists{display:flex;gap:.4rem;flex-wrap:wrap;margin-bottom:.6rem}
+.ft-art{display:inline-flex;align-items:center;gap:.25rem;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.06);padding:.15rem .5rem .15rem .2rem;border-radius:50px}
+.ft-art-dot{width:16px;height:16px;border-radius:50%;background:linear-gradient(135deg,var(--coral),var(--gold));display:flex;align-items:center;justify-content:center;font-size:.4rem;color:#fff;font-weight:700}
+.ft-art-name{font-size:.6rem;font-weight:600;color:rgba(255,255,255,.6)}
+
+/* ═══ CREATOR REVENUE ═══ */
+.rev-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;margin-top:2rem}
+.rev-card{background:#fff;border:1px solid var(--bdr-l);border-radius:var(--r-l);padding:1.5rem;text-align:center;transition:.3s}
+.rev-card:hover{box-shadow:var(--shadow-m);transform:translateY(-3px)}
+.rev-ico{font-size:1.8rem;margin-bottom:.7rem}
+.rev-card h4{font-family:var(--display);font-weight:700;font-size:.95rem;color:var(--earth-d);margin-bottom:.25rem}
+.rev-card p{font-size:.8rem;color:var(--txt-l);line-height:1.5}
+.rev-pct{font-family:var(--display);font-weight:800;font-size:1.6rem;color:var(--coral);margin-top:.5rem}
+
+/* ═══ PRICING ═══ */
+.pricing{background:#fff;border-top:1px solid var(--bdr-l)}
+.pricing-header{text-align:center;margin-bottom:3rem}
+.price-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.2rem}
+.pc{border-radius:var(--r-l);padding:2rem;transition:.4s;display:flex;flex-direction:column;border:1.5px solid var(--bdr-l);background:var(--ivory)}
+.pc.pop{background:linear-gradient(180deg,#FFF5F0,var(--ivory));border-color:rgba(232,87,58,.2);position:relative;box-shadow:var(--shadow-m)}
+.pc.pop::before{content:'RECOMMENDED';position:absolute;top:-11px;left:50%;transform:translateX(-50%);background:linear-gradient(135deg,var(--coral),var(--coral-l));color:#fff;font-size:.58rem;font-weight:700;padding:.28rem .8rem;border-radius:50px;letter-spacing:.07em}
+.pc:hover{transform:translateY(-4px);box-shadow:var(--shadow-m)}
+.pc-name{font-family:var(--display);font-weight:700;font-size:1.05rem;color:var(--earth-d);margin-bottom:.15rem}
+.pc-desc{font-size:.78rem;color:var(--txt-m);margin-bottom:1rem}
+.pc-price{font-family:var(--display);font-weight:800;font-size:2.2rem;color:var(--earth-d);letter-spacing:-.02em;margin-bottom:1.2rem}
+.pc-price span{font-size:.82rem;font-weight:400;color:var(--txt-m)}
+.pc-feats{list-style:none;flex:1;margin-bottom:1.5rem}
+.pc-feats li{padding:.4rem 0;font-size:.82rem;color:var(--txt-l);display:flex;align-items:center;gap:.55rem;border-bottom:1px solid var(--bdr-l)}
+.pc-feats li::before{content:'✓';color:var(--green);font-weight:700;font-size:.72rem}
+.btn-pc{width:100%;padding:.82rem;border-radius:50px;font-weight:600;font-size:.85rem;cursor:pointer;transition:.3s;font-family:var(--body);text-align:center}
+.btn-pc-f{background:var(--coral);color:#fff;border:none;box-shadow:var(--shadow-c)}
+.btn-pc-f:hover{background:var(--coral-d)}
+.btn-pc-g{background:transparent;color:var(--earth);border:1.5px solid var(--bdr)}
+.btn-pc-g:hover{border-color:var(--coral);color:var(--coral)}
+
+/* ═══ CTA ═══ */
+.cta-wrap{padding:1rem 0 3rem}
+.cta-box{position:relative;overflow:hidden;background:linear-gradient(135deg,var(--earth-d),var(--teal-d));border-radius:var(--r-xl);padding:clamp(2.5rem,5vw,4rem);text-align:center}
+.cta-box::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at 30% 50%,rgba(232,87,58,.12),transparent 60%)}
+.cta-box *{position:relative;z-index:1}
+.cta-box h2{font-family:var(--display);font-weight:800;font-size:clamp(1.6rem,3vw,2.3rem);color:#fff;letter-spacing:-.02em;margin-bottom:.6rem}
+.cta-box p{font-size:.95rem;color:rgba(255,255,255,.6);margin-bottom:2rem;max-width:440px;margin-inline:auto}
+.cta-btns{display:flex;gap:.7rem;justify-content:center;flex-wrap:wrap}
+.btn-cta-w{background:#fff;color:var(--coral);border:none;padding:.9rem 2rem;border-radius:50px;font-weight:700;font-size:.9rem;cursor:pointer;transition:.3s;font-family:var(--body)}
+.btn-cta-w:hover{transform:translateY(-2px);box-shadow:0 8px 30px rgba(0,0,0,.15)}
+.btn-cta-o{background:transparent;color:#fff;border:1.5px solid rgba(255,255,255,.25);padding:.9rem 2rem;border-radius:50px;font-weight:600;font-size:.9rem;cursor:pointer;transition:.3s;font-family:var(--body)}
+.btn-cta-o:hover{border-color:#fff;background:rgba(255,255,255,.08)}
+.cta-sub{margin-top:1rem;font-size:.72rem;color:rgba(255,255,255,.3)}
+.cta-sub a{color:rgba(255,255,255,.5);text-decoration:underline}
+
+/* ═══ FOOTER ═══ */
+footer{background:var(--earth-d);color:rgba(255,255,255,.5);padding:3rem 0 1.5rem}
+.f-grid{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:2.5rem;margin-bottom:2rem}
+.f-brand .logo{margin-bottom:.7rem;display:inline-flex}
+.f-brand .logo .logo-m{box-shadow:none}.f-brand .logo .logo-t{color:#fff}
+.f-brand>p{font-size:.82rem;line-height:1.6;max-width:250px;color:rgba(255,255,255,.3)}
+.f-col h4{font-family:var(--display);font-weight:600;font-size:.75rem;color:#fff;margin-bottom:.7rem;text-transform:uppercase;letter-spacing:.08em}
+.f-col ul{list-style:none}.f-col li{margin-bottom:.35rem}
+.f-col a{color:rgba(255,255,255,.35);text-decoration:none;font-size:.82rem;transition:.3s}
+.f-col a:hover{color:var(--coral-l)}
+.f-bottom{display:flex;justify-content:space-between;align-items:center;padding-top:1.2rem;border-top:1px solid rgba(255,255,255,.06)}
+.f-bottom p{font-size:.7rem;color:rgba(255,255,255,.2)}
+.f-soc{display:flex;gap:.5rem}
+.f-soc a{width:32px;height:32px;border-radius:50%;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.06);display:flex;align-items:center;justify-content:center;color:rgba(255,255,255,.4);text-decoration:none;font-size:.7rem;transition:.3s}
+.f-soc a:hover{background:var(--coral);color:#fff;border-color:var(--coral)}
+
+/* ═══ REVEAL ═══ */
+.reveal{opacity:0;transform:translateY(26px);transition:opacity .6s ease,transform .6s ease}
+.reveal.vis{opacity:1;transform:translateY(0)}
+
+/* ═══ RESPONSIVE ═══ */
+@media(max-width:1024px){.feat-grid,.ft-grid,.rev-grid,.price-grid{grid-template-columns:repeat(2,1fr)}.cat-grid{grid-template-columns:repeat(4,1fr)}.f-grid{grid-template-columns:1fr 1fr;gap:1.5rem}}
+@media(max-width:768px){
+  .nav-l{display:none}.ham{display:block}
+  .hero-grid,.flywheel-grid{grid-template-columns:1fr}
+  .hero-vis{display:none}
+  .feat-grid,.type-grid,.ft-grid,.rev-grid,.price-grid{grid-template-columns:1fr}
+  .type-extra{grid-template-columns:1fr}
+  .cat-grid{grid-template-columns:repeat(4,1fr)}
+  .tix-flow{grid-template-columns:1fr}
+  .cta-box{text-align:center}
+  .f-grid{grid-template-columns:1fr}
+  .f-bottom{flex-direction:column;gap:.7rem;text-align:center}
+  .sl{justify-content:center}.st,.sd{text-align:center}.sd{margin-inline:auto}
+  .fw-visual{height:300px}
+  .fw-ring{width:220px;height:220px}
+}
+</style>
+</head>
+<body>
+
+<!-- ═══ NAV ═══ -->
+<nav id="nb">
+  <div class="nav-in">
+    <a href="https://kynhood.com" class="logo">
+      <div class="logo-m">K</div>
+      <div class="logo-t">kyn<span>hood</span></div>
+      <span class="logo-tag">Tribes</span>
+    </a>
+    <ul class="nav-l">
+      <li><a href="#what">What's a Tribe</a></li>
+      <li><a href="#flywheel">How It Works</a></li>
+      <li><a href="#features">Features</a></li>
+      <li><a href="#featured">Showcases</a></li>
+      <li><a href="#creators">For Creators</a></li>
+      <li><a href="#pricing">Pricing</a></li>
+    </ul>
+    <button class="btn-n" onclick="document.getElementById('cta').scrollIntoView({behavior:'smooth'})">Start a Tribe</button>
+    <button class="ham" aria-label="Menu"><span></span><span></span><span></span></button>
+  </div>
+</nav>
+
+<!-- ═══ HERO ═══ -->
+<section class="hero">
+  <div class="hero-blob hb1"></div>
+  <div class="hero-blob hb2"></div>
+  <div class="hero-blob hb3"></div>
+  <div class="hero-tex"></div>
+  <div class="ctr">
+    <div class="hero-grid">
+      <div class="hero-content">
+        <div class="hero-chip">
+          <div class="chip-ppl">
+            <span>A</span><span>R</span><span>P</span><span>+</span>
+          </div>
+          120+ Active Tribes on KYN
+        </div>
+        <h1>Find Your People.<br>Build Your <em>Tribe</em>.</h1>
+        <p>Kynhood Tribes are interest-based communities where like-minded people connect, share content, host events, and grow together. Open, gated, or paid — your community, your rules.</p>
+        <div class="hero-btns">
+          <button class="btn-p" onclick="document.getElementById('what').scrollIntoView({behavior:'smooth'})">Explore Tribes</button>
+          <button class="btn-s" onclick="document.getElementById('creators').scrollIntoView({behavior:'smooth'})">Create a Tribe →</button>
+        </div>
+      </div>
+
+      <div class="hero-vis">
+        <div class="hero-float hf1">
+          <div class="hf-ico hfi-g">👥</div>
+          <div><strong>+24</strong><br><span style="font-size:.6rem;color:var(--txt-m)">joined today</span></div>
+        </div>
+        <div class="hero-float hf2">
+          <div class="hf-ico hfi-c">🔥</div>
+          <div><strong>Trending</strong><br><span style="font-size:.6rem;color:var(--txt-m)">Chennai Foodies</span></div>
+        </div>
+        <div class="hero-float hf3">
+          <div class="hf-ico hfi-p">✨</div>
+          <div><strong>New Tribe</strong><br><span style="font-size:.6rem;color:var(--txt-m)">Startup Founders</span></div>
+        </div>
+        <div class="tribe-mosaic">
+          <div class="tm-card">
+            <div class="tm-cover tc-1">🎵 U1 Fam</div>
+            <div class="tm-name">U1NIVERSE Fam</div>
+            <div class="tm-meta"><span class="tm-badge tb-paid">₹99/mo</span> · Yuvan Fans</div>
+            <div style="display:flex;align-items:center;margin-top:.4rem"><div class="tm-members"><span style="background:var(--coral)">A</span><span style="background:var(--green)">R</span><span style="background:var(--gold)">S</span></div><span class="tm-count">2.4K members</span></div>
+          </div>
+          <div class="tm-card">
+            <div class="tm-cover tc-2">🏃 Run Club</div>
+            <div class="tm-name">Chennai Runners</div>
+            <div class="tm-meta"><span class="tm-badge tb-free">Free</span> · Fitness</div>
+            <div style="display:flex;align-items:center;margin-top:.4rem"><div class="tm-members"><span style="background:var(--plum)">K</span><span style="background:var(--sky)">M</span><span style="background:var(--coral)">D</span></div><span class="tm-count">890 members</span></div>
+          </div>
+          <div class="tm-card">
+            <div class="tm-cover tc-3">📸 Lens Lab</div>
+            <div class="tm-name">Street Photography</div>
+            <div class="tm-meta"><span class="tm-badge tb-paid">₹149/mo</span> · Photo</div>
+            <div style="display:flex;align-items:center;margin-top:.4rem"><div class="tm-members"><span style="background:var(--gold)">J</span><span style="background:var(--green)">T</span><span style="background:var(--plum)">L</span></div><span class="tm-count">456 members</span></div>
+          </div>
+          <div class="tm-card">
+            <div class="tm-cover tc-4">🍕 Foodie HQ</div>
+            <div class="tm-name">Chennai Foodies</div>
+            <div class="tm-meta"><span class="tm-badge tb-free">Free</span> · Food</div>
+            <div style="display:flex;align-items:center;margin-top:.4rem"><div class="tm-members"><span style="background:var(--coral)">N</span><span style="background:var(--sky)">V</span><span style="background:var(--gold)">P</span></div><span class="tm-count">1.8K members</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ WHAT IS A TRIBE ═══ -->
+<section class="what" id="what">
+  <div class="ctr">
+    <div class="what-header reveal">
+      <span class="sl c">What's a Tribe?</span>
+      <h2 class="st c">Communities That Fit <span class="coral-g">How You Connect</span></h2>
+      <p class="sd c">A Tribe is an interest-based community on Kynhood. Think Discord's structure + Patreon's monetization + Meetup's events — all native in one platform.</p>
+    </div>
+    <div class="type-grid reveal">
+      <div class="type-card type-open">
+        <div class="type-ico">🌍</div>
+        <h3>Open Tribe</h3>
+        <p>Free to join, everyone can see and post. Perfect for building a broad community around a shared interest.</p>
+        <div class="type-ex">e.g. "Chennai Foodies", "Marina Runners"</div>
+      </div>
+      <div class="type-card type-gated">
+        <div class="type-ico">🔓</div>
+        <h3>Gated Tribe</h3>
+        <p>Free to join, but some content and events are members-only. Freemium model — free tips, premium deep-dives.</p>
+        <div class="type-ex">e.g. "Fitness Chennai" — free workouts, paid plans</div>
+      </div>
+      <div class="type-card type-paid">
+        <div class="type-ico">💎</div>
+        <h3>Paid Tribe</h3>
+        <p>Monthly or yearly subscription for full access. Exclusive content, events, and direct connection with the creator.</p>
+        <div class="type-ex">e.g. "U1NIVERSE Fam — ₹99/mo"</div>
+      </div>
+    </div>
+    <div class="type-extra reveal">
+      <div class="type-sm">
+        <div class="type-sm-ico">🎫</div>
+        <div>
+          <h4>Event-Born Tribe</h4>
+          <p>Auto-created from event attendees. Everyone who attended U1NIVERSE joins "U1 Fam" — keeping the energy alive long after the concert ends.</p>
+        </div>
+      </div>
+      <div class="type-sm">
+        <div class="type-sm-ico">🏢</div>
+        <div>
+          <h4>Brand / Sponsor Tribe</h4>
+          <p>Brand-funded, free for users. Companies sponsor communities to build authentic audience relationships. KYN handles setup and moderation tools.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ FLYWHEEL ═══ -->
+<section id="flywheel">
+  <div class="ctr">
+    <span class="sl reveal">The Magic Loop</span>
+    <h2 class="st reveal">Events Feed Tribes. <span class="coral-g">Tribes Fuel Events.</span></h2>
+    <p class="sd reveal">Events are moments. Tribes are relationships. The flywheel connects both — every event grows the community, and every community makes the next event bigger.</p>
+    <div class="flywheel-grid">
+      <div class="fw-visual reveal">
+        <div class="fw-ring">
+          <div class="fw-center"><div class="fw-center-txt">KYN<br>Loop</div></div>
+          <div class="fw-node">🎫</div>
+          <div class="fw-node">👥</div>
+          <div class="fw-node">📱</div>
+          <div class="fw-node">🔔</div>
+          <div class="fw-node">🎪</div>
+          <div class="fw-node">📈</div>
+        </div>
+      </div>
+      <div class="fw-steps reveal">
+        <div class="fw-step">
+          <div class="fw-step-num">1</div>
+          <div><h4>User attends Event</h4><p>Discovers through For You feed, books ticket, shows up.</p></div>
+        </div>
+        <div class="fw-step">
+          <div class="fw-step-num">2</div>
+          <div><h4>Post-event: "Join the Tribe"</h4><p>Prompt after event: "The community behind this is on KYN — join the tribe."</p></div>
+        </div>
+        <div class="fw-step">
+          <div class="fw-step-num">3</div>
+          <div><h4>User joins Tribe</h4><p>Free or paid — gets access to content, discussions, and member perks.</p></div>
+        </div>
+        <div class="fw-step">
+          <div class="fw-step-num">4</div>
+          <div><h4>Creator posts Content</h4><p>Updates, media, polls, series — keeps the tribe engaged between events.</p></div>
+        </div>
+        <div class="fw-step">
+          <div class="fw-step-num">5</div>
+          <div><h4>Next Event announced</h4><p>Members-only early access or exclusive pricing. Higher conversion, zero CAC.</p></div>
+        </div>
+        <div class="fw-step">
+          <div class="fw-step-num">6</div>
+          <div><h4>More attendees → More members → Repeat</h4><p>The loop compounds. Every cycle makes both the events and tribes stronger.</p></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ FEATURES ═══ -->
+<section class="feat" id="features">
+  <div class="ctr">
+    <div class="feat-header reveal">
+      <span class="sl c">Features</span>
+      <h2 class="st c">Everything to <span class="coral-g">Connect & Grow</span></h2>
+      <div style="text-align:center"><div class="feat-tabs">
+        <button class="ftab active" onclick="switchFeat(this,'mem')">For Members</button>
+        <button class="ftab" onclick="switchFeat(this,'cre')">For Creators</button>
+      </div></div>
+    </div>
+
+    <div id="f-mem" class="feat-grid reveal">
+      <div class="fc"><div class="fc-ico">🎯</div><h3>Tribes For You</h3><p>Personalized tribe recommendations based on your interests, events attended, and location.</p></div>
+      <div class="fc"><div class="fc-ico">📱</div><h3>Content Feed</h3><p>Posts, images, videos, polls, and series from tribes you've joined. Never miss an update.</p></div>
+      <div class="fc"><div class="fc-ico">🎫</div><h3>Exclusive Events</h3><p>Access tribe-only events, early bird tickets, and member pricing. Book directly from the tribe page.</p></div>
+      <div class="fc"><div class="fc-ico">🔔</div><h3>Smart Notifications</h3><p>Per-tribe notification controls. Get pinged for events, mute general chatter — your rules.</p></div>
+      <div class="fc"><div class="fc-ico">📚</div><h3>Content Library</h3><p>Browse past posts, saved content, downloadable resources (PDFs, guides, templates).</p></div>
+      <div class="fc"><div class="fc-ico">🏆</div><h3>Badges & Activity</h3><p>Earn badges for engagement. Leaderboards show the most active contributors in each tribe.</p></div>
+      <div class="fc"><div class="fc-ico">💬</div><h3>Discussions & DMs</h3><p>Comment on posts, react, share. DM other tribe members (when enabled by creator).</p></div>
+      <div class="fc"><div class="fc-ico">🔍</div><h3>Discovery</h3><p>Search by name, keyword, category, or location. "People Like You Joined" social proof.</p></div>
+      <div class="fc"><div class="fc-ico">💳</div><h3>Subscription Management</h3><p>Join, upgrade, downgrade, or cancel anytime. Free trials for paid tribes. Full billing history.</p></div>
+    </div>
+
+    <div id="f-cre" class="feat-grid reveal" style="display:none">
+      <div class="fc"><div class="fc-ico">✏️</div><h3>Tribe Builder</h3><p>Name, description, cover, categories. Set as Open / Gated / Paid. Multi-admin & moderator roles.</p></div>
+      <div class="fc"><div class="fc-ico">📝</div><h3>Content Hub</h3><p>Post text, images, videos, polls. Pin posts, schedule content, create series (mini-courses).</p></div>
+      <div class="fc"><div class="fc-ico">🔐</div><h3>Content Tiers</h3><p>Free vs premium content in the same tribe. Tease free, lock the good stuff for subscribers.</p></div>
+      <div class="fc"><div class="fc-ico">🎪</div><h3>Tribe Events</h3><p>Create tribe-exclusive events. Auto-invite members. Members-only pricing and early access.</p></div>
+      <div class="fc"><div class="fc-ico">📊</div><h3>Analytics Dashboard</h3><p>Member growth, engagement metrics, content performance, revenue, churn rate, demographics.</p></div>
+      <div class="fc"><div class="fc-ico">💰</div><h3>Monetization Suite</h3><p>Subscriptions, tips, digital goods, merch, sponsored posts, affiliate event links.</p></div>
+      <div class="fc"><div class="fc-ico">🏦</div><h3>Fast Payouts</h3><p>Weekly payouts. Upgraded creators get T+2 day express. 85-90% revenue share — you keep most.</p></div>
+      <div class="fc"><div class="fc-ico">🛡️</div><h3>Moderation Tools</h3><p>Approve/reject joins, mute/ban members, auto-mod rules, keyword filters, spam detection.</p></div>
+      <div class="fc"><div class="fc-ico">📣</div><h3>Growth Tools</h3><p>Invite links, QR code sharing, post-event tribe prompts, discovery boost in For You feed.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ CATEGORIES ═══ -->
+<section id="categories">
+  <div class="ctr">
+    <span class="sl c reveal">24+ Categories</span>
+    <h2 class="st c reveal">A Tribe for <span class="coral-g">Every Interest</span></h2>
+    <div class="cat-grid reveal">
+      <div class="cat"><span class="cat-em">🎵</span><span class="cat-nm">Music</span></div>
+      <div class="cat"><span class="cat-em">🍕</span><span class="cat-nm">Food</span></div>
+      <div class="cat"><span class="cat-em">🏃</span><span class="cat-nm">Fitness</span></div>
+      <div class="cat"><span class="cat-em">🎨</span><span class="cat-nm">Art</span></div>
+      <div class="cat"><span class="cat-em">📸</span><span class="cat-nm">Photography</span></div>
+      <div class="cat"><span class="cat-em">💻</span><span class="cat-nm">Tech</span></div>
+      <div class="cat"><span class="cat-em">🚀</span><span class="cat-nm">Startups</span></div>
+      <div class="cat"><span class="cat-em">🎮</span><span class="cat-nm">Gaming</span></div>
+      <div class="cat"><span class="cat-em">📖</span><span class="cat-nm">Reading</span></div>
+      <div class="cat"><span class="cat-em">✈️</span><span class="cat-nm">Travel</span></div>
+      <div class="cat"><span class="cat-em">👶</span><span class="cat-nm">Parenting</span></div>
+      <div class="cat"><span class="cat-em">🐾</span><span class="cat-nm">Pets</span></div>
+      <div class="cat"><span class="cat-em">🧘</span><span class="cat-nm">Wellness</span></div>
+      <div class="cat"><span class="cat-em">🌙</span><span class="cat-nm">Nightlife</span></div>
+      <div class="cat"><span class="cat-em">⚽</span><span class="cat-nm">Sports</span></div>
+      <div class="cat"><span class="cat-em">🎬</span><span class="cat-nm">Cinema</span></div>
+      <div class="cat"><span class="cat-em">😂</span><span class="cat-nm">Comedy</span></div>
+      <div class="cat"><span class="cat-em">👗</span><span class="cat-nm">Fashion</span></div>
+      <div class="cat"><span class="cat-em">🎓</span><span class="cat-nm">Education</span></div>
+      <div class="cat"><span class="cat-em">💼</span><span class="cat-nm">Career</span></div>
+      <div class="cat"><span class="cat-em">📈</span><span class="cat-nm">Investing</span></div>
+      <div class="cat"><span class="cat-em">🕉️</span><span class="cat-nm">Spirituality</span></div>
+      <div class="cat"><span class="cat-em">🤝</span><span class="cat-nm">Volunteering</span></div>
+      <div class="cat"><span class="cat-em">🏘️</span><span class="cat-nm">Neighbourhood</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ FEATURED TRIBES ═══ -->
+<section class="featured" id="featured">
+  <div class="ctr">
+    <span class="sl c reveal">Showcases</span>
+    <h2 class="st c reveal" style="color:#fff">Tribes Powered by <span class="coral-g">KYN</span></h2>
+    <p class="sd c reveal" style="color:rgba(255,255,255,.45)">Born from flagship events and passionate creators — these communities are thriving on Kynhood.</p>
+
+    <div class="ft-grid">
+      <div class="ft-card reveal">
+        <div class="ft-cover ft-c1">
+          <div class="ft-cover-txt">U1NIVERSE<sub>The Fam</sub></div>
+        </div>
+        <div class="ft-body">
+          <span class="ft-type ft-type-paid">Paid · ₹99/mo</span>
+          <div class="ft-name">U1NIVERSE Fam</div>
+          <div class="ft-desc">Born from the U1NIVERSE concert. Yuvan fans get exclusive behind-the-scenes content, early access to tour dates, and fan meetups.</div>
+          <div class="ft-stats">
+            <div class="ft-stat"><strong>2.4K</strong><span>Members</span></div>
+            <div class="ft-stat"><strong>48</strong><span>Posts/Week</span></div>
+            <div class="ft-stat"><strong>3</strong><span>Events/Month</span></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="ft-card reveal">
+        <div class="ft-cover ft-c2">
+          <div class="ft-cover-txt">KYN MUSIC<sub>Crew</sub></div>
+        </div>
+        <div class="ft-body">
+          <span class="ft-type ft-type-free">Free</span>
+          <div class="ft-name">KYN Music Crew</div>
+          <div class="ft-desc">Born from KYN Live fusion concert. Music lovers discover new artists, share playlists, and get early access to all KYN Live events.</div>
+          <div class="ft-artists">
+            <div class="ft-art"><div class="ft-art-dot">AJ</div><span class="ft-art-name">Andrea</span></div>
+            <div class="ft-art"><div class="ft-art-dot">PK</div><span class="ft-art-name">Pradeep</span></div>
+            <div class="ft-art"><div class="ft-art-dot">PD</div><span class="ft-art-name">Paal Dabba</span></div>
+            <div class="ft-art"><div class="ft-art-dot">AK</div><span class="ft-art-name">Asal Kolaar</span></div>
+          </div>
+          <div class="ft-stats">
+            <div class="ft-stat"><strong>1.8K</strong><span>Members</span></div>
+            <div class="ft-stat"><strong>32</strong><span>Posts/Week</span></div>
+            <div class="ft-stat"><strong>5</strong><span>Events/Month</span></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="ft-card reveal">
+        <div class="ft-cover ft-c3">
+          <div class="ft-cover-txt">CHENNAI<sub>Foodies</sub></div>
+        </div>
+        <div class="ft-body">
+          <span class="ft-type ft-type-free">Free</span>
+          <div class="ft-name">Chennai Foodies</div>
+          <div class="ft-desc">The city's biggest food community. Reviews, hidden gems, food crawls, restaurant deals, and exclusive tasting events.</div>
+          <div class="ft-stats">
+            <div class="ft-stat"><strong>3.2K</strong><span>Members</span></div>
+            <div class="ft-stat"><strong>85</strong><span>Posts/Week</span></div>
+            <div class="ft-stat"><strong>8</strong><span>Events/Month</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ CREATOR REVENUE ═══ -->
+<section id="creators">
+  <div class="ctr">
+    <span class="sl c reveal">Creator Economy</span>
+    <h2 class="st c reveal">How Creators <span class="coral-g">Earn on KYN</span></h2>
+    <p class="sd c reveal">Build a community, monetize your passion. Multiple revenue streams — you keep 85-90% of everything.</p>
+    <div class="rev-grid reveal">
+      <div class="rev-card">
+        <div class="rev-ico">💳</div>
+        <h4>Subscriptions</h4>
+        <p>Monthly or yearly paid tribes. Set your price, offer tiers. Members pay to access your world.</p>
+        <div class="rev-pct">85-90%</div>
+      </div>
+      <div class="rev-card">
+        <div class="rev-ico">🎫</div>
+        <h4>Tribe Events</h4>
+        <p>Host paid events for your community. Member-only pricing, early access, and VIP tiers.</p>
+        <div class="rev-pct">90-95%</div>
+      </div>
+      <div class="rev-card">
+        <div class="rev-ico">☕</div>
+        <h4>Tips & Donations</h4>
+        <p>Members can tip on any post or contribution. Small gestures, big impact.</p>
+        <div class="rev-pct">95%</div>
+      </div>
+      <div class="rev-card">
+        <div class="rev-ico">📦</div>
+        <h4>Digital Goods</h4>
+        <p>Sell e-books, templates, presets, courses, or exclusive downloads directly inside your tribe.</p>
+        <div class="rev-pct">85%</div>
+      </div>
+      <div class="rev-card">
+        <div class="rev-ico">📣</div>
+        <h4>Sponsored Posts</h4>
+        <p>Brands pay you to share in your tribe. Native, transparent, and on your terms.</p>
+        <div class="rev-pct">100%</div>
+      </div>
+      <div class="rev-card">
+        <div class="rev-ico">🔗</div>
+        <h4>Affiliate Tickets</h4>
+        <p>Share events and earn commission on every ticket sold through your tribe link.</p>
+        <div class="rev-pct">5-10%</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ PRICING ═══ -->
+<section class="pricing" id="pricing">
+  <div class="ctr">
+    <div class="pricing-header reveal">
+      <span class="sl c">Pricing</span>
+      <h2 class="st c">Plans for <span class="coral-g">Creators</span></h2>
+      <p class="sd c">Start free, upgrade when your tribe grows. Members always join tribes for free or at the creator's set price.</p>
+    </div>
+    <div class="price-grid">
+      <div class="pc reveal">
+        <div class="pc-name">Starter</div>
+        <div class="pc-desc">Launch your first tribe</div>
+        <div class="pc-price">Free</div>
+        <ul class="pc-feats">
+          <li>1 tribe (Open or Gated)</li>
+          <li>Basic content hub</li>
+          <li>Up to 500 members</li>
+          <li>3 tribe events / month</li>
+          <li>Standard analytics</li>
+          <li>Weekly payouts</li>
+          <li>Community support</li>
+        </ul>
+        <button class="btn-pc btn-pc-g">Get Started Free</button>
+      </div>
+      <div class="pc pop reveal">
+        <div class="pc-name">Creator Pro</div>
+        <div class="pc-desc">Monetize & grow seriously</div>
+        <div class="pc-price">₹499 <span>/ month</span></div>
+        <ul class="pc-feats">
+          <li>Unlimited tribes</li>
+          <li>Paid tribe subscriptions</li>
+          <li>Unlimited members</li>
+          <li>Unlimited events</li>
+          <li>Advanced analytics & exports</li>
+          <li>T+2 day express payouts</li>
+          <li>Content scheduling & series</li>
+          <li>Custom branding</li>
+          <li>Multi-admin & moderator roles</li>
+          <li>Priority support</li>
+        </ul>
+        <button class="btn-pc btn-pc-f">Upgrade to Pro</button>
+      </div>
+      <div class="pc reveal">
+        <div class="pc-name">Enterprise</div>
+        <div class="pc-desc">For brands & large orgs</div>
+        <div class="pc-price">Custom</div>
+        <ul class="pc-feats">
+          <li>White-label community</li>
+          <li>Brand-sponsored tribes</li>
+          <li>API access & integrations</li>
+          <li>Dedicated account manager</li>
+          <li>Custom SLA & support</li>
+          <li>Bulk event management</li>
+          <li>Advanced moderation</li>
+        </ul>
+        <button class="btn-pc btn-pc-g">Contact Sales</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ CTA ═══ -->
+<div class="cta-wrap" id="cta">
+  <div class="ctr">
+    <div class="cta-box reveal">
+      <h2>Ready to Find or Build Your Tribe?</h2>
+      <p>Join 120+ active communities or launch your own. Your people are already here.</p>
+      <div class="cta-btns">
+        <button class="btn-cta-w" onclick="window.open('https://kynhood.com','_blank')">Explore Tribes</button>
+        <button class="btn-cta-o" onclick="window.open('https://kynhood.com','_blank')">Start a Tribe →</button>
+      </div>
+      <div class="cta-sub">Part of the <a href="https://kynhood.com" target="_blank">Kynhood</a> platform · Also explore <a href="#">KYN Events</a></div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ FOOTER ═══ -->
+<footer>
+  <div class="ctr">
+    <div class="f-grid">
+      <div class="f-brand">
+        <a href="https://kynhood.com" class="logo"><div class="logo-m">K</div><div class="logo-t">kyn<span>hood</span></div></a>
+        <p>Interest-based communities where like-minded people connect, share, and grow together. Find your tribe.</p>
+      </div>
+      <div class="f-col">
+        <h4>Tribes</h4>
+        <ul>
+          <li><a href="#what">What's a Tribe</a></li>
+          <li><a href="#features">Features</a></li>
+          <li><a href="#categories">Categories</a></li>
+          <li><a href="#featured">Showcases</a></li>
+        </ul>
+      </div>
+      <div class="f-col">
+        <h4>Creators</h4>
+        <ul>
+          <li><a href="#creators">Revenue</a></li>
+          <li><a href="#pricing">Pricing</a></li>
+          <li><a href="mailto:partner@kynhood.com">Partner With Us</a></li>
+          <li><a href="mailto:advertise@kynhood.com">Advertise</a></li>
+        </ul>
+      </div>
+      <div class="f-col">
+        <h4>Legal</h4>
+        <ul>
+          <li><a href="https://kynhood.com/privacy/kyn" target="_blank">Privacy Policy</a></li>
+          <li><a href="https://kynhood.com/terms&condition/kyn" target="_blank">Terms & Conditions</a></li>
+          <li><a href="https://kynhood.com/communityguidelines/kyn" target="_blank">Community Guidelines</a></li>
+          <li><a href="https://kynhood.com/grievance/kyn" target="_blank">Grievance</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="f-bottom">
+      <p>© 2026 Kynhood Technologies. All rights reserved. — <a href="https://kynhood.com" style="color:rgba(255,255,255,.35)">kynhood.com</a></p>
+      <div class="f-soc">
+        <a href="https://www.instagram.com/kynhood/" target="_blank">IG</a>
+        <a href="https://twitter.com/kyn_hood" target="_blank">X</a>
+        <a href="https://www.linkedin.com/company/kynhood/" target="_blank">in</a>
+        <a href="https://www.facebook.com/kynhoodofficial/" target="_blank">fb</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script>
+const nb=document.getElementById('nb');
+window.addEventListener('scroll',()=>nb.classList.toggle('scrolled',window.scrollY>40));
+
+const rvs=document.querySelectorAll('.reveal');
+const ob=new IntersectionObserver(es=>{es.forEach((e,i)=>{if(e.isIntersecting){setTimeout(()=>e.target.classList.add('vis'),i*50);ob.unobserve(e.target)}})},{threshold:.06,rootMargin:'0px 0px -30px 0px'});
+rvs.forEach(el=>ob.observe(el));
+
+function switchFeat(btn,t){
+  document.querySelectorAll('.ftab').forEach(b=>b.classList.remove('active'));btn.classList.add('active');
+  document.getElementById('f-mem').style.display=t==='mem'?'grid':'none';
+  document.getElementById('f-cre').style.display=t==='cre'?'grid':'none';
+}
+
+document.querySelectorAll('a[href^="#"]').forEach(a=>{a.addEventListener('click',e=>{e.preventDefault();const t=document.querySelector(a.getAttribute('href'));if(t)t.scrollIntoView({behavior:'smooth'})})});
+
+document.querySelector('.ham').addEventListener('click',function(){
+  const l=document.querySelector('.nav-l');
+  if(l.style.display==='flex'){l.style.display='none'}else{
+    l.style.display='flex';l.style.flexDirection='column';l.style.position='absolute';
+    l.style.top='100%';l.style.left='0';l.style.right='0';l.style.background='#fff';
+    l.style.padding='1rem 2rem';l.style.boxShadow='0 8px 30px rgba(0,0,0,.08)';
+    l.style.borderRadius='0 0 16px 16px';l.style.gap='1rem';
+  }
+});
+</script>
+</body>
+</html>
