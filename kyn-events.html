@@ -223,6 +223,23 @@ section{padding:clamp(3.5rem,9vw,6.5rem) 0}
 .t-perks{font-size:.6rem;color:rgba(255,255,255,.35);line-height:1.5}
 .tier-caption{text-align:center;margin-top:1rem;font-size:.7rem;color:rgba(255,255,255,.3)}
 
+/* ═══ SPLIT PAY CARD ═══ */
+.sp-steps{display:flex;flex-direction:column;gap:.55rem;margin-top:.85rem}
+.sp-step{display:flex;align-items:center;gap:.6rem;padding:.5rem .7rem;border-radius:8px;background:var(--surf);border:1px solid var(--bdr);position:relative;transition:.3s}
+.sp-step:hover{border-color:rgba(46,204,135,.2);background:rgba(46,204,135,.03)}
+.sp-dot{width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:.65rem;font-weight:700;flex-shrink:0}
+.sp-dot-1{background:linear-gradient(135deg,rgba(232,87,58,.12),rgba(245,166,35,.07));color:var(--coral);border:1.5px solid rgba(232,87,58,.18)}
+.sp-dot-2{background:rgba(200,210,215,.15);color:var(--txt-m);border:1.5px dashed var(--bdr)}
+.sp-dot-3{background:linear-gradient(135deg,rgba(46,204,135,.12),rgba(46,204,135,.06));color:var(--green);border:1.5px solid rgba(46,204,135,.2)}
+.sp-info{flex:1;min-width:0}
+.sp-label{font-size:.68rem;font-weight:700;color:var(--teal-d);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.sp-sub{font-size:.6rem;color:var(--txt-m);margin-top:.05rem}
+.sp-badge{font-size:.58rem;font-weight:700;padding:.15rem .45rem;border-radius:50px;white-space:nowrap;flex-shrink:0}
+.sp-badge-pay{background:linear-gradient(135deg,rgba(232,87,58,.1),rgba(245,166,35,.07));color:var(--coral)}
+.sp-badge-pend{background:rgba(200,210,215,.18);color:var(--txt-m)}
+.sp-badge-ok{background:rgba(46,204,135,.12);color:var(--green-d)}
+.sp-connector{width:1.5px;height:10px;background:linear-gradient(to bottom,var(--bdr),transparent);margin:0 13px}
+
 /* ═══ CTA ═══ */
 .cta-wrap{padding:1rem 0 3rem}
 .cta-box{position:relative;overflow:hidden;background:linear-gradient(135deg,var(--coral),var(--coral-d));border-radius:var(--r-xl);padding:clamp(2.5rem,5vw,4rem);display:grid;grid-template-columns:1fr 1fr;gap:3rem;align-items:center}
@@ -536,10 +553,38 @@ footer{background:var(--teal-d);color:rgba(255,255,255,.5);padding:3rem 0 1.5rem
         <h3>Location Filters</h3>
         <p>Find events by city, area, or specific venue. Your neighbourhood, your events.</p>
       </div>
-      <div class="fc">
-        <div class="fc-icon">🏷️</div>
-        <h3>16 Categories</h3>
-        <p>From free workshops to nightlife, kids events to exhibitions. Every type of experience covered.</p>
+      <div class="fc" id="split-pay-feature">
+        <div class="fc-icon" style="background:linear-gradient(135deg,rgba(46,204,135,.1),rgba(46,204,135,.05));border-color:rgba(46,204,135,.15)">💳</div>
+        <h3>Split Pay</h3>
+        <p>Reserve your spot with just <strong style="color:var(--teal-d)">50% upfront</strong>. Pay the remaining 50% before the event — booking confirmed instantly.</p>
+        <div class="sp-steps">
+          <div class="sp-step">
+            <div class="sp-dot sp-dot-1">50%</div>
+            <div class="sp-info">
+              <div class="sp-label">Pay now to reserve</div>
+              <div class="sp-sub">Booking confirmed immediately</div>
+            </div>
+            <span class="sp-badge sp-badge-pay">Paid</span>
+          </div>
+          <div class="sp-connector"></div>
+          <div class="sp-step">
+            <div class="sp-dot sp-dot-2">50%</div>
+            <div class="sp-info">
+              <div class="sp-label">Balance due before event</div>
+              <div class="sp-sub">Reminder sent automatically</div>
+            </div>
+            <span class="sp-badge sp-badge-pend">Pending</span>
+          </div>
+          <div class="sp-connector"></div>
+          <div class="sp-step">
+            <div class="sp-dot sp-dot-3">✓</div>
+            <div class="sp-info">
+              <div class="sp-label">QR ticket unlocked</div>
+              <div class="sp-sub">Show up &amp; enjoy!</div>
+            </div>
+            <span class="sp-badge sp-badge-ok">Confirmed</span>
+          </div>
+        </div>
       </div>
       <div class="fc">
         <div class="fc-icon">⚡</div>
