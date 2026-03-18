@@ -1,0 +1,2090 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>KYN Event Tech — End-to-End Event Technology That Powers Seamless Experiences</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400;1,500&family=JetBrains+Mono:wght@300;400;500&family=Instrument+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  
+  <style>
+    /* ═══════════════════════════════════════
+       RESET & VARIABLES
+       ═══════════════════════════════════════ */
+    *, *::before, *::after {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    :root {
+      /* Background */
+      --bg: #0E0608;
+      --bg-warm: #140A0C;
+      --bg-card: #1A0E10;
+
+      /* Wine/Maroon */
+      --wine: #2D0F14;
+      --wine-l: #3D1620;
+      --wine-ll: #4E1D2A;
+      --maroon: #6B1E2E;
+
+      /* Gold */
+      --gold: #C9A96E;
+      --gold-l: #DFC08A;
+      --gold-d: #A88A52;
+      --gold-glow: rgba(201,169,110,.15);
+      --gold-b: rgba(201,169,110,.10);
+      --gold-b-l: rgba(201,169,110,.05);
+
+      /* Glass */
+      --glass-bg: rgba(26,14,16,.60);
+      --glass-bg-l: rgba(40,18,22,.40);
+      --glass-border: rgba(201,169,110,.07);
+      --glass-border-h: rgba(201,169,110,.14);
+
+      /* Text */
+      --white: #FAF6F0;
+      --w90: rgba(250,246,240,.90);
+      --w70: rgba(250,246,240,.70);
+      --w50: rgba(250,246,240,.50);
+      --w30: rgba(250,246,240,.30);
+      --w15: rgba(250,246,240,.15);
+      --w08: rgba(250,246,240,.08);
+      --w04: rgba(250,246,240,.04);
+
+      /* Fonts */
+      --font-display: 'Cormorant Garamond', serif;
+      --font-mono: 'JetBrains Mono', monospace;
+      --font-body: 'Instrument Sans', sans-serif;
+    }
+
+    html {
+      scroll-behavior: smooth;
+      font-size: 16px;
+    }
+
+    body {
+      font-family: var(--font-body);
+      background: var(--bg);
+      color: var(--w70);
+      overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
+      letter-spacing: 0.01em;
+    }
+
+    ::selection {
+      background: rgba(201,169,110,.20);
+      color: var(--gold-l);
+    }
+
+    ::-webkit-scrollbar { width: 3px; }
+    ::-webkit-scrollbar-track { background: var(--bg); }
+    ::-webkit-scrollbar-thumb { background: var(--gold-d); border-radius: 2px; }
+
+    /* ═══════════════════════════════════════
+       ATMOSPHERIC BACKGROUND
+       ═══════════════════════════════════════ */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      z-index: -2;
+      background:
+        radial-gradient(ellipse 100% 70% at 50% -10%, var(--wine) 0%, transparent 55%),
+        radial-gradient(ellipse 70% 50% at -5% 80%, rgba(107,30,46,.15) 0%, transparent 45%),
+        radial-gradient(ellipse 50% 60% at 105% 40%, rgba(45,15,20,.20) 0%, transparent 40%),
+        radial-gradient(ellipse 40% 40% at 50% 50%, rgba(201,169,110,.02) 0%, transparent 50%),
+        var(--bg);
+    }
+
+    body::after {
+      content: '';
+      position: fixed;
+      inset: 0;
+      z-index: -1;
+      background: url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");
+      pointer-events: none;
+    }
+
+    /* ═══════════════════════════════════════
+       UTILITY
+       ═══════════════════════════════════════ */
+    .container {
+      max-width: 1140px;
+      margin: 0 auto;
+      padding: 0 clamp(2rem, 5vw, 4rem);
+    }
+
+    /* ═══════════════════════════════════════
+       GLASS PANELS
+       ═══════════════════════════════════════ */
+    .glass {
+      background: var(--glass-bg);
+      backdrop-filter: blur(40px) saturate(1.1);
+      -webkit-backdrop-filter: blur(40px) saturate(1.1);
+      border: 1px solid var(--glass-border);
+      border-radius: 16px;
+    }
+
+    .glass-light {
+      background: var(--glass-bg-l);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border: 1px solid var(--glass-border);
+      border-radius: 12px;
+    }
+
+    /* ═══════════════════════════════════════
+       NAVIGATION
+       ═══════════════════════════════════════ */
+    nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 100;
+      padding: 1.1rem 0;
+      transition: all 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+
+    nav.scrolled {
+      padding: 0.65rem 0;
+      background: rgba(14, 6, 8, 0.92);
+      backdrop-filter: blur(30px);
+      -webkit-backdrop-filter: blur(30px);
+      border-bottom: 1px solid var(--glass-border);
+    }
+
+    .nav-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      max-width: 1140px;
+      margin: 0 auto;
+      padding: 0 clamp(2rem, 5vw, 4rem);
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      text-decoration: none;
+    }
+
+    .logo-text {
+      font-family: var(--font-display);
+      font-size: 1.5rem;
+      font-weight: 300;
+      color: var(--white);
+      letter-spacing: 0.12em;
+    }
+
+    .logo-text span {
+      color: var(--gold);
+    }
+
+    .logo-badge {
+      font-family: var(--font-mono);
+      font-size: 0.48rem;
+      color: var(--w15);
+      border: 1px solid var(--w08);
+      padding: 0.15rem 0.5rem;
+      letter-spacing: 0.10em;
+      text-transform: uppercase;
+      margin-left: 0.2rem;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 2rem;
+      align-items: center;
+      list-style: none;
+    }
+
+    .nav-links a {
+      font-family: var(--font-mono);
+      color: var(--w30);
+      text-decoration: none;
+      font-size: 0.6rem;
+      font-weight: 300;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      transition: color 0.4s;
+    }
+
+    .nav-links a:hover {
+      color: var(--gold);
+    }
+
+    .btn-nav {
+      font-family: var(--font-mono);
+      background: linear-gradient(135deg, var(--gold-d), var(--gold));
+      color: var(--bg);
+      border: none;
+      padding: 0.55rem 1.3rem;
+      font-size: 0.55rem;
+      font-weight: 500;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      cursor: pointer;
+      transition: all 0.4s;
+    }
+
+    .btn-nav:hover {
+      background: var(--gold-l);
+      box-shadow: 0 0 30px rgba(201, 169, 110, 0.12);
+    }
+
+    .hamburger {
+      display: none;
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 0.5rem;
+    }
+
+    .hamburger span {
+      display: block;
+      width: 20px;
+      height: 1px;
+      background: var(--gold);
+      margin: 6px 0;
+      transition: 0.3s;
+    }
+
+    /* ═══════════════════════════════════════
+       BUTTONS
+       ═══════════════════════════════════════ */
+    .btn {
+      font-family: var(--font-mono);
+      padding: 0.82rem 2.2rem;
+      font-size: 0.58rem;
+      font-weight: 400;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      cursor: pointer;
+      transition: all 0.4s;
+      border: none;
+    }
+
+    .btn-gold {
+      background: linear-gradient(135deg, var(--gold-d), var(--gold));
+      color: var(--bg);
+    }
+
+    .btn-gold:hover {
+      background: var(--gold-l);
+      box-shadow: 0 0 40px rgba(201, 169, 110, 0.15);
+    }
+
+    .btn-outline {
+      background: transparent;
+      color: var(--w30);
+      border: 1px solid var(--w08);
+    }
+
+    .btn-outline:hover {
+      border-color: var(--glass-border);
+      color: var(--gold);
+    }
+
+    /* ═══════════════════════════════════════
+       HERO SECTION
+       ═══════════════════════════════════════ */
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      position: relative;
+      overflow: hidden;
+      padding: 9rem 0 5rem;
+    }
+
+    .hero-glow {
+      position: absolute;
+      top: 35%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 900px;
+      height: 600px;
+      background: radial-gradient(ellipse, rgba(201,169,110,.03) 0%, transparent 55%);
+      pointer-events: none;
+    }
+
+    .hero-line {
+      position: absolute;
+      top: 0;
+      width: 1px;
+      height: 100%;
+      background: linear-gradient(180deg, transparent, var(--glass-border), transparent);
+      pointer-events: none;
+    }
+
+    .hero-line--left { left: clamp(2rem, 8vw, 6rem); }
+    .hero-line--right { right: clamp(2rem, 8vw, 6rem); }
+
+    .hero-grid {
+      position: relative;
+      z-index: 2;
+      display: grid;
+      grid-template-columns: 1.1fr 0.9fr;
+      gap: 4rem;
+      align-items: center;
+    }
+
+    .hero-label {
+      font-family: var(--font-mono);
+      font-size: 0.5rem;
+      color: var(--gold-d);
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      margin-bottom: 2rem;
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      animation: fadeUp 0.8s ease-out;
+    }
+
+    .hero-label::before {
+      content: '';
+      width: 40px;
+      height: 1px;
+      background: linear-gradient(90deg, var(--gold-d), transparent);
+    }
+
+    .hero h1 {
+      font-family: var(--font-display);
+      font-size: clamp(2.4rem, 5vw, 3.8rem);
+      line-height: 1.1;
+      font-weight: 300;
+      letter-spacing: 0.03em;
+      color: var(--white);
+      margin-bottom: 1.2rem;
+      animation: fadeUp 0.8s ease-out 0.1s both;
+    }
+
+    .hero h1 em {
+      font-style: italic;
+      font-weight: 400;
+      color: var(--gold);
+    }
+
+    .hero-pillars {
+      font-family: var(--font-mono);
+      font-size: 0.58rem;
+      color: var(--w15);
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      margin-bottom: 1.5rem;
+      animation: fadeUp 0.8s ease-out 0.15s both;
+    }
+
+    .hero-desc {
+      font-size: 0.92rem;
+      color: var(--w30);
+      line-height: 1.75;
+      max-width: 460px;
+      margin-bottom: 2.5rem;
+      animation: fadeUp 0.8s ease-out 0.2s both;
+    }
+
+    .hero-buttons {
+      display: flex;
+      gap: 0.8rem;
+      flex-wrap: wrap;
+      animation: fadeUp 0.8s ease-out 0.3s both;
+    }
+
+    /* Hero Metrics Card */
+    .hero-metrics {
+      animation: fadeUp 0.8s ease-out 0.25s both;
+    }
+
+    .metrics-card {
+      padding: 2.5rem;
+    }
+
+    .metrics-row {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.5rem;
+      margin-bottom: 2rem;
+    }
+
+    .metric {
+      text-align: center;
+    }
+
+    .metric-value {
+      font-family: var(--font-display);
+      font-size: 2.4rem;
+      font-weight: 300;
+      color: var(--w90);
+      line-height: 1;
+    }
+
+    .metric-value span {
+      color: var(--gold);
+    }
+
+    .metric-label {
+      font-family: var(--font-mono);
+      font-size: 0.48rem;
+      color: var(--w15);
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      margin-top: 0.4rem;
+    }
+
+    .metrics-divider {
+      width: 100%;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--glass-border), transparent);
+      margin-bottom: 2rem;
+    }
+
+    .metrics-quote {
+      font-family: var(--font-display);
+      font-size: 1.05rem;
+      font-weight: 400;
+      font-style: italic;
+      color: var(--w30);
+      text-align: center;
+      line-height: 1.55;
+    }
+
+    .metrics-quote strong {
+      color: var(--gold);
+      font-weight: 500;
+    }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(28px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* ═══════════════════════════════════════
+       SECTION COMMON
+       ═══════════════════════════════════════ */
+    section {
+      padding: clamp(5rem, 12vw, 8rem) 0;
+    }
+
+    .section-label {
+      font-family: var(--font-mono);
+      font-size: 0.5rem;
+      font-weight: 300;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--gold-d);
+      margin-bottom: 0.7rem;
+      display: flex;
+      align-items: center;
+      gap: 0.8rem;
+    }
+
+    .section-label::before {
+      content: '';
+      width: 28px;
+      height: 1px;
+      background: linear-gradient(90deg, var(--gold-d), transparent);
+    }
+
+    .section-label--center { justify-content: center; }
+
+    .section-title {
+      font-family: var(--font-display);
+      font-size: clamp(2rem, 4.5vw, 3.2rem);
+      line-height: 1.1;
+      font-weight: 300;
+      letter-spacing: 0.03em;
+      color: var(--white);
+      margin-bottom: 0.8rem;
+    }
+
+    .section-title--center { text-align: center; }
+
+    .section-title em {
+      font-style: italic;
+      font-weight: 400;
+      color: var(--gold);
+    }
+
+    .section-desc {
+      font-size: 0.88rem;
+      color: var(--w30);
+      line-height: 1.7;
+      max-width: 460px;
+    }
+
+    .section-desc--center {
+      text-align: center;
+      margin: 0 auto;
+    }
+
+    /* ═══════════════════════════════════════
+       FLAGSHIP EVENTS
+       ═══════════════════════════════════════ */
+    .flagship-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 0.7rem;
+      margin-top: 3rem;
+    }
+
+    .flagship-card {
+      padding: 2rem;
+      transition: all 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .flagship-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--gold), transparent);
+      transform: scaleX(0);
+      transition: transform 0.5s;
+    }
+
+    .flagship-card:hover {
+      background: rgba(201, 169, 110, 0.03);
+      border-color: var(--glass-border-h);
+    }
+
+    .flagship-card:hover::before {
+      transform: scaleX(1);
+    }
+
+    .flagship-tag {
+      font-family: var(--font-mono);
+      font-size: 0.45rem;
+      color: var(--gold-d);
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      margin-bottom: 0.7rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .flagship-tag::before {
+      content: '';
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--gold-d);
+      opacity: 0.5;
+    }
+
+    .flagship-card h3 {
+      font-family: var(--font-display);
+      font-weight: 500;
+      font-size: 1.3rem;
+      color: var(--w90);
+      letter-spacing: 0.02em;
+      margin-bottom: 0.7rem;
+      line-height: 1.2;
+    }
+
+    .flagship-stat {
+      font-family: var(--font-display);
+      font-size: 1.8rem;
+      font-weight: 300;
+      color: var(--gold);
+      letter-spacing: 0.02em;
+      margin-bottom: 0.8rem;
+      line-height: 1;
+    }
+
+    .flagship-stat small {
+      font-size: 0.85rem;
+      color: var(--w30);
+      font-weight: 400;
+    }
+
+    .flagship-features {
+      list-style: none;
+    }
+
+    .flagship-features li {
+      font-size: 0.76rem;
+      color: var(--w15);
+      padding: 0.25rem 0 0.25rem 1rem;
+      position: relative;
+      line-height: 1.5;
+    }
+
+    .flagship-features li::before {
+      content: '—';
+      position: absolute;
+      left: 0;
+      color: var(--gold-d);
+      font-size: 0.65rem;
+    }
+
+    /* Wide cards row */
+    .flagship-wide-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0.7rem;
+      margin-top: 0.7rem;
+    }
+
+    /* Client logos */
+    .client-strip {
+      display: flex;
+      justify-content: center;
+      gap: 3rem;
+      margin-top: 3.5rem;
+      padding: 1.8rem 0;
+      border-top: 1px solid var(--w04);
+      border-bottom: 1px solid var(--w04);
+      flex-wrap: wrap;
+      align-items: center;
+    }
+
+    .client-name {
+      font-family: var(--font-mono);
+      font-size: 0.58rem;
+      color: var(--w15);
+      letter-spacing: 0.10em;
+      text-transform: uppercase;
+      transition: color 0.3s;
+    }
+
+    .client-name:hover { color: var(--gold-d); }
+
+    /* ═══════════════════════════════════════
+       CORE CAPABILITIES
+       ═══════════════════════════════════════ */
+    .capabilities-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 0.7rem;
+      margin-top: 3rem;
+    }
+
+    .capability {
+      padding: 2rem;
+      transition: all 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .capability::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--gold), transparent);
+      transform: scaleX(0);
+      transition: transform 0.5s;
+    }
+
+    .capability:hover {
+      background: rgba(201, 169, 110, 0.03);
+      border-color: var(--glass-border-h);
+    }
+
+    .capability:hover::before { transform: scaleX(1); }
+
+    .capability-icon {
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      background: var(--gold-glow);
+      border: 1px solid var(--gold-b);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.1rem;
+      margin-bottom: 1.2rem;
+    }
+
+    .capability h3 {
+      font-family: var(--font-display);
+      font-weight: 500;
+      font-size: 1.15rem;
+      color: var(--w90);
+      margin-bottom: 0.5rem;
+      letter-spacing: 0.02em;
+    }
+
+    .capability-list {
+      list-style: none;
+      margin-top: 0.5rem;
+    }
+
+    .capability-list li {
+      font-family: var(--font-mono);
+      font-size: 0.6rem;
+      color: var(--w15);
+      padding: 0.25rem 0 0.25rem 0.9rem;
+      position: relative;
+      letter-spacing: 0.03em;
+    }
+
+    .capability-list li::before {
+      content: '✦';
+      position: absolute;
+      left: 0;
+      color: var(--gold-d);
+      font-size: 0.4rem;
+      top: 0.38rem;
+    }
+
+    /* ═══════════════════════════════════════
+       INDUSTRIES
+       ═══════════════════════════════════════ */
+    .industries-grid {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 0.6rem;
+      margin-top: 3rem;
+    }
+
+    .industry {
+      text-align: center;
+      padding: 2rem 1rem;
+      transition: all 0.4s;
+    }
+
+    .industry:hover {
+      background: rgba(201, 169, 110, 0.03);
+      border-color: var(--glass-border-h);
+      transform: translateY(-4px);
+    }
+
+    .industry-icon {
+      font-size: 1.8rem;
+      margin-bottom: 0.8rem;
+    }
+
+    .industry h4 {
+      font-family: var(--font-display);
+      font-weight: 500;
+      font-size: 1rem;
+      color: var(--w70);
+      margin-bottom: 0.2rem;
+    }
+
+    .industry p {
+      font-family: var(--font-mono);
+      font-size: 0.48rem;
+      color: var(--w15);
+      letter-spacing: 0.08em;
+    }
+
+    /* ═══════════════════════════════════════
+       WHY KYN
+       ═══════════════════════════════════════ */
+    .why-grid {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 0.6rem;
+      margin-top: 3rem;
+    }
+
+    .why-card {
+      padding: 1.8rem;
+      text-align: center;
+      transition: all 0.4s;
+    }
+
+    .why-card:hover {
+      background: rgba(201, 169, 110, 0.03);
+      border-color: var(--glass-border-h);
+      transform: translateY(-4px);
+    }
+
+    .why-icon {
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      background: var(--gold-glow);
+      border: 1px solid var(--gold-b);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.2rem;
+      margin: 0 auto 1rem;
+    }
+
+    .why-card h4 {
+      font-family: var(--font-display);
+      font-weight: 500;
+      font-size: 1rem;
+      color: var(--w90);
+      margin-bottom: 0.3rem;
+      line-height: 1.2;
+    }
+
+    .why-card p {
+      font-size: 0.74rem;
+      color: var(--w15);
+      line-height: 1.5;
+    }
+
+    /* ═══════════════════════════════════════
+       PRODUCT DEMO
+       ═══════════════════════════════════════ */
+    .demo-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 3rem;
+      align-items: center;
+      padding: 3rem;
+      margin-top: 2.5rem;
+    }
+
+    .demo-visual {
+      position: relative;
+      height: 320px;
+      border-radius: 14px;
+      overflow: hidden;
+      background: linear-gradient(135deg, var(--wine), var(--wine-l));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border: 1px solid var(--glass-border);
+    }
+
+    .demo-play {
+      width: 72px;
+      height: 72px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--gold-d), var(--gold));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: all 0.4s;
+      box-shadow: 0 0 50px rgba(201, 169, 110, 0.15);
+      position: relative;
+    }
+
+    .demo-play:hover {
+      transform: scale(1.08);
+      box-shadow: 0 0 70px rgba(201, 169, 110, 0.2);
+    }
+
+    .demo-play::after {
+      content: '';
+      width: 0;
+      height: 0;
+      border-left: 18px solid var(--bg);
+      border-top: 11px solid transparent;
+      border-bottom: 11px solid transparent;
+      margin-left: 4px;
+    }
+
+    .demo-label {
+      position: absolute;
+      bottom: 1.2rem;
+      left: 50%;
+      transform: translateX(-50%);
+      font-family: var(--font-mono);
+      font-size: 0.5rem;
+      color: var(--w30);
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+    }
+
+    .demo-content h3 {
+      font-family: var(--font-display);
+      font-weight: 400;
+      font-size: 1.8rem;
+      color: var(--w90);
+      margin-bottom: 0.6rem;
+      letter-spacing: 0.02em;
+    }
+
+    .demo-content h3 em {
+      color: var(--gold);
+    }
+
+    .demo-content p {
+      font-size: 0.88rem;
+      color: var(--w30);
+      line-height: 1.7;
+      margin-bottom: 1.8rem;
+    }
+
+    .demo-steps {
+      list-style: none;
+    }
+
+    .demo-steps li {
+      display: flex;
+      align-items: center;
+      gap: 0.7rem;
+      padding: 0.5rem 0;
+      font-size: 0.8rem;
+      color: var(--w50);
+      border-bottom: 1px solid var(--w04);
+    }
+
+    .demo-steps li:last-child { border-bottom: none; }
+
+    .step-num {
+      font-family: var(--font-mono);
+      font-size: 0.48rem;
+      color: var(--gold-d);
+      border: 1px solid var(--gold-b);
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      letter-spacing: 0;
+    }
+
+    /* ═══════════════════════════════════════
+       PRICING
+       ═══════════════════════════════════════ */
+    .pricing-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 0.7rem;
+      margin-top: 3rem;
+    }
+
+    .price-card {
+      padding: 2.5rem;
+      display: flex;
+      flex-direction: column;
+      transition: all 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+
+    .price-card.featured {
+      border-color: var(--glass-border-h);
+      position: relative;
+      background: rgba(201, 169, 110, 0.03);
+    }
+
+    .price-card.featured::before {
+      content: 'RECOMMENDED';
+      font-family: var(--font-mono);
+      position: absolute;
+      top: -9px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: linear-gradient(135deg, var(--gold-d), var(--gold));
+      color: var(--bg);
+      font-size: 0.42rem;
+      font-weight: 500;
+      padding: 0.2rem 0.8rem;
+      letter-spacing: 0.15em;
+    }
+
+    .price-card:hover {
+      transform: translateY(-5px);
+      border-color: var(--glass-border-h);
+    }
+
+    .price-name {
+      font-family: var(--font-display);
+      font-size: 1.5rem;
+      font-weight: 400;
+      color: var(--w90);
+      margin-bottom: 0.1rem;
+    }
+
+    .price-desc {
+      font-family: var(--font-mono);
+      font-size: 0.48rem;
+      color: var(--w15);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      margin-bottom: 1.2rem;
+    }
+
+    .price-amount {
+      font-family: var(--font-display);
+      font-size: 1.8rem;
+      font-weight: 300;
+      color: var(--white);
+      margin-bottom: 0.15rem;
+    }
+
+    .price-sub {
+      font-family: var(--font-mono);
+      font-size: 0.5rem;
+      color: var(--w15);
+      margin-bottom: 1.5rem;
+      letter-spacing: 0.05em;
+    }
+
+    .price-features {
+      list-style: none;
+      flex: 1;
+      margin-bottom: 1.5rem;
+    }
+
+    .price-features li {
+      font-size: 0.78rem;
+      color: var(--w30);
+      padding: 0.4rem 0;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      border-bottom: 1px solid var(--w04);
+    }
+
+    .price-features li::before {
+      content: '✦';
+      color: var(--gold-d);
+      font-size: 0.45rem;
+    }
+
+    .btn-price {
+      font-family: var(--font-mono);
+      width: 100%;
+      padding: 0.8rem;
+      font-size: 0.55rem;
+      font-weight: 400;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      cursor: pointer;
+      transition: all 0.4s;
+    }
+
+    .btn-price--fill {
+      background: linear-gradient(135deg, var(--gold-d), var(--gold));
+      color: var(--bg);
+      border: none;
+    }
+
+    .btn-price--fill:hover {
+      box-shadow: 0 0 25px rgba(201, 169, 110, 0.12);
+      background: var(--gold-l);
+    }
+
+    .btn-price--ghost {
+      background: transparent;
+      color: var(--w30);
+      border: 1px solid var(--w08);
+    }
+
+    .btn-price--ghost:hover {
+      border-color: var(--glass-border);
+      color: var(--gold);
+    }
+
+    /* ═══════════════════════════════════════
+       TESTIMONIALS
+       ═══════════════════════════════════════ */
+    .testimonials-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 0.7rem;
+      margin-top: 3rem;
+    }
+
+    .testimonial {
+      padding: 2rem;
+      transition: all 0.4s;
+    }
+
+    .testimonial:hover {
+      background: rgba(201, 169, 110, 0.02);
+      border-color: var(--glass-border-h);
+    }
+
+    .testimonial-stars {
+      color: var(--gold-d);
+      font-size: 0.45rem;
+      letter-spacing: 4px;
+      margin-bottom: 1.2rem;
+    }
+
+    .testimonial blockquote {
+      font-family: var(--font-display);
+      font-size: 1.05rem;
+      font-weight: 400;
+      color: var(--w50);
+      line-height: 1.55;
+      margin-bottom: 1.2rem;
+      font-style: italic;
+    }
+
+    .testimonial-author {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+    }
+
+    .author-avatar {
+      width: 34px;
+      height: 34px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--gold-d), var(--gold));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: var(--font-mono);
+      font-weight: 500;
+      font-size: 0.55rem;
+      color: var(--bg);
+    }
+
+    .author-name {
+      font-family: var(--font-mono);
+      font-size: 0.65rem;
+      color: var(--w50);
+      letter-spacing: 0.03em;
+    }
+
+    .author-role {
+      font-family: var(--font-mono);
+      font-size: 0.48rem;
+      color: var(--w15);
+      letter-spacing: 0.05em;
+    }
+
+    /* ═══════════════════════════════════════
+       CTA BANNER
+       ═══════════════════════════════════════ */
+    .cta-banner {
+      position: relative;
+      overflow: hidden;
+      padding: clamp(3rem, 6vw, 5rem);
+      text-align: center;
+      margin: 0 auto 4rem;
+    }
+
+    .cta-banner::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse at 50% 0%, rgba(201,169,110,.05), transparent 60%);
+    }
+
+    .cta-banner * { position: relative; z-index: 1; }
+
+    .cta-banner h2 {
+      font-family: var(--font-display);
+      font-size: clamp(1.8rem, 3.5vw, 2.8rem);
+      font-weight: 300;
+      color: var(--white);
+      letter-spacing: 0.03em;
+      margin-bottom: 0.7rem;
+      line-height: 1.1;
+    }
+
+    .cta-banner h2 em {
+      font-style: italic;
+      font-weight: 400;
+      color: var(--gold);
+    }
+
+    .cta-banner p {
+      font-size: 0.88rem;
+      color: var(--w15);
+      margin-bottom: 2.5rem;
+      max-width: 400px;
+      margin-inline: auto;
+      line-height: 1.7;
+    }
+
+    .cta-buttons {
+      display: flex;
+      gap: 0.8rem;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    /* ═══════════════════════════════════════
+       CONTACT / LEAD CAPTURE
+       ═══════════════════════════════════════ */
+    .contact-grid {
+      display: grid;
+      grid-template-columns: 1fr 1.2fr;
+      gap: 4rem;
+      margin-top: 3rem;
+    }
+
+    .contact-items {
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+    }
+
+    .contact-item {
+      display: flex;
+      gap: 0.7rem;
+      align-items: flex-start;
+    }
+
+    .contact-icon {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      flex-shrink: 0;
+      background: var(--gold-glow);
+      border: 1px solid var(--gold-b);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.9rem;
+    }
+
+    .contact-item h4 {
+      font-family: var(--font-display);
+      font-weight: 500;
+      font-size: 0.95rem;
+      color: var(--w90);
+      margin-bottom: 0.1rem;
+    }
+
+    .contact-item p {
+      font-size: 0.78rem;
+      color: var(--w15);
+      line-height: 1.5;
+    }
+
+    .contact-item a {
+      color: var(--gold-d);
+      text-decoration: none;
+      transition: color 0.3s;
+    }
+
+    .contact-item a:hover { color: var(--gold); }
+
+    .contact-form {
+      display: flex;
+      flex-direction: column;
+      gap: 0.6rem;
+    }
+
+    .form-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0.6rem;
+    }
+
+    .contact-form input,
+    .contact-form textarea,
+    .contact-form select {
+      width: 100%;
+      background: rgba(26, 14, 16, 0.6);
+      border: 1px solid var(--w04);
+      padding: 0.85rem 1.1rem;
+      color: var(--w50);
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      font-weight: 300;
+      letter-spacing: 0.04em;
+      transition: all 0.4s;
+      outline: none;
+    }
+
+    .contact-form input:focus,
+    .contact-form textarea:focus,
+    .contact-form select:focus {
+      border-color: var(--glass-border);
+      box-shadow: 0 0 0 3px rgba(201, 169, 110, 0.04);
+    }
+
+    .contact-form input::placeholder,
+    .contact-form textarea::placeholder {
+      color: var(--w08);
+      font-family: var(--font-mono);
+      letter-spacing: 0.06em;
+    }
+
+    .contact-form textarea {
+      min-height: 100px;
+      resize: vertical;
+    }
+
+    .contact-form select {
+      appearance: none;
+      cursor: pointer;
+    }
+
+    .contact-form select option {
+      background: var(--bg);
+      color: var(--w50);
+    }
+
+    .btn-submit {
+      font-family: var(--font-mono);
+      background: linear-gradient(135deg, var(--gold-d), var(--gold));
+      color: var(--bg);
+      border: none;
+      padding: 0.85rem 2.5rem;
+      font-size: 0.55rem;
+      font-weight: 400;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      cursor: pointer;
+      transition: all 0.4s;
+      align-self: flex-start;
+    }
+
+    .btn-submit:hover {
+      background: var(--gold-l);
+      box-shadow: 0 0 30px rgba(201, 169, 110, 0.12);
+    }
+
+    /* ═══════════════════════════════════════
+       FOOTER
+       ═══════════════════════════════════════ */
+    footer {
+      padding: 3.5rem 0 1.5rem;
+      border-top: 1px solid var(--w04);
+    }
+
+    .footer-grid {
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr 1fr;
+      gap: 3rem;
+      margin-bottom: 2.5rem;
+    }
+
+    .footer-brand .logo {
+      margin-bottom: 0.7rem;
+      display: inline-flex;
+    }
+
+    .footer-brand > p {
+      font-size: 0.75rem;
+      line-height: 1.7;
+      color: var(--w08);
+      max-width: 240px;
+    }
+
+    .footer-col h4 {
+      font-family: var(--font-mono);
+      font-weight: 300;
+      font-size: 0.48rem;
+      color: var(--w30);
+      margin-bottom: 0.7rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+    }
+
+    .footer-col ul { list-style: none; }
+    .footer-col li { margin-bottom: 0.35rem; }
+
+    .footer-col a {
+      font-family: var(--font-mono);
+      color: var(--w08);
+      text-decoration: none;
+      font-size: 0.62rem;
+      transition: color 0.3s;
+      letter-spacing: 0.04em;
+    }
+
+    .footer-col a:hover { color: var(--gold-d); }
+
+    .footer-bottom {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding-top: 1.5rem;
+      border-top: 1px solid var(--w04);
+    }
+
+    .footer-bottom p {
+      font-family: var(--font-mono);
+      font-size: 0.48rem;
+      color: var(--w08);
+      letter-spacing: 0.06em;
+    }
+
+    .footer-socials {
+      display: flex;
+      gap: 0.3rem;
+    }
+
+    .footer-socials a {
+      font-family: var(--font-mono);
+      width: 30px;
+      height: 30px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--w08);
+      text-decoration: none;
+      font-size: 0.52rem;
+      border: 1px solid var(--w04);
+      transition: all 0.4s;
+    }
+
+    .footer-socials a:hover {
+      border-color: var(--glass-border);
+      color: var(--gold);
+    }
+
+    /* ═══════════════════════════════════════
+       ANIMATIONS
+       ═══════════════════════════════════════ */
+    .reveal {
+      opacity: 0;
+      transform: translateY(28px);
+      transition: opacity 0.7s cubic-bezier(0.22, 1, 0.36, 1), transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* ═══════════════════════════════════════
+       RESPONSIVE
+       ═══════════════════════════════════════ */
+    @media (max-width: 1024px) {
+      .capabilities-grid,
+      .testimonials-grid,
+      .pricing-grid { grid-template-columns: repeat(2, 1fr); }
+      .why-grid,
+      .industries-grid { grid-template-columns: repeat(3, 1fr); }
+      .flagship-grid { grid-template-columns: 1fr 1fr; }
+      .footer-grid { grid-template-columns: 1fr 1fr; gap: 1.5rem; }
+    }
+
+    @media (max-width: 768px) {
+      .nav-links { display: none; }
+      .hamburger { display: block; }
+      .hero-grid,
+      .demo-grid,
+      .contact-grid { grid-template-columns: 1fr; gap: 2rem; }
+      .flagship-grid,
+      .capabilities-grid,
+      .testimonials-grid,
+      .pricing-grid { grid-template-columns: 1fr; }
+      .why-grid,
+      .industries-grid { grid-template-columns: repeat(2, 1fr); }
+      .flagship-wide-row { grid-template-columns: 1fr; }
+      .footer-grid { grid-template-columns: 1fr; }
+      .footer-bottom { flex-direction: column; gap: 0.7rem; text-align: center; }
+      .section-label { justify-content: center; }
+      .section-title, .section-desc { text-align: center; }
+      .section-desc { margin-inline: auto; }
+      .hero-line { display: none; }
+      .form-row { grid-template-columns: 1fr; }
+      .hero-metrics { order: -1; }
+      .metrics-row { grid-template-columns: 1fr; gap: 1rem; }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- ═══════════ NAVIGATION ═══════════ -->
+  <nav id="navbar">
+    <div class="nav-inner">
+      <a href="https://kynhood.com" class="logo">
+        <div class="logo-text">KYN<span>HOOD</span></div>
+        <span class="logo-badge">Event Tech</span>
+      </a>
+      <ul class="nav-links">
+        <li><a href="#flagships">Showcases</a></li>
+        <li><a href="#capabilities">Solutions</a></li>
+        <li><a href="#industries">Industries</a></li>
+        <li><a href="#why">Why KYN</a></li>
+        <li><a href="#pricing">Pricing</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+      <button class="btn-nav" onclick="document.getElementById('contact').scrollIntoView({behavior:'smooth'})">Book a Demo</button>
+      <button class="hamburger" aria-label="Menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- ═══════════ HERO ═══════════ -->
+  <section class="hero">
+    <div class="hero-glow"></div>
+    <div class="hero-line hero-line--left"></div>
+    <div class="hero-line hero-line--right"></div>
+
+    <div class="container">
+      <div class="hero-grid">
+        <div>
+          <div class="hero-label">Enterprise Event Technology</div>
+          <h1>End-to-End Event Technology That Powers <em>Seamless Experiences</em></h1>
+          <div class="hero-pillars">Ticketing · Registration · On-ground Tech · Analytics · Operations</div>
+          <p class="hero-desc">KYN is not just a ticketing platform — it's a complete event technology ecosystem. From 300K+ registration government summits to 50K+ ticket concerts, we power the full experience.</p>
+          <div class="hero-buttons">
+            <button class="btn btn-gold" onclick="document.getElementById('contact').scrollIntoView({behavior:'smooth'})">Book a Demo →</button>
+            <button class="btn btn-outline" onclick="document.getElementById('pricing').scrollIntoView({behavior:'smooth'})">Start Selling Tickets</button>
+          </div>
+        </div>
+
+        <div class="hero-metrics">
+          <div class="metrics-card glass">
+            <div class="metrics-row">
+              <div class="metric">
+                <div class="metric-value">500K<span>+</span></div>
+                <div class="metric-label">Registrations Managed</div>
+              </div>
+              <div class="metric">
+                <div class="metric-value">20K<span>+</span></div>
+                <div class="metric-label">Tickets per Event</div>
+              </div>
+              <div class="metric">
+                <div class="metric-value">99.9<span>%</span></div>
+                <div class="metric-label">Check-in Accuracy</div>
+              </div>
+            </div>
+            <div class="metrics-divider"></div>
+            <div class="metrics-quote">"<strong>KYN</strong> is not just a ticketing platform —<br>it's a complete <strong>event technology ecosystem</strong>."</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════ FLAGSHIP EVENTS ═══════════ -->
+  <section id="flagships">
+    <div class="container">
+      <div class="section-label section-label--center reveal">Flagship Showcases</div>
+      <h2 class="section-title section-title--center reveal">Events <em>Powered by KYN</em></h2>
+      <p class="section-desc section-desc--center reveal">Government summits, legendary concerts, massive trade fairs — all managed end-to-end on our platform.</p>
+
+      <div class="flagship-grid">
+        <div class="flagship-card glass reveal">
+          <div class="flagship-tag">Government · Elcot</div>
+          <h3>Umagine 2026</h3>
+          <div class="flagship-stat">20,000 <small>registrations</small></div>
+          <ul class="flagship-features">
+            <li>Built custom event website</li>
+            <li>Instant badge printing on-site</li>
+            <li>Seamless QR scanning entry</li>
+            <li>Zero queue management</li>
+          </ul>
+        </div>
+
+        <div class="flagship-card glass reveal">
+          <div class="flagship-tag">Government · TTDC</div>
+          <h3>Tamil Nadu Global Tourism Summit</h3>
+          <div class="flagship-stat">8,000 <small>attendees</small></div>
+          <ul class="flagship-features">
+            <li>Built custom event website</li>
+            <li>Multi-day access control</li>
+            <li>Seamless QR scanning entry</li>
+          </ul>
+        </div>
+
+        <div class="flagship-card glass reveal">
+          <div class="flagship-tag">Concert · Live</div>
+          <h3>Ilaiyaraaja — Symphony No.1 "Valiant" Live</h3>
+          <div class="flagship-stat">20,000+ <small>tickets sold</small></div>
+          <ul class="flagship-features">
+            <li>Managed high-demand VIP sales</li>
+            <li>Multi-tier ticketing</li>
+            <li>Seamless QR scanning entry</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="flagship-wide-row">
+        <div class="flagship-card glass reveal">
+          <div class="flagship-tag">Esports · Gaming</div>
+          <h3>CEGC — Chennai Esports Global Championship</h3>
+          <div class="flagship-stat">50,000+ <small>tickets sold</small></div>
+          <ul class="flagship-features">
+            <li>Seamless QR scanning entry</li>
+            <li>High-volume concurrent ticketing</li>
+          </ul>
+        </div>
+
+        <div class="flagship-card glass reveal">
+          <div class="flagship-tag">Exhibition · Trade</div>
+          <h3>Chennai Book Fair 2026</h3>
+          <div class="flagship-stat">300,000+ <small>registrations</small></div>
+          <ul class="flagship-features">
+            <li>Seamless QR scanning entry</li>
+            <li>Largest registration event powered by KYN</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="client-strip reveal">
+        <span class="client-name">Elcot — Umagine</span>
+        <span class="client-name">TTDC</span>
+        <span class="client-name">Ilaiyaraaja Concert</span>
+        <span class="client-name">Chennai Book Fair</span>
+        <span class="client-name">CEGC Esports</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════ CORE CAPABILITIES ═══════════ -->
+  <section id="capabilities">
+    <div class="container">
+      <div class="section-label section-label--center reveal">Core Capabilities</div>
+      <h2 class="section-title section-title--center reveal">Event Tech <em>Solutions</em></h2>
+      <p class="section-desc section-desc--center reveal">Five pillars of technology covering every aspect of your event — from the first ticket sold to the last attendee checked in.</p>
+
+      <div class="capabilities-grid">
+        <div class="capability glass-light reveal">
+          <div class="capability-icon">🎫</div>
+          <h3>Ticketing Platform</h3>
+          <ul class="capability-list">
+            <li>White-label ticketing</li>
+            <li>Dynamic pricing</li>
+            <li>International payments</li>
+            <li>Exhibitor portal</li>
+          </ul>
+        </div>
+
+        <div class="capability glass-light reveal">
+          <div class="capability-icon">📋</div>
+          <h3>Event Registration</h3>
+          <ul class="capability-list">
+            <li>Bulk uploads</li>
+            <li>QR-based confirmations</li>
+            <li>Custom forms & fields</li>
+            <li>Auto-email triggers</li>
+          </ul>
+        </div>
+
+        <div class="capability glass-light reveal">
+          <div class="capability-icon">📲</div>
+          <h3>On-ground Tech</h3>
+          <ul class="capability-list">
+            <li>QR scanning entry</li>
+            <li>Badge printing</li>
+            <li>Access control (VIP, zones)</li>
+            <li>Capacity management</li>
+          </ul>
+        </div>
+
+        <div class="capability glass-light reveal">
+          <div class="capability-icon">📊</div>
+          <h3>Real-Time Dashboard</h3>
+          <ul class="capability-list">
+            <li>Live ticket sales</li>
+            <li>Entry tracking</li>
+            <li>Revenue insights</li>
+            <li>Demographic analytics</li>
+          </ul>
+        </div>
+
+        <div class="capability glass-light reveal">
+          <div class="capability-icon">🤝</div>
+          <h3>Customer Support</h3>
+          <ul class="capability-list">
+            <li>Attendee support desk</li>
+            <li>Refund handling</li>
+            <li>Communication tools</li>
+            <li>WhatsApp integration</li>
+          </ul>
+        </div>
+
+        <div class="capability glass-light reveal">
+          <div class="capability-icon">🌐</div>
+          <h3>Custom Solutions</h3>
+          <ul class="capability-list">
+            <li>White-label event websites</li>
+            <li>Stall & vendor management</li>
+            <li>API integrations</li>
+            <li>Dedicated tech support</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════ INDUSTRIES ═══════════ -->
+  <section id="industries">
+    <div class="container">
+      <div class="section-label section-label--center reveal">Industries</div>
+      <h2 class="section-title section-title--center reveal">Built for <em>Every Scale</em></h2>
+
+      <div class="industries-grid">
+        <div class="industry glass reveal">
+          <div class="industry-icon">🏛️</div>
+          <h4>Government</h4>
+          <p>Summits · Conferences</p>
+        </div>
+        <div class="industry glass reveal">
+          <div class="industry-icon">🎵</div>
+          <h4>Concerts & Live</h4>
+          <p>Live Shows · Tours</p>
+        </div>
+        <div class="industry glass reveal">
+          <div class="industry-icon">🖼️</div>
+          <h4>Exhibitions</h4>
+          <p>Trade Shows · Fairs</p>
+        </div>
+        <div class="industry glass reveal">
+          <div class="industry-icon">🎓</div>
+          <h4>College Festivals</h4>
+          <p>Cultural · Technical</p>
+        </div>
+        <div class="industry glass reveal">
+          <div class="industry-icon">💼</div>
+          <h4>Corporate</h4>
+          <p>Conferences · Offsites</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════ WHY KYN ═══════════ -->
+  <section id="why">
+    <div class="container">
+      <div class="section-label section-label--center reveal">Why KYN</div>
+      <h2 class="section-title section-title--center reveal">The <em>Differentiator</em></h2>
+      <p class="section-desc section-desc--center reveal">We're not just another ticketing tool. Here's what sets us apart — brutally clear.</p>
+
+      <div class="why-grid">
+        <div class="why-card glass reveal">
+          <div class="why-icon">🔄</div>
+          <h4>End-to-End Ownership</h4>
+          <p>Not just ticketing. We own the entire event tech lifecycle.</p>
+        </div>
+        <div class="why-card glass reveal">
+          <div class="why-icon">🏛️</div>
+          <h4>Government Scale</h4>
+          <p>Proven at 300K+ registrations for state-level events.</p>
+        </div>
+        <div class="why-card glass reveal">
+          <div class="why-icon">⚡</div>
+          <h4>Real-Time Tech</h4>
+          <p>Live dashboards, instant scanning. Not manual operations.</p>
+        </div>
+        <div class="why-card glass reveal">
+          <div class="why-icon">🛠️</div>
+          <h4>Custom, Not Rigid</h4>
+          <p>Flexible to your needs. Not rigid SaaS templates.</p>
+        </div>
+        <div class="why-card glass reveal">
+          <div class="why-icon">🎯</div>
+          <h4>On-Ground Execution</h4>
+          <p>We don't just build software. We show up at the venue.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════ PRODUCT DEMO ═══════════ -->
+  <section id="demo">
+    <div class="container">
+      <div class="section-label reveal">Product Demo</div>
+
+      <div class="demo-grid glass reveal">
+        <div class="demo-visual">
+          <div class="demo-play"></div>
+          <div class="demo-label">Watch · 2 min</div>
+        </div>
+
+        <div class="demo-content">
+          <h3>See How It <em>Works</em></h3>
+          <p>From event setup to day-of execution — watch how KYN powers seamless events in under 2 minutes.</p>
+          <ul class="demo-steps">
+            <li><span class="step-num">01</span> Setup your event & ticketing in minutes</li>
+            <li><span class="step-num">02</span> Watch real-time sales on the dashboard</li>
+            <li><span class="step-num">03</span> On-ground QR scanning & badge printing</li>
+            <li><span class="step-num">04</span> Post-event analytics & revenue insights</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════ PRICING ═══════════ -->
+  <section id="pricing">
+    <div class="container">
+      <div class="section-label section-label--center reveal">Pricing</div>
+      <h2 class="section-title section-title--center reveal">Flexible <em>Business Model</em></h2>
+      <p class="section-desc section-desc--center reveal">SaaS fee or commission model. Pricing that scales with your event.</p>
+
+      <div class="pricing-grid">
+        <div class="price-card glass reveal">
+          <div class="price-name">Starter</div>
+          <div class="price-desc">Small Events & Meetups</div>
+          <div class="price-amount">Commission</div>
+          <div class="price-sub">% per ticket · no upfront cost</div>
+          <ul class="price-features">
+            <li>Up to 5 events / month</li>
+            <li>Basic ticketing & registration</li>
+            <li>QR scanning entry</li>
+            <li>Standard dashboard</li>
+            <li>Email support</li>
+          </ul>
+          <button class="btn-price btn-price--ghost">Start Free</button>
+        </div>
+
+        <div class="price-card glass featured reveal">
+          <div class="price-name">Professional</div>
+          <div class="price-desc">Growing Organisations</div>
+          <div class="price-amount">SaaS + Reduced Fee</div>
+          <div class="price-sub">Monthly subscription · lower commission</div>
+          <ul class="price-features">
+            <li>Unlimited events</li>
+            <li>White-label ticketing</li>
+            <li>Badge printing & access control</li>
+            <li>Real-time analytics</li>
+            <li>Priority 24/7 support</li>
+            <li>Custom forms & branding</li>
+          </ul>
+          <button class="btn-price btn-price--fill">Get Started</button>
+        </div>
+
+        <div class="price-card glass reveal">
+          <div class="price-name">Enterprise</div>
+          <div class="price-desc">Government & Large-Scale</div>
+          <div class="price-amount">Custom</div>
+          <div class="price-sub">Tailored to your event scale</div>
+          <ul class="price-features">
+            <li>Everything in Professional</li>
+            <li>Custom event websites</li>
+            <li>On-ground tech team</li>
+            <li>Stall & vendor management</li>
+            <li>Dedicated account manager</li>
+            <li>Custom SLA & support</li>
+          </ul>
+          <button class="btn-price btn-price--ghost">Contact Sales</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════ TESTIMONIALS ═══════════ -->
+  <section>
+    <div class="container">
+      <div class="section-label section-label--center reveal">Testimonials</div>
+      <h2 class="section-title section-title--center reveal">Trusted by <em>Industry Leaders</em></h2>
+
+      <div class="testimonials-grid">
+        <div class="testimonial glass reveal">
+          <div class="testimonial-stars">✦ ✦ ✦ ✦ ✦</div>
+          <blockquote>"KYN managed our entire 20K registration event with zero downtime. The badge printing and QR entry was flawless."</blockquote>
+          <div class="testimonial-author">
+            <div class="author-avatar">GS</div>
+            <div>
+              <div class="author-name">Government Official</div>
+              <div class="author-role">Umagine 2026 · Elcot</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="testimonial glass reveal">
+          <div class="testimonial-stars">✦ ✦ ✦ ✦ ✦</div>
+          <blockquote>"Selling 20,000+ tickets for the Ilaiyaraaja concert with VIP tiers was seamless. The real-time dashboard gave us complete visibility."</blockquote>
+          <div class="testimonial-author">
+            <div class="author-avatar">RP</div>
+            <div>
+              <div class="author-name">Concert Producer</div>
+              <div class="author-role">Ilaiyaraaja 50 · Chennai</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="testimonial glass reveal">
+          <div class="testimonial-stars">✦ ✦ ✦ ✦ ✦</div>
+          <blockquote>"300,000+ registrations for Book Fair with real-time QR scanning. KYN's on-ground team execution was outstanding."</blockquote>
+          <div class="testimonial-author">
+            <div class="author-avatar">TK</div>
+            <div>
+              <div class="author-name">Event Director</div>
+              <div class="author-role">Chennai Book Fair 2026</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════ CTA BANNER ═══════════ -->
+  <div class="container">
+    <div class="cta-banner glass reveal">
+      <h2>Ready to Power Your<br><em>Next Event</em>?</h2>
+      <p>Join government bodies, concert producers, and enterprise organisers who trust KYN.</p>
+      <div class="cta-buttons">
+        <button class="btn btn-gold" onclick="document.getElementById('contact').scrollIntoView({behavior:'smooth'})">Book a Demo →</button>
+        <button class="btn btn-outline">Partner with KYN</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════ CONTACT / LEAD CAPTURE ═══════════ -->
+  <section id="contact">
+    <div class="container">
+      <div class="section-label reveal">Talk to Sales</div>
+      <h2 class="section-title reveal">Let's Power Your <em>Event</em></h2>
+      <p class="section-desc reveal">Book a demo, discuss your event needs, or explore a partnership.</p>
+
+      <div class="contact-grid">
+        <div class="contact-items reveal">
+          <div class="contact-item">
+            <div class="contact-icon">📍</div>
+            <div>
+              <h4>Headquarters</h4>
+              <p>Kynhood Technologies<br>Chennai, Tamil Nadu, India</p>
+            </div>
+          </div>
+          <div class="contact-item">
+            <div class="contact-icon">✉️</div>
+            <div>
+              <h4>Email</h4>
+              <p><a href="mailto:partner@kynhood.com">partner@kynhood.com</a></p>
+            </div>
+          </div>
+          <div class="contact-item">
+            <div class="contact-icon">📞</div>
+            <div>
+              <h4>Phone</h4>
+              <p>+91 44 XXXX XXXX</p>
+            </div>
+          </div>
+          <div class="contact-item">
+            <div class="contact-icon">💬</div>
+            <div>
+              <h4>WhatsApp</h4>
+              <p><a href="#">Chat with us on WhatsApp →</a></p>
+            </div>
+          </div>
+          <div class="contact-item">
+            <div class="contact-icon">🌐</div>
+            <div>
+              <h4>Socials</h4>
+              <p>
+                <a href="https://www.instagram.com/kynhood/" target="_blank">Instagram</a> ·
+                <a href="https://twitter.com/kyn_hood" target="_blank">X</a> ·
+                <a href="https://www.linkedin.com/company/kynhood/" target="_blank">LinkedIn</a>
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <form class="contact-form reveal" onsubmit="event.preventDefault(); alert('Thanks! Our sales team will reach out within 24 hours.');">
+          <div class="form-row">
+            <input type="text" placeholder="Your name" required>
+            <input type="text" placeholder="Organisation" required>
+          </div>
+          <div class="form-row">
+            <input type="email" placeholder="Email address" required>
+            <input type="tel" placeholder="Phone number">
+          </div>
+          <select required>
+            <option value="" disabled selected>I'm looking for...</option>
+            <option>Event ticketing platform</option>
+            <option>Registration & badge printing</option>
+            <option>On-ground tech support</option>
+            <option>Custom event website</option>
+            <option>Full end-to-end management</option>
+            <option>Enterprise / Government event</option>
+            <option>Partnership opportunity</option>
+          </select>
+          <textarea placeholder="Tell us about your event..."></textarea>
+          <button type="submit" class="btn-submit">Request Demo →</button>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════ FOOTER ═══════════ -->
+  <footer>
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <a href="https://kynhood.com" class="logo">
+            <div class="logo-text">KYN<span>HOOD</span></div>
+          </a>
+          <p>Complete event technology ecosystem. Ticketing, registration, on-ground tech, and analytics — end to end.</p>
+        </div>
+        <div class="footer-col">
+          <h4>Platform</h4>
+          <ul>
+            <li><a href="#capabilities">Solutions</a></li>
+            <li><a href="#pricing">Pricing</a></li>
+            <li><a href="#demo">Product Demo</a></li>
+            <li><a href="#flagships">Showcases</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Company</h4>
+          <ul>
+            <li><a href="https://kynhood.com" target="_blank">Kynhood.com</a></li>
+            <li><a href="mailto:partner@kynhood.com">Partnerships</a></li>
+            <li><a href="#">Careers</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Legal</h4>
+          <ul>
+            <li><a href="https://kynhood.com/privacy/kyn" target="_blank">Privacy Policy</a></li>
+            <li><a href="https://kynhood.com/terms&condition/kyn" target="_blank">Terms & Conditions</a></li>
+            <li><a href="https://kynhood.com/communityguidelines/kyn" target="_blank">Community Guidelines</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>© 2026 Kynhood Technologies — All Rights Reserved</p>
+        <div class="footer-socials">
+          <a href="https://www.instagram.com/kynhood/" target="_blank">IG</a>
+          <a href="https://twitter.com/kyn_hood" target="_blank">X</a>
+          <a href="https://www.linkedin.com/company/kynhood/" target="_blank">IN</a>
+          <a href="https://www.facebook.com/kynhoodofficial/" target="_blank">FB</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ═══════════ SCRIPTS ═══════════ -->
+  <script>
+    // Nav scroll effect
+    const navbar = document.getElementById('navbar');
+    window.addEventListener('scroll', () => {
+      navbar.classList.toggle('scrolled', window.scrollY > 40);
+    });
+
+    // Scroll reveal
+    const reveals = document.querySelectorAll('.reveal');
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry, index) => {
+        if (entry.isIntersecting) {
+          setTimeout(() => entry.target.classList.add('visible'), index * 55);
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.06, rootMargin: '0px 0px -40px 0px' });
+
+    reveals.forEach(el => observer.observe(el));
+
+    // Smooth scroll for anchor links
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', (e) => {
+        e.preventDefault();
+        const target = document.querySelector(anchor.getAttribute('href'));
+        if (target) target.scrollIntoView({ behavior: 'smooth' });
+      });
+    });
+
+    // Mobile hamburger menu
+    document.querySelector('.hamburger').addEventListener('click', function() {
+      const links = document.querySelector('.nav-links');
+      if (links.style.display === 'flex') {
+        links.style.display = 'none';
+      } else {
+        links.style.display = 'flex';
+        links.style.flexDirection = 'column';
+        links.style.position = 'absolute';
+        links.style.top = '100%';
+        links.style.left = '0';
+        links.style.right = '0';
+        links.style.background = 'rgba(14, 6, 8, 0.95)';
+        links.style.backdropFilter = 'blur(30px)';
+        links.style.padding = '1.5rem 2rem';
+        links.style.gap = '1.2rem';
+        links.style.borderBottom = '1px solid rgba(201, 169, 110, 0.06)';
+      }
+    });
+  </script>
+
+</body>
+</html>
