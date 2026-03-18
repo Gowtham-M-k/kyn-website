@@ -2,1699 +2,553 @@
 
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>KYN SaaS - Enterprise Event Management Platform</title>
-    <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-
-    :root {
-        --primary: #ffffff;
-        --secondary: #f5f5f5;
-        --accent: #ff6b7a;
-        --accent-purple: #ff5268;
-        --accent-blue: #ff7a8a;
-        --text-light: #1a1a1a;
-        --text-muted: #666666;
-        --bg-dark: #ffffff;
-        --bg-card: #f9f9f9;
-        --border: #e8e8e8;
-    }
-
-    html {
-        scroll-behavior: smooth;
-    }
-
-    body {
-        font-family: 'Inter', sans-serif;
-        background: linear-gradient(135deg, #ffffff 0%, #f5f5f5 100%);
-        color: var(--text-light);
-        line-height: 1.6;
-        overflow-x: hidden;
-    }
-
-    /* HEADER & NAV */
-    header {
-        position: fixed;
-        top: 0;
-        width: 100%;
-        background: rgba(255, 255, 255, 0.95);
-        backdrop-filter: blur(10px);
-        border-bottom: 1px solid rgba(255, 107, 122, 0.2);
-        z-index: 1000;
-        animation: slideDown 0.6s ease-out;
-    }
-
-    @keyframes slideDown {
-        from {
-            transform: translateY(-100%);
-            opacity: 0;
-        }
-        to {
-            transform: translateY(0);
-            opacity: 1;
-        }
-    }
-
-    nav {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        max-width: 1400px;
-        margin: 0 auto;
-        padding: 1rem 2rem;
-    }
-
-    .logo {
-        font-family: 'Syne', sans-serif;
-        font-size: 1.8rem;
-        font-weight: 700;
-        background: linear-gradient(135deg, var(--accent) 0%, var(--accent-purple) 100%);
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
-        background-clip: text;
-        letter-spacing: -0.5px;
-    }
-
-    nav ul {
-        display: flex;
-        list-style: none;
-        gap: 3rem;
-        align-items: center;
-        flex-wrap: wrap;
-        justify-content: center;
-    }
-
-    nav li {
-        flex: 0 1 auto;
-    }
-
-    .hamburger {
-        display: none;
-        flex-direction: column;
-        background: none;
-        border: none;
-        cursor: pointer;
-        gap: 6px;
-        padding: 0;
-        z-index: 1001;
-    }
-
-    .hamburger span {
-        display: block;
-        width: 25px;
-        height: 3px;
-        background: var(--accent);
-        border-radius: 2px;
-        transition: all 0.3s ease;
-    }
-
-    .hamburger.active span:nth-child(1) {
-        transform: rotate(45deg) translate(8px, 8px);
-    }
-
-    .hamburger.active span:nth-child(2) {
-        opacity: 0;
-    }
-
-    .hamburger.active span:nth-child(3) {
-        transform: rotate(-45deg) translate(7px, -7px);
-    }
-
-    .nav-menu {
-        display: flex;
-        list-style: none;
-        gap: 3rem;
-        align-items: center;
-    }
-
-    nav a {
-        color: var(--text-light);
-        text-decoration: none;
-        font-size: 0.95rem;
-        font-weight: 500;
-        position: relative;
-        transition: color 0.3s;
-    }
-
-    nav a:hover {
-        color: var(--accent);
-    }
-
-    nav a::after {
-        content: '';
-        position: absolute;
-        bottom: -5px;
-        left: 0;
-        width: 0;
-        height: 2px;
-        background: var(--accent);
-        transition: width 0.3s;
-    }
-
-    nav a:hover::after {
-        width: 100%;
-    }
-
-    .cta-button {
-        background: linear-gradient(135deg, var(--accent) 0%, var(--accent-blue) 100%);
-        color: white !important;
-        padding: 0.7rem 1.5rem;
-        border-radius: 8px;
-        font-weight: 600;
-        font-size: 0.9rem;
-        cursor: pointer;
-        border: none;
-        transition: transform 0.3s, box-shadow 0.3s;
-        white-space: nowrap;
-    }
-
-    .cta-button:hover {
-        transform: translateY(-3px);
-        box-shadow: 0 10px 30px rgba(255, 107, 122, 0.3);
-    }
-
-    /* HERO SECTION */
-    .hero {
-        max-width: 1400px;
-        margin: 0 auto;
-        padding: 8rem 2rem 6rem;
-        padding-top: 120px;
-        text-align: center;
-        position: relative;
-        overflow: hidden;
-    }
-
-    .hero::before {
-        content: '';
-        position: absolute;
-        top: -50%;
-        right: -20%;
-        width: 500px;
-        height: 500px;
-        background: radial-gradient(circle, rgba(255, 107, 122, 0.15) 0%, transparent 70%);
-        border-radius: 50%;
-        filter: blur(40px);
-    }
-
-    .hero::after {
-        content: '';
-        position: absolute;
-        bottom: -30%;
-        left: -10%;
-        width: 400px;
-        height: 400px;
-        background: radial-gradient(circle, rgba(255, 82, 104, 0.12) 0%, transparent 70%);
-        border-radius: 50%;
-        filter: blur(40px);
-    }
-
-    .hero-content {
-        position: relative;
-        z-index: 2;
-        animation: fadeInUp 0.8s ease-out;
-    }
-
-    @keyframes fadeInUp {
-        from {
-            opacity: 0;
-            transform: translateY(40px);
-        }
-        to {
-            opacity: 1;
-            transform: translateY(0);
-        }
-    }
-
-    .hero-tag {
-        display: inline-block;
-        background: rgba(255, 107, 122, 0.1);
-        border: 1px solid var(--accent);
-        color: var(--accent);
-        padding: 0.5rem 1.2rem;
-        border-radius: 50px;
-        font-size: 0.85rem;
-        font-weight: 600;
-        margin-bottom: 1.5rem;
-        text-transform: uppercase;
-        letter-spacing: 1px;
-    }
-
-    h1 {
-        font-family: 'Syne', sans-serif;
-        font-size: 4rem;
-        font-weight: 800;
-        line-height: 1.1;
-        margin-bottom: 1.5rem;
-        background: linear-gradient(135deg, var(--text-light) 0%, var(--accent) 100%);
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
-        background-clip: text;
-    }
-
-    .hero p {
-        font-size: 1.2rem;
-        color: var(--text-muted);
-        max-width: 700px;
-        margin: 0 auto 2.5rem;
-        line-height: 1.8;
-    }
-
-    .hero-buttons {
-        display: flex;
-        gap: 1.5rem;
-        justify-content: center;
-        flex-wrap: wrap;
-        margin-bottom: 4rem;
-    }
-
-    .btn-primary {
-        background: linear-gradient(135deg, var(--accent) 0%, var(--accent-blue) 100%);
-        color: var(--primary);
-        padding: 1rem 2.5rem;
-        border-radius: 10px;
-        font-weight: 700;
-        text-decoration: none;
-        border: none;
-        cursor: pointer;
-        font-size: 1rem;
-        transition: all 0.3s;
-        display: inline-block;
-    }
-
-    .btn-primary:hover {
-        transform: translateY(-5px);
-        box-shadow: 0 15px 40px rgba(0, 217, 255, 0.25);
-    }
-
-    .btn-secondary {
-        border: 2px solid var(--accent);
-        color: var(--accent);
-        padding: 0.9rem 2.4rem;
-        border-radius: 10px;
-        font-weight: 700;
-        text-decoration: none;
-        background: transparent;
-        cursor: pointer;
-        font-size: 1rem;
-        transition: all 0.3s;
-        display: inline-block;
-    }
-
-    .btn-secondary:hover {
-        background: rgba(0, 217, 255, 0.1);
-        transform: translateY(-5px);
-    }
-
-    .stats-grid {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-        gap: 2rem;
-        margin-top: 4rem;
-    }
-
-    .stat-card {
-        background: rgba(255, 255, 255, 0.7);
-        border: 1px solid rgba(255, 107, 122, 0.2);
-        padding: 2rem;
-        border-radius: 12px;
-        text-align: center;
-        backdrop-filter: blur(10px);
-        transition: all 0.3s;
-    }
-
-    .stat-card:hover {
-        border-color: var(--accent);
-        background: rgba(255, 255, 255, 0.95);
-    }
-
-    .stat-number {
-        font-size: 2.5rem;
-        font-weight: 700;
-        background: linear-gradient(135deg, var(--accent) 0%, var(--accent-purple) 100%);
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
-        background-clip: text;
-        margin-bottom: 0.5rem;
-    }
-
-    .stat-label {
-        color: var(--text-muted);
-        font-size: 0.9rem;
-        text-transform: uppercase;
-        letter-spacing: 1px;
-    }
-
-    /* FEATURES SECTION */
-    .features {
-        max-width: 1400px;
-        margin: 0 auto;
-        padding: 8rem 2rem;
-        position: relative;
-    }
-
-    .section-header {
-        text-align: center;
-        margin-bottom: 4rem;
-    }
-
-    .section-header h2 {
-        font-family: 'Syne', sans-serif;
-        font-size: 2.8rem;
-        font-weight: 700;
-        margin-bottom: 1rem;
-        background: linear-gradient(135deg, var(--text-light) 0%, var(--accent) 100%);
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
-        background-clip: text;
-    }
-
-    .section-header p {
-        font-size: 1.1rem;
-        color: var(--text-muted);
-        max-width: 600px;
-        margin: 0 auto;
-    }
-
-    .features-grid {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-        gap: 2rem;
-        margin-bottom: 4rem;
-    }
-
-    .feature-card {
-        background: linear-gradient(135deg, rgba(255, 255, 255, 0.9) 0%, rgba(245, 245, 245, 0.8) 100%);
-        border: 1px solid rgba(255, 107, 122, 0.15);
-        padding: 2.5rem;
-        border-radius: 16px;
-        position: relative;
-        overflow: hidden;
-        transition: all 0.4s;
-        cursor: pointer;
-    }
-
-    .feature-card::before {
-        content: '';
-        position: absolute;
-        top: -2px;
-        left: -2px;
-        right: -2px;
-        bottom: -2px;
-        background: linear-gradient(135deg, var(--accent) 0%, var(--accent-purple) 100%);
-        border-radius: 16px;
-        opacity: 0;
-        transition: opacity 0.4s;
-        z-index: -1;
-    }
-
-    .feature-card:hover {
-        transform: translateY(-10px);
-        border-color: var(--accent);
-    }
-
-    .feature-card:hover::before {
-        opacity: 0.15;
-    }
-
-    .feature-icon {
-        font-size: 3rem;
-        margin-bottom: 1.5rem;
-    }
-
-    .feature-card h3 {
-        font-family: 'Syne', sans-serif;
-        font-size: 1.4rem;
-        font-weight: 700;
-        margin-bottom: 1rem;
-        color: var(--text-light);
-    }
-
-    .feature-card p {
-        color: var(--text-muted);
-        margin-bottom: 1.5rem;
-        line-height: 1.7;
-    }
-
-    .feature-list {
-        list-style: none;
-        display: flex;
-        flex-direction: column;
-        gap: 0.8rem;
-    }
-
-    .feature-list li {
-        color: var(--text-muted);
-        font-size: 0.95rem;
-        display: flex;
-        align-items: center;
-        gap: 0.8rem;
-    }
-
-    .feature-list li::before {
-        content: '✓';
-        color: var(--accent);
-        font-weight: 700;
-        font-size: 1.2rem;
-    }
-
-    /* CAPABILITIES SECTION */
-    .capabilities {
-        max-width: 1400px;
-        margin: 0 auto;
-        padding: 8rem 2rem;
-        position: relative;
-    }
-
-    .capabilities-content {
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-        gap: 4rem;
-        align-items: center;
-    }
-
-    .capabilities-text h2 {
-        font-family: 'Syne', sans-serif;
-        font-size: 2.8rem;
-        font-weight: 700;
-        margin-bottom: 2rem;
-        background: linear-gradient(135deg, var(--text-light) 0%, var(--accent) 100%);
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
-        background-clip: text;
-    }
-
-    .capabilities-text p {
-        color: var(--text-muted);
-        font-size: 1.05rem;
-        margin-bottom: 1.5rem;
-        line-height: 1.8;
-    }
-
-    .capabilities-list {
-        display: grid;
-        gap: 1.2rem;
-    }
-
-    .capability-item {
-        background: rgba(255, 107, 122, 0.08);
-        border-left: 4px solid var(--accent);
-        padding: 1.5rem;
-        border-radius: 8px;
-        transition: all 0.3s;
-    }
-
-    .capability-item:hover {
-        background: rgba(255, 107, 122, 0.15);
-        border-left-color: var(--accent-purple);
-        transform: translateX(10px);
-    }
-
-    .capability-item h4 {
-        color: var(--accent);
-        font-weight: 700;
-        margin-bottom: 0.5rem;
-        font-family: 'Syne', sans-serif;
-    }
-
-    .capability-item p {
-        color: var(--text-muted);
-        font-size: 0.95rem;
-        margin: 0;
-    }
-
-    .capabilities-visual {
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-        gap: 1.5rem;
-    }
-
-    .visual-card {
-        background: linear-gradient(135deg, rgba(255, 107, 122, 0.08) 0%, rgba(255, 122, 138, 0.08) 100%);
-        border: 1px solid rgba(255, 107, 122, 0.2);
-        padding: 2rem;
-        border-radius: 12px;
-        text-align: center;
-        transition: all 0.3s;
-    }
-
-    .visual-card:hover {
-        border-color: var(--accent);
-        background: linear-gradient(135deg, rgba(255, 107, 122, 0.15) 0%, rgba(255, 122, 138, 0.15) 100%);
-        transform: translateY(-5px);
-    }
-
-    .visual-icon {
-        font-size: 2.5rem;
-        margin-bottom: 1rem;
-    }
-
-    .visual-card h4 {
-        color: var(--text-light);
-        font-weight: 700;
-        margin-bottom: 0.5rem;
-    }
-
-    .visual-card p {
-        color: var(--text-muted);
-        font-size: 0.9rem;
-    }
-
-    /* ABOUT SECTION */
-    .about {
-        max-width: 1400px;
-        margin: 0 auto;
-        padding: 8rem 2rem;
-    }
-
-    .about-content {
-        background: linear-gradient(135deg, rgba(255, 107, 122, 0.08) 0%, rgba(255, 107, 122, 0.04) 100%);
-        border: 1px solid rgba(255, 107, 122, 0.2);
-        padding: 4rem;
-        border-radius: 16px;
-        position: relative;
-        overflow: hidden;
-    }
-
-    .about-content::before {
-        content: '';
-        position: absolute;
-        top: -50%;
-        right: -50%;
-        width: 400px;
-        height: 400px;
-        background: radial-gradient(circle, rgba(255, 107, 122, 0.08) 0%, transparent 70%);
-        border-radius: 50%;
-        filter: blur(40px);
-    }
-
-    .about-inner {
-        position: relative;
-        z-index: 2;
-    }
-
-    .about h2 {
-        font-family: 'Syne', sans-serif;
-        font-size: 2.8rem;
-        font-weight: 700;
-        margin-bottom: 2rem;
-        background: linear-gradient(135deg, var(--text-light) 0%, var(--accent) 100%);
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
-        background-clip: text;
-    }
-
-    .about p {
-        font-size: 1.05rem;
-        color: var(--text-muted);
-        margin-bottom: 1.5rem;
-        line-height: 1.8;
-        max-width: 900px;
-    }
-
-    .about-highlights {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-        gap: 2rem;
-        margin-top: 3rem;
-        margin-bottom: 2rem;
-    }
-
-    .highlight {
-        background: rgba(255, 107, 122, 0.08);
-        border: 1px solid rgba(255, 107, 122, 0.25);
-        padding: 2rem;
-        border-radius: 12px;
-        transition: all 0.3s;
-    }
-
-    .highlight:hover {
-        background: rgba(255, 107, 122, 0.15);
-        border-color: var(--accent);
-        transform: translateY(-5px);
-    }
-
-    .highlight h4 {
-        color: var(--accent);
-        font-weight: 700;
-        margin-bottom: 0.8rem;
-        font-family: 'Syne', sans-serif;
-    }
-
-    .highlight p {
-        color: var(--text-muted);
-        font-size: 0.95rem;
-        margin: 0;
-    }
-
-    /* LIFECYCLE SECTION */
-    .lifecycle {
-        max-width: 1400px;
-        margin: 0 auto;
-        padding: 8rem 2rem;
-    }
-
-    .phases-grid {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-        gap: 2rem;
-        margin-top: 3rem;
-    }
-
-    .phase-card {
-        background: linear-gradient(135deg, rgba(255, 255, 255, 0.9) 0%, rgba(245, 245, 245, 0.8) 100%);
-        border: 1px solid rgba(255, 107, 122, 0.15);
-        padding: 2.5rem;
-        border-radius: 16px;
-        position: relative;
-        overflow: hidden;
-        transition: all 0.4s;
-        cursor: pointer;
-    }
-
-    .phase-card::before {
-        content: '';
-        position: absolute;
-        top: 0;
-        left: 0;
-        right: 0;
-        height: 4px;
-        background: linear-gradient(90deg, var(--accent) 0%, var(--accent-purple) 100%);
-    }
-
-    .phase-card:hover {
-        transform: translateY(-10px);
-        border-color: var(--accent);
-        background: linear-gradient(135deg, rgba(255, 255, 255, 1) 0%, rgba(245, 245, 245, 1) 100%);
-    }
-
-    .phase-number {
-        font-family: 'Syne', sans-serif;
-        font-size: 3rem;
-        font-weight: 800;
-        background: linear-gradient(135deg, var(--accent) 0%, var(--accent-purple) 100%);
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
-        background-clip: text;
-        margin-bottom: 0.5rem;
-    }
-
-    .phase-icon {
-        font-size: 2.5rem;
-        margin-bottom: 1rem;
-        display: block;
-    }
-
-    .phase-card h3 {
-        font-family: 'Syne', sans-serif;
-        font-size: 1.6rem;
-        font-weight: 700;
-        color: var(--text-light);
-        margin-bottom: 1rem;
-    }
-
-    .phase-card p {
-        color: var(--text-muted);
-        margin-bottom: 1.5rem;
-        line-height: 1.7;
-        font-size: 0.95rem;
-    }
-
-    .phase-features {
-        list-style: none;
-        display: flex;
-        flex-direction: column;
-        gap: 0.8rem;
-    }
-
-    .phase-features li {
-        color: var(--text-muted);
-        font-size: 0.9rem;
-        display: flex;
-        align-items: center;
-        gap: 0.8rem;
-    }
-
-    .phase-features li::before {
-        content: '✓';
-        color: var(--accent);
-        font-weight: 700;
-        font-size: 1.2rem;
-    }
-
-
-/* CONTACT SECTION */
-.contact {
-max-width: 1400px;
-margin: 0 auto;
-padding: 8rem 2rem;
-text-align: center;
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>KYN Event Tech — End-to-End Event Technology That Powers Seamless Experiences</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400;1,500&family=JetBrains+Mono:wght@300;400;500&family=Instrument+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --bg:#0E0608;--bg-w:#140A0C;--bg-c:#1A0E10;
+  --wine:#2D0F14;--wine-l:#3D1620;--wine-ll:#4E1D2A;
+  --maroon:#6B1E2E;
+  --gold:#C9A96E;--gold-l:#DFC08A;--gold-d:#A88A52;
+  --gold-glow:rgba(201,169,110,.15);--gold-b:rgba(201,169,110,.1);--gold-b-l:rgba(201,169,110,.05);
+  --glass:rgba(26,14,16,.6);--glass-l:rgba(40,18,22,.4);
+  --gb:rgba(201,169,110,.07);--gbh:rgba(201,169,110,.14);
+  --w:#FAF6F0;--w9:rgba(250,246,240,.9);--w7:rgba(250,246,240,.7);
+  --w5:rgba(250,246,240,.5);--w3:rgba(250,246,240,.3);--w15:rgba(250,246,240,.15);
+  --w08:rgba(250,246,240,.08);--w04:rgba(250,246,240,.04);
+  --display:'Cormorant Garamond',serif;--mono:'JetBrains Mono',monospace;--body:'Instrument Sans',sans-serif;
 }
-
-
-    .contact h2 {
-        font-family: 'Syne', sans-serif;
-        font-size: 2.8rem;
-        font-weight: 700;
-        margin-bottom: 1.5rem;
-        background: linear-gradient(135deg, var(--text-light) 0%, var(--accent) 100%);
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
-        background-clip: text;
-    }
-
-    .contact p {
-        color: var(--text-muted);
-        font-size: 1.1rem;
-        margin-bottom: 2rem;
-        max-width: 600px;
-        margin-left: auto;
-        margin-right: auto;
-    }
-
-    .contact-info {
-        display: flex;
-        justify-content: center;
-        gap: 2rem;
-        flex-wrap: wrap;
-        margin-bottom: 3rem;
-    }
-
-    .contact-item {
-        background: rgba(255, 107, 122, 0.08);
-        border: 1px solid rgba(255, 107, 122, 0.2);
-        padding: 2rem;
-        border-radius: 12px;
-        min-width: 280px;
-        transition: all 0.3s;
-    }
-
-    .contact-item:hover {
-        border-color: var(--accent);
-        background: rgba(255, 107, 122, 0.15);
-    }
-
-    .contact-item h4 {
-        color: var(--accent);
-        font-weight: 700;
-        margin-bottom: 1rem;
-        font-family: 'Syne', sans-serif;
-    }
-
-    .contact-item a {
-        color: var(--text-light);
-        text-decoration: none;
-        font-size: 1rem;
-        transition: color 0.3s;
-    }
-
-    .contact-item a:hover {
-        color: var(--accent);
-    }
-
-    /* FOOTER */
-    footer {
-        background: rgba(255, 255, 255, 0.95);
-        border-top: 1px solid rgba(255, 107, 122, 0.2);
-        padding: 4rem 2rem;
-        margin-top: 4rem;
-    }
-
-    .footer-content {
-        max-width: 1400px;
-        margin: 0 auto;
-    }
-
-    .footer-grid {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-        gap: 2rem;
-        margin-bottom: 2rem;
-    }
-
-    .footer-section h4 {
-        color: var(--text-light);
-        font-weight: 700;
-        margin-bottom: 1.2rem;
-        font-family: 'Syne', sans-serif;
-    }
-
-    .footer-section ul {
-        list-style: none;
-    }
-
-    .footer-section ul li {
-        margin-bottom: 0.8rem;
-    }
-
-    .footer-section a {
-        color: var(--text-muted);
-        text-decoration: none;
-        font-size: 0.95rem;
-        transition: color 0.3s;
-    }
-
-    .footer-section a:hover {
-        color: var(--accent);
-    }
-
-    .footer-bottom {
-        border-top: 1px solid rgba(255, 107, 122, 0.2);
-        padding-top: 2rem;
-        text-align: center;
-        color: var(--text-muted);
-        font-size: 0.9rem;
-    }
-
-    /* RESPONSIVE */
-    @media (max-width: 768px) {
-        h1 {
-            font-size: 2.5rem;
-        }
-
-        .section-header h2,
-        .about h2,
-        .lifecycle h2,
-        .contact h2 {
-            font-size: 2rem;
-        }
-
-        nav {
-            padding: 0.8rem 1rem;
-        }
-
-        .hamburger {
-            display: flex;
-        }
-
-        .nav-menu {
-            position: fixed;
-            left: -100%;
-            top: 60px;
-            flex-direction: column;
-            background: rgba(255, 255, 255, 0.98);
-            width: 100%;
-            text-align: center;
-            transition: 0.3s;
-            padding: 2rem 0;
-            gap: 1.5rem;
-            align-items: stretch;
-            backdrop-filter: blur(10px);
-            border-bottom: 1px solid rgba(255, 107, 122, 0.2);
-            max-height: calc(100vh - 60px);
-            overflow-y: auto;
-        }
-
-        .nav-menu.active {
-            left: 0;
-        }
-
-        .nav-menu li {
-            width: 100%;
-        }
-
-        .nav-menu a {
-            display: block;
-            padding: 1rem;
-            color: var(--text-light);
-        }
-
-        .nav-menu .cta-button {
-            margin: 1rem 2rem;
-            width: auto;
-        }
-
-        nav ul {
-            gap: 1.5rem;
-        }
-
-        nav a {
-            font-size: 0.75rem;
-        }
-
-        .logo {
-            font-size: 1.4rem;
-        }
-
-        .cta-button {
-            padding: 0.5rem 1rem;
-            font-size: 0.75rem;
-        }
-
-        .hero {
-            padding: 5rem 1.5rem 3rem;
-            padding-top: 100px;
-        }
-
-        .capabilities-content {
-            grid-template-columns: 1fr;
-        }
-
-        .stats-grid {
-            grid-template-columns: 1fr 1fr;
-        }
-
-        .features-grid {
-            grid-template-columns: 1fr;
-        }
-
-        .feature-card,
-        .roadmap-card {
-            padding: 1.5rem;
-        }
-
-        .about-content {
-            padding: 2rem;
-        }
-
-        .about-highlights {
-            grid-template-columns: 1fr;
-        }
-
-        .phases-grid {
-            grid-template-columns: 1fr;
-        }
-
-        .phase-card {
-            padding: 2rem;
-        }
-
-        .phase-number {
-            font-size: 2.5rem;
-        }
-    }
-
-    @media (max-width: 480px) {
-        h1 {
-            font-size: 1.8rem;
-            line-height: 1.2;
-        }
-
-        .section-header h2,
-        .about h2,
-        .lifecycle h2,
-        .contact h2 {
-            font-size: 1.5rem;
-        }
-
-        header {
-            position: sticky;
-            top: 0;
-        }
-
-        nav {
-            padding: 0.6rem 0.8rem;
-            gap: 0.5rem;
-        }
-
-        nav ul {
-            gap: 0.5rem;
-            width: 100%;
-        }
-
-        nav li {
-            flex: 0 1 auto;
-        }
-
-        nav a {
-            font-size: 0.65rem;
-            white-space: nowrap;
-        }
-
-        .logo {
-            font-size: 1.2rem;
-            flex-shrink: 0;
-        }
-
-        .cta-button {
-            padding: 0.4rem 0.8rem;
-            font-size: 0.65rem;
-        }
-
-        .hero {
-            padding: 4rem 1rem 2.5rem;
-            padding-top: 90px;
-        }
-
-        .hero-tag {
-            font-size: 0.7rem;
-            padding: 0.4rem 0.8rem;
-            margin-bottom: 1rem;
-        }
-
-        .hero p {
-            font-size: 0.95rem;
-        }
-
-        .hero-buttons {
-            flex-direction: column;
-            gap: 1rem;
-            margin-bottom: 2rem;
-        }
-
-        .btn-primary,
-        .btn-secondary {
-            width: 100%;
-            text-align: center;
-            padding: 0.8rem 1.5rem;
-            font-size: 0.85rem;
-        }
-
-        .stats-grid {
-            grid-template-columns: 1fr;
-            gap: 1.5rem;
-        }
-
-        .stat-card {
-            padding: 1.5rem;
-        }
-
-        .stat-number {
-            font-size: 2rem;
-        }
-
-        .stat-label {
-            font-size: 0.8rem;
-        }
-
-        .section-header {
-            margin-bottom: 2rem;
-        }
-
-        .section-header h2 {
-            margin-bottom: 0.8rem;
-        }
-
-        .section-header p {
-            font-size: 0.9rem;
-        }
-
-        .features,
-        .capabilities,
-        .about,
-        .lifecycle,
-        .contact {
-            padding: 4rem 1rem;
-        }
-
-        .features-grid {
-            grid-template-columns: 1fr;
-            gap: 1.5rem;
-        }
-
-        .feature-card {
-            padding: 1.2rem;
-        }
-
-        .feature-icon {
-            font-size: 2.5rem;
-        }
-
-        .feature-card h3 {
-            font-size: 1.2rem;
-        }
-
-        .feature-card p {
-            font-size: 0.9rem;
-        }
-
-        .feature-list li {
-            font-size: 0.85rem;
-            gap: 0.6rem;
-        }
-
-        .capabilities-content {
-            grid-template-columns: 1fr;
-            gap: 2rem;
-        }
-
-        .capabilities-text h2 {
-            font-size: 1.5rem;
-            margin-bottom: 1.5rem;
-        }
-
-        .capabilities-list {
-            gap: 1rem;
-        }
-
-        .capability-item {
-            padding: 1.2rem;
-        }
-
-        .capability-item h4 {
-            font-size: 0.95rem;
-        }
-
-        .capability-item p {
-            font-size: 0.85rem;
-        }
-
-        .capabilities-visual {
-            grid-template-columns: 1fr;
-            gap: 1rem;
-        }
-
-        .visual-card {
-            padding: 1.5rem;
-        }
-
-        .visual-icon {
-            font-size: 2rem;
-        }
-
-        .visual-card h4 {
-            font-size: 1rem;
-        }
-
-        .visual-card p {
-            font-size: 0.85rem;
-        }
-
-        .about-content {
-            padding: 1.5rem;
-        }
-
-        .about h2 {
-            font-size: 1.5rem;
-        }
-
-        .about p {
-            font-size: 0.95rem;
-        }
-
-        .about-highlights {
-            grid-template-columns: 1fr;
-            gap: 1.5rem;
-            margin-top: 2rem;
-        }
-
-        .highlight {
-            padding: 1.5rem;
-        }
-
-        .highlight h4 {
-            font-size: 0.95rem;
-        }
-
-        .highlight p {
-            font-size: 0.85rem;
-        }
-
-        .phases-grid {
-            grid-template-columns: 1fr;
-            gap: 1.5rem;
-        }
-
-        .phase-card {
-            padding: 1.5rem;
-        }
-
-        .phase-number {
-            font-size: 2rem;
-            margin-bottom: 0.3rem;
-        }
-
-        .phase-icon {
-            font-size: 2rem;
-            margin-bottom: 0.8rem;
-        }
-
-        .phase-card h3 {
-            font-size: 1.2rem;
-            margin-bottom: 0.8rem;
-        }
-
-        .phase-card p {
-            font-size: 0.85rem;
-            margin-bottom: 1rem;
-        }
-
-        .phase-features {
-            gap: 0.6rem;
-        }
-
-        .phase-features li {
-            font-size: 0.8rem;
-            gap: 0.6rem;
-        }
-
-        .contact h2 {
-            font-size: 1.5rem;
-        }
-
-        .contact p {
-            font-size: 0.9rem;
-            margin-bottom: 1.5rem;
-        }
-
-        .contact-info {
-            flex-direction: column;
-            gap: 1rem;
-        }
-
-        .contact-item {
-            min-width: auto;
-            width: 100%;
-            padding: 1.5rem;
-        }
-
-        .contact-item h4 {
-            font-size: 0.95rem;
-        }
-
-        .contact-item a {
-            font-size: 0.9rem;
-        }
-
-        footer {
-            padding: 2rem 1rem;
-        }
-
-        .footer-grid {
-            grid-template-columns: 1fr;
-            gap: 1.5rem;
-        }
-
-        .footer-section h4 {
-            font-size: 0.95rem;
-        }
-
-        .footer-section a {
-            font-size: 0.85rem;
-        }
-
-        .footer-bottom {
-            font-size: 0.8rem;
-        }
-    }
+html{scroll-behavior:smooth;font-size:16px}
+body{font-family:var(--body);background:var(--bg);color:var(--w7);overflow-x:hidden;-webkit-font-smoothing:antialiased;letter-spacing:.01em}
+::selection{background:rgba(201,169,110,.2);color:var(--gold-l)}
+::-webkit-scrollbar{width:3px}::-webkit-scrollbar-track{background:var(--bg)}::-webkit-scrollbar-thumb{background:var(--gold-d);border-radius:2px}
+.ctr{max-width:1140px;margin:0 auto;padding:0 clamp(2rem,5vw,4rem)}
+body::before{content:'';position:fixed;inset:0;z-index:-2;background:radial-gradient(ellipse 100% 70% at 50% -10%,var(--wine) 0%,transparent 55%),radial-gradient(ellipse 70% 50% at -5% 80%,rgba(107,30,46,.15) 0%,transparent 45%),radial-gradient(ellipse 50% 60% at 105% 40%,rgba(45,15,20,.2) 0%,transparent 40%),var(--bg)}
+body::after{content:'';position:fixed;inset:0;z-index:-1;background:url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");pointer-events:none}
+
+.glass{background:var(–glass);backdrop-filter:blur(40px) saturate(1.1);-webkit-backdrop-filter:blur(40px) saturate(1.1);border:1px solid var(–gb);border-radius:16px}
+.glass-l{background:var(–glass-l);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border:1px solid var(–gb);border-radius:12px}
+
+/* ═══ NAV ═══ */
+nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:1.1rem 0;transition:.5s cubic-bezier(.22,1,.36,1)}
+nav.scrolled{padding:.65rem 0;background:rgba(14,6,8,.92);backdrop-filter:blur(30px);border-bottom:1px solid var(–gb)}
+.nav-in{display:flex;align-items:center;justify-content:space-between;max-width:1140px;margin:0 auto;padding:0 clamp(2rem,5vw,4rem)}
+.logo{display:flex;align-items:center;gap:.5rem;text-decoration:none}
+.logo-t{font-family:var(–display);font-size:1.5rem;font-weight:300;color:var(–w);letter-spacing:.12em}
+.logo-t span{color:var(–gold)}
+.logo-tag{font-family:var(–mono);font-size:.48rem;color:var(–w15);border:1px solid var(–w08);padding:.15rem .5rem;letter-spacing:.1em;text-transform:uppercase;margin-left:.2rem}
+.nav-l{display:flex;gap:2rem;align-items:center;list-style:none}
+.nav-l a{font-family:var(–mono);color:var(–w3);text-decoration:none;font-size:.6rem;font-weight:300;letter-spacing:.12em;text-transform:uppercase;transition:.4s}
+.nav-l a:hover{color:var(–gold)}
+.btn-n{font-family:var(–mono);background:linear-gradient(135deg,var(–gold-d),var(–gold));color:var(–bg);border:none;padding:.55rem 1.3rem;font-size:.55rem;font-weight:500;letter-spacing:.15em;text-transform:uppercase;cursor:pointer;transition:.4s}
+.btn-n:hover{background:var(–gold-l);box-shadow:0 0 30px rgba(201,169,110,.12)}
+.ham{display:none;background:none;border:none;cursor:pointer;padding:.5rem}
+.ham span{display:block;width:20px;height:1px;background:var(–gold);margin:6px 0}
+
+/* ═══ HERO ═══ */
+.hero{min-height:100vh;display:flex;align-items:center;position:relative;overflow:hidden;padding:9rem 0 5rem}
+.hero-glow{position:absolute;top:35%;left:50%;transform:translate(-50%,-50%);width:900px;height:600px;background:radial-gradient(ellipse,rgba(201,169,110,.03) 0%,transparent 55%);pointer-events:none}
+.hero-vl{position:absolute;top:0;width:1px;height:100%;background:linear-gradient(180deg,transparent,var(–gb),transparent);pointer-events:none}
+.hvl-l{left:clamp(2rem,8vw,6rem)}.hvl-r{right:clamp(2rem,8vw,6rem)}
+
+.hero-inner{position:relative;z-index:2;display:grid;grid-template-columns:1.1fr .9fr;gap:4rem;align-items:center}
+.hero-tag{font-family:var(–mono);font-size:.5rem;color:var(–gold-d);letter-spacing:.3em;text-transform:uppercase;margin-bottom:2rem;display:flex;align-items:center;gap:1rem;animation:fadeUp .8s ease-out}
+.hero-tag::before{content:’’;width:40px;height:1px;background:linear-gradient(90deg,var(–gold-d),transparent)}
+.hero h1{font-family:var(–display);font-size:clamp(2.4rem,5vw,3.8rem);line-height:1.1;font-weight:300;letter-spacing:.03em;color:var(–w);margin-bottom:1.2rem;animation:fadeUp .8s ease-out .1s both}
+.hero h1 em{font-style:italic;font-weight:400;color:var(–gold)}
+.hero-sub{font-family:var(–mono);font-size:.6rem;color:var(–w15);letter-spacing:.2em;text-transform:uppercase;margin-bottom:1.5rem;animation:fadeUp .8s ease-out .15s both}
+.hero-desc{font-size:.92rem;color:var(–w3);line-height:1.75;max-width:440px;margin-bottom:2.5rem;animation:fadeUp .8s ease-out .2s both}
+.hero-btns{display:flex;gap:.8rem;flex-wrap:wrap;animation:fadeUp .8s ease-out .3s both}
+.btn-h{font-family:var(–mono);padding:.8rem 2rem;font-size:.58rem;font-weight:400;letter-spacing:.18em;text-transform:uppercase;cursor:pointer;transition:.4s}
+.btn-hp{background:linear-gradient(135deg,var(–gold-d),var(–gold));color:var(–bg);border:none}
+.btn-hp:hover{background:var(–gold-l);box-shadow:0 0 40px rgba(201,169,110,.15)}
+.btn-hs{background:transparent;color:var(–w3);border:1px solid var(–w08)}
+.btn-hs:hover{border-color:var(–gb);color:var(–gold)}
+
+/* Hero right — metrics */
+.hero-metrics{animation:fadeUp .8s ease-out .25s both}
+.hm-card{padding:2rem;margin-bottom:.6rem}
+.hm-row{display:flex;gap:1.5rem;margin-bottom:1.5rem}
+.hm{text-align:center;flex:1}
+.hm-num{font-family:var(–display);font-size:2.2rem;font-weight:300;color:var(–w9);line-height:1}
+.hm-num span{color:var(–gold)}
+.hm-lbl{font-family:var(–mono);font-size:.48rem;color:var(–w15);letter-spacing:.15em;text-transform:uppercase;margin-top:.3rem}
+.hm-div{width:100%;height:1px;background:linear-gradient(90deg,transparent,var(–gb),transparent);margin-bottom:1.5rem}
+.hm-pos{font-family:var(–display);font-size:1rem;font-weight:400;font-style:italic;color:var(–w3);text-align:center;line-height:1.5}
+.hm-pos strong{color:var(–gold);font-weight:500}
+
+@keyframes fadeUp{from{opacity:0;transform:translateY(28px)}to{opacity:1;transform:translateY(0)}}
+
+/* ═══ COMMON ═══ */
+section{padding:clamp(5rem,12vw,8rem) 0}
+.sl{font-family:var(–mono);font-size:.5rem;font-weight:300;letter-spacing:.25em;text-transform:uppercase;color:var(–gold-d);margin-bottom:.7rem;display:flex;align-items:center;gap:.8rem}
+.sl::before{content:’’;width:28px;height:1px;background:linear-gradient(90deg,var(–gold-d),transparent)}
+.sl.c{justify-content:center}
+.st{font-family:var(–display);font-size:clamp(2rem,4.5vw,3.2rem);line-height:1.1;font-weight:300;letter-spacing:.03em;color:var(–w);margin-bottom:.8rem}
+.st.c{text-align:center}
+.st em{font-style:italic;font-weight:400;color:var(–gold)}
+.sd{font-size:.88rem;color:var(–w3);line-height:1.7;max-width:440px}
+.sd.c{text-align:center;margin:0 auto}
+
+/* ═══ FLAGSHIP EVENTS ═══ */
+.flag-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:.7rem;margin-top:3rem}
+.flag-card{padding:1.8rem;transition:.5s;position:relative;overflow:hidden}
+.flag-card::before{content:’’;position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,var(–gold),transparent);transform:scaleX(0);transition:.5s}
+.flag-card:hover{background:rgba(201,169,110,.03);border-color:var(–gbh)}.flag-card:hover::before{transform:scaleX(1)}
+.flag-tag{font-family:var(–mono);font-size:.45rem;color:var(–gold-d);letter-spacing:.15em;text-transform:uppercase;margin-bottom:.6rem}
+.flag-card h3{font-family:var(–display);font-weight:500;font-size:1.25rem;color:var(–w9);letter-spacing:.02em;margin-bottom:.6rem}
+.flag-stat{font-family:var(–display);font-size:1.6rem;font-weight:300;color:var(–gold);letter-spacing:.02em;margin-bottom:.6rem}
+.flag-list{list-style:none}
+.flag-list li{font-size:.75rem;color:var(–w15);padding:.2rem 0 .2rem .9rem;position:relative}
+.flag-list li::before{content:’—’;position:absolute;left:0;color:var(–gold-d);font-size:.65rem}
+.flag-full{grid-column:1/-1;display:grid;grid-template-columns:repeat(2,1fr);gap:.7rem}
+.flag-wide{padding:1.8rem;transition:.5s;position:relative;overflow:hidden}
+.flag-wide::before{content:’’;position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,var(–gold),transparent);transform:scaleX(0);transition:.5s}
+.flag-wide:hover{background:rgba(201,169,110,.03);border-color:var(–gbh)}.flag-wide:hover::before{transform:scaleX(1)}
+
+/* Client logos row */
+.client-row{display:flex;justify-content:center;gap:2.5rem;margin-top:3rem;padding:1.5rem 0;border-top:1px solid var(–w04);border-bottom:1px solid var(–w04);flex-wrap:wrap;align-items:center}
+.client-name{font-family:var(–mono);font-size:.6rem;color:var(–w15);letter-spacing:.1em;text-transform:uppercase;transition:.3s}
+.client-name:hover{color:var(–gold-d)}
+
+/* ═══ CORE CAPABILITIES ═══ */
+.cap-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:.7rem;margin-top:3rem}
+.cap{padding:1.8rem;transition:.5s;position:relative;overflow:hidden}
+.cap::before{content:’’;position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,var(–gold),transparent);transform:scaleX(0);transition:.5s}
+.cap:hover{background:rgba(201,169,110,.03);border-color:var(–gbh)}.cap:hover::before{transform:scaleX(1)}
+.cap-ico{width:40px;height:40px;border-radius:50%;background:var(–gold-glow);border:1px solid var(–gold-b);display:flex;align-items:center;justify-content:center;font-size:1rem;margin-bottom:1rem}
+.cap h3{font-family:var(–display);font-weight:500;font-size:1.1rem;color:var(–w9);margin-bottom:.4rem}
+.cap-list{list-style:none;margin-top:.6rem}
+.cap-list li{font-family:var(–mono);font-size:.6rem;color:var(–w15);padding:.2rem 0 .2rem .8rem;position:relative;letter-spacing:.03em}
+.cap-list li::before{content:‘✦’;position:absolute;left:0;color:var(–gold-d);font-size:.4rem;top:.35rem}
+
+/* ═══ INDUSTRIES ═══ */
+.ind-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:.6rem;margin-top:2.5rem}
+.ind{text-align:center;padding:1.5rem 1rem;transition:.4s}
+.ind:hover{background:rgba(201,169,110,.03);border-color:var(–gbh);transform:translateY(-3px)}
+.ind-ico{font-size:1.6rem;margin-bottom:.6rem}
+.ind h4{font-family:var(–display);font-weight:500;font-size:.95rem;color:var(–w7);margin-bottom:.15rem}
+.ind p{font-family:var(–mono);font-size:.48rem;color:var(–w15);letter-spacing:.08em}
+
+/* ═══ WHY KYN ═══ */
+.why-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:.6rem;margin-top:3rem}
+.why{padding:1.5rem;text-align:center;transition:.4s}
+.why:hover{background:rgba(201,169,110,.03);border-color:var(–gbh);transform:translateY(-3px)}
+.why-ico{width:44px;height:44px;border-radius:50%;background:var(–gold-glow);border:1px solid var(–gold-b);display:flex;align-items:center;justify-content:center;font-size:1.1rem;margin:0 auto .8rem}
+.why h4{font-family:var(–display);font-weight:500;font-size:.95rem;color:var(–w9);margin-bottom:.25rem;line-height:1.2}
+.why p{font-size:.72rem;color:var(–w15);line-height:1.45}
+
+/* ═══ DEMO ═══ */
+.demo{position:relative}
+.demo-box{display:grid;grid-template-columns:1fr 1fr;gap:3rem;align-items:center;padding:3rem;margin-top:2rem}
+.demo-visual{position:relative;height:300px;border-radius:12px;overflow:hidden;background:linear-gradient(135deg,var(–wine),var(–wine-l));display:flex;align-items:center;justify-content:center;border:1px solid var(–gb)}
+.demo-play{width:70px;height:70px;border-radius:50%;background:linear-gradient(135deg,var(–gold-d),var(–gold));display:flex;align-items:center;justify-content:center;cursor:pointer;transition:.4s;box-shadow:0 0 50px rgba(201,169,110,.15)}
+.demo-play:hover{transform:scale(1.08);box-shadow:0 0 70px rgba(201,169,110,.2)}
+.demo-play::after{content:’’;width:0;height:0;border-left:18px solid var(–bg);border-top:11px solid transparent;border-bottom:11px solid transparent;margin-left:4px}
+.demo-text h3{font-family:var(–display);font-weight:400;font-size:1.8rem;color:var(–w9);margin-bottom:.5rem;letter-spacing:.02em}
+.demo-text h3 em{color:var(–gold)}
+.demo-text p{font-size:.85rem;color:var(–w3);line-height:1.65;margin-bottom:1.5rem}
+.demo-steps{list-style:none}
+.demo-steps li{display:flex;align-items:center;gap:.6rem;padding:.4rem 0;font-size:.78rem;color:var(–w5)}
+.demo-steps li .num{font-family:var(–mono);font-size:.5rem;color:var(–gold-d);border:1px solid var(–gold-b);width:22px;height:22px;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;letter-spacing:0}
+
+/* ═══ PRICING ═══ */
+.pgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:.7rem;margin-top:3rem}
+.pc{padding:2.2rem;display:flex;flex-direction:column;transition:.5s}
+.pc.pop{border-color:var(–gbh);position:relative;background:rgba(201,169,110,.03)}
+.pc.pop::before{content:‘RECOMMENDED’;font-family:var(–mono);position:absolute;top:-9px;left:50%;transform:translateX(-50%);background:linear-gradient(135deg,var(–gold-d),var(–gold));color:var(–bg);font-size:.42rem;font-weight:500;padding:.2rem .7rem;letter-spacing:.15em}
+.pc:hover{transform:translateY(-4px);border-color:var(–gbh)}
+.pc-name{font-family:var(–display);font-size:1.5rem;font-weight:400;color:var(–w9);margin-bottom:.1rem}
+.pc-desc{font-family:var(–mono);font-size:.48rem;color:var(–w15);letter-spacing:.08em;margin-bottom:1rem;text-transform:uppercase}
+.pc-price{font-family:var(–display);font-size:1.8rem;font-weight:300;color:var(–w);margin-bottom:.15rem}
+.pc-price-sub{font-family:var(–mono);font-size:.5rem;color:var(–w15);margin-bottom:1.2rem;letter-spacing:.06em}
+.pc-feats{list-style:none;flex:1;margin-bottom:1.5rem}
+.pc-feats li{font-size:.76rem;color:var(–w3);padding:.35rem 0;display:flex;align-items:center;gap:.5rem;border-bottom:1px solid var(–w04)}
+.pc-feats li::before{content:‘✦’;color:var(–gold-d);font-size:.45rem}
+.btn-pc{font-family:var(–mono);width:100%;padding:.75rem;font-size:.55rem;font-weight:400;letter-spacing:.18em;text-transform:uppercase;cursor:pointer;transition:.4s}
+.btn-pf{background:linear-gradient(135deg,var(–gold-d),var(–gold));color:var(–bg);border:none}
+.btn-pf:hover{box-shadow:0 0 25px rgba(201,169,110,.12);background:var(–gold-l)}
+.btn-pg{background:transparent;color:var(–w3);border:1px solid var(–w08)}
+.btn-pg:hover{border-color:var(–gb);color:var(–gold)}
+
+/* ═══ TESTIMONIALS ═══ */
+.tgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:.7rem;margin-top:3rem}
+.tc{padding:1.8rem;transition:.4s}
+.tc:hover{background:rgba(201,169,110,.02);border-color:var(–gbh)}
+.tc-stars{color:var(–gold-d);font-size:.45rem;letter-spacing:4px;margin-bottom:1rem}
+.tc blockquote{font-family:var(–display);font-size:1rem;font-weight:400;color:var(–w5);line-height:1.5;margin-bottom:1rem;font-style:italic}
+.tc-auth{display:flex;align-items:center;gap:.5rem}
+.tc-av{width:32px;height:32px;border-radius:50%;background:linear-gradient(135deg,var(–gold-d),var(–gold));display:flex;align-items:center;justify-content:center;font-family:var(–mono);font-weight:500;font-size:.55rem;color:var(–bg)}
+.tc-nm{font-family:var(–mono);font-size:.62rem;color:var(–w5);letter-spacing:.03em}
+.tc-rl{font-family:var(–mono);font-size:.48rem;color:var(–w15);letter-spacing:.05em}
+
+/* ═══ CONTACT ═══ */
+.contact-grid{display:grid;grid-template-columns:1fr 1.2fr;gap:4rem;margin-top:3rem}
+.c-items{display:flex;flex-direction:column;gap:1.2rem}
+.ci{display:flex;gap:.7rem;align-items:flex-start}
+.ci-ico{width:34px;height:34px;border-radius:50%;flex-shrink:0;background:var(–gold-glow);border:1px solid var(–gold-b);display:flex;align-items:center;justify-content:center;font-size:.85rem}
+.ci h4{font-family:var(–display);font-weight:500;font-size:.95rem;color:var(–w9);margin-bottom:.1rem}
+.ci p{font-size:.76rem;color:var(–w15);line-height:1.4}
+.ci a{color:var(–gold-d);text-decoration:none;transition:.3s}.ci a:hover{color:var(–gold)}
+.c-form{display:flex;flex-direction:column;gap:.55rem}
+.c-row{display:grid;grid-template-columns:1fr 1fr;gap:.55rem}
+.c-form input,.c-form textarea,.c-form select{width:100%;background:rgba(26,14,16,.6);border:1px solid var(–w04);padding:.8rem 1rem;color:var(–w5);font-family:var(–mono);font-size:.7rem;font-weight:300;letter-spacing:.03em;transition:.4s;outline:none}
+.c-form input:focus,.c-form textarea:focus,.c-form select:focus{border-color:var(–gb);box-shadow:0 0 0 3px rgba(201,169,110,.04)}
+.c-form input::placeholder,.c-form textarea::placeholder{color:var(–w08);font-family:var(–mono);letter-spacing:.06em}
+.c-form textarea{min-height:90px;resize:vertical}
+.c-form select{appearance:none;cursor:pointer}
+.c-form select option{background:var(–bg);color:var(–w5)}
+.btn-sub{font-family:var(–mono);background:linear-gradient(135deg,var(–gold-d),var(–gold));color:var(–bg);border:none;padding:.8rem 2rem;font-size:.55rem;font-weight:400;letter-spacing:.2em;text-transform:uppercase;cursor:pointer;transition:.4s;align-self:flex-start}
+.btn-sub:hover{background:var(–gold-l);box-shadow:0 0 25px rgba(201,169,110,.1)}
+
+/* ═══ CTA BANNER ═══ */
+.cta-box{position:relative;overflow:hidden;padding:clamp(2.5rem,5vw,4rem);text-align:center;margin:0 auto 4rem}
+.cta-box::before{content:’’;position:absolute;inset:0;background:radial-gradient(ellipse at 50% 0%,rgba(201,169,110,.05),transparent 60%)}
+.cta-box *{position:relative;z-index:1}
+.cta-box h2{font-family:var(–display);font-size:clamp(1.8rem,3.5vw,2.8rem);font-weight:300;color:var(–w);letter-spacing:.03em;margin-bottom:.6rem;line-height:1.1}
+.cta-box h2 em{font-style:italic;font-weight:400;color:var(–gold)}
+.cta-box p{font-size:.85rem;color:var(–w15);margin-bottom:2rem;max-width:380px;margin-inline:auto}
+.cta-btns{display:flex;gap:.7rem;justify-content:center;flex-wrap:wrap}
+
+/* ═══ FOOTER ═══ */
+footer{padding:3rem 0 1.5rem;border-top:1px solid var(–w04)}
+.f-grid{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:2.5rem;margin-bottom:2rem}
+.f-brand .logo{margin-bottom:.6rem;display:inline-flex}
+.f-brand>p{font-size:.72rem;line-height:1.6;color:var(–w08);max-width:220px}
+.f-col h4{font-family:var(–mono);font-weight:300;font-size:.48rem;color:var(–w3);margin-bottom:.6rem;letter-spacing:.18em;text-transform:uppercase}
+.f-col ul{list-style:none}.f-col li{margin-bottom:.3rem}
+.f-col a{font-family:var(–mono);color:var(–w08);text-decoration:none;font-size:.6rem;transition:.3s;letter-spacing:.03em}
+.f-col a:hover{color:var(–gold-d)}
+.f-bottom{display:flex;justify-content:space-between;align-items:center;padding-top:1.2rem;border-top:1px solid var(–w04)}
+.f-bottom p{font-family:var(–mono);font-size:.48rem;color:var(–w08);letter-spacing:.06em}
+.f-soc{display:flex;gap:.3rem}
+.f-soc a{font-family:var(–mono);width:28px;height:28px;display:flex;align-items:center;justify-content:center;color:var(–w08);text-decoration:none;font-size:.5rem;border:1px solid var(–w04);transition:.4s}
+.f-soc a:hover{border-color:var(–gb);color:var(–gold)}
+
+.reveal{opacity:0;transform:translateY(28px);transition:opacity .7s cubic-bezier(.22,1,.36,1),transform .7s cubic-bezier(.22,1,.36,1)}
+.reveal.vis{opacity:1;transform:translateY(0)}
+
+@media(max-width:1024px){.feat-grid,.cap-grid,.tgrid,.pgrid{grid-template-columns:repeat(2,1fr)}.why-grid,.ind-grid{grid-template-columns:repeat(3,1fr)}.flag-grid{grid-template-columns:1fr 1fr}.f-grid{grid-template-columns:1fr 1fr;gap:1.5rem}}
+@media(max-width:768px){.nav-l{display:none}.ham{display:block}.hero-inner,.about-grid,.demo-box,.contact-grid{grid-template-columns:1fr;gap:2rem}.flag-grid,.cap-grid,.tgrid,.pgrid,.sol-grid{grid-template-columns:1fr}.why-grid,.ind-grid{grid-template-columns:repeat(2,1fr)}.flag-full{grid-template-columns:1fr}.f-grid{grid-template-columns:1fr}.f-bottom{flex-direction:column;gap:.6rem;text-align:center}.sl{justify-content:center}.st,.sd{text-align:center}.sd{margin-inline:auto}.hero-vl{display:none}.c-row{grid-template-columns:1fr}.hero-metrics{order:-1}}
 </style>
-
 
 </head>
 <body>
-    <!-- HEADER -->
-    <header>
-        <nav>
-            <div class="logo">KYN</div>
-            <button class="hamburger" id="hamburger">
-                <span></span>
-                <span></span>
-                <span></span>
-            </button>
-            <ul class="nav-menu" id="navMenu">
-                <li><a href="#features">Features</a></li>
-                <li><a href="#capabilities">Platform</a></li>
-                <li><a href="#lifecycle">Lifecycle</a></li>
-                <li><a href="#about">About</a></li>
-                <li><a href="#contact">Contact</a></li>
-                <li><button class="cta-button">Get Started</button></li>
-            </ul>
-        </nav>
-    </header>
 
+<!-- ═══ NAV ═══ -->
 
-<!-- HERO SECTION -->
+<nav id="nb">
+  <div class="nav-in">
+    <a href="https://kynhood.com" class="logo"><div class="logo-t">KYN<span>HOOD</span></div><span class="logo-tag">Event Tech</span></a>
+    <ul class="nav-l">
+      <li><a href="#flagships">Showcases</a></li>
+      <li><a href="#capabilities">Solutions</a></li>
+      <li><a href="#industries">Industries</a></li>
+      <li><a href="#why">Why KYN</a></li>
+      <li><a href="#pricing">Pricing</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+    <button class="btn-n" onclick="document.getElementById('contact').scrollIntoView({behavior:'smooth'})">Book a Demo</button>
+    <button class="ham" aria-label="Menu"><span></span><span></span><span></span></button>
+  </div>
+</nav>
+
+<!-- ═══ HERO ═══ -->
+
 <section class="hero">
-    <div class="hero-content">
-        <div class="hero-tag">Enterprise Event Management</div>
-        <h1>Manage Global Events at Scale</h1>
-        <p>Comprehensive end-to-end event management platform designed for large-scale conferences, global summits, and enterprise-grade events. White-label solutions that grow with your business.</p>
-        <div class="hero-buttons">
-            <button class="btn-primary">Start Free Trial</button>
-            <button class="btn-secondary">Schedule Demo</button>
+  <div class="hero-glow"></div>
+  <div class="hero-vl hvl-l"></div><div class="hero-vl hvl-r"></div>
+  <div class="ctr">
+    <div class="hero-inner">
+      <div>
+        <div class="hero-tag">Enterprise Event Technology</div>
+        <h1>End-to-End Event Technology That Powers <em>Seamless Experiences</em></h1>
+        <div class="hero-sub">Ticketing · Registration · On-ground Tech · Analytics · Operations</div>
+        <p class="hero-desc">KYN is not just a ticketing platform — it's a complete event technology ecosystem. From 300K+ registration government summits to 50K+ ticket concerts, we power the full experience.</p>
+        <div class="hero-btns">
+          <button class="btn-h btn-hp" onclick="document.getElementById('contact').scrollIntoView({behavior:'smooth'})">Book a Demo →</button>
+          <button class="btn-h btn-hs" onclick="document.getElementById('pricing').scrollIntoView({behavior:'smooth'})">Start Selling Tickets</button>
         </div>
-        <div class="stats-grid">
-            <div class="stat-card">
-                <div class="stat-number">50K+</div>
-                <div class="stat-label">Events/Year</div>
-            </div>
-            <div class="stat-card">
-                <div class="stat-number">99.9%</div>
-                <div class="stat-label">Uptime SLA</div>
-            </div>
-            <div class="stat-card">
-                <div class="stat-number">100ms</div>
-                <div class="stat-label">Response Time</div>
-            </div>
+      </div>
+      <div class="hero-metrics">
+        <div class="hm-card glass">
+          <div class="hm-row">
+            <div class="hm"><div class="hm-num">500K<span>+</span></div><div class="hm-lbl">Registrations Managed</div></div>
+            <div class="hm"><div class="hm-num">20K<span>+</span></div><div class="hm-lbl">Tickets / Event</div></div>
+            <div class="hm"><div class="hm-num">99.9<span>%</span></div><div class="hm-lbl">Check-in Accuracy</div></div>
+          </div>
+          <div class="hm-div"></div>
+          <div class="hm-pos">"<strong>KYN</strong> is not just a ticketing platform —<br>it's a complete <strong>event technology ecosystem</strong>."</div>
         </div>
+      </div>
     </div>
+  </div>
 </section>
 
-<!-- FEATURES SECTION -->
-<section class="features" id="features">
-    <div class="section-header">
-        <h2>All-In-One Platform</h2>
-        <p>Everything you need to deliver world-class events</p>
-    </div>
-    <div class="features-grid">
-        <div class="feature-card">
-            <div class="feature-icon">🎫</div>
-            <h3>White-Label Ticketing</h3>
-            <p>Secure, branded ticketing system with multi-category support for free and paid events.</p>
-            <ul class="feature-list">
-                <li>Custom branding</li>
-                <li>Multi-currency</li>
-                <li>Fraud prevention</li>
-            </ul>
-        </div>
+<!-- ═══ FLAGSHIP EVENTS ═══ -->
 
-        <div class="feature-card">
-            <div class="feature-icon">📱</div>
-            <h3>QR-Based Access Control</h3>
-            <p>Mobile-based entry validation with unique QR generation per delegate. No additional hardware required.</p>
-            <ul class="feature-list">
-                <li>Real-time validation</li>
-                <li>Zero duplicates</li>
-                <li>Offline capability</li>
-            </ul>
-        </div>
+<section id="flagships">
+  <div class="ctr">
+    <span class="sl c reveal">Flagship Showcases</span>
+    <h2 class="st c reveal">Events <em>Powered by KYN</em></h2>
+    <p class="sd c reveal">Government summits, legendary concerts, massive trade fairs — all managed end-to-end on our platform.</p>
 
-        <div class="feature-card">
-            <div class="feature-icon">🌐</div>
-            <h3>Custom Event Websites</h3>
-            <p>Fully customizable event microsites with speakers, agenda, exhibitors, and registration integration.</p>
-            <ul class="feature-list">
-                <li>Mobile responsive</li>
-                <li>SEO optimized</li>
-                <li>Fast load times</li>
-            </ul>
-        </div>
+```
+<div class="flag-grid">
+  <div class="flag-card glass reveal">
+    <div class="flag-tag">Government · Elcot</div>
+    <h3>Umagine 2026</h3>
+    <div class="flag-stat">20,000<span style="font-size:.9rem;color:var(--w3)"> registrations</span></div>
+    <ul class="flag-list">
+      <li>Built custom event website</li>
+      <li>Instant badge printing on-site</li>
+      <li>Seamless QR scanning entry</li>
+      <li>Zero queue management</li>
+    </ul>
+  </div>
+  <div class="flag-card glass reveal">
+    <div class="flag-tag">Government · TTDC</div>
+    <h3>Tamil Nadu Global Tourism Summit</h3>
+    <div class="flag-stat">8,000<span style="font-size:.9rem;color:var(--w3)"> attendees</span></div>
+    <ul class="flag-list">
+      <li>Built custom event website</li>
+      <li>Multi-day access control</li>
+      <li>Seamless QR scanning entry</li>
+    </ul>
+  </div>
+  <div class="flag-card glass reveal">
+    <div class="flag-tag">Concert · Live</div>
+    <h3>Ilaiyaraaja 50 Concert</h3>
+    <div class="flag-stat">20,000+<span style="font-size:.9rem;color:var(--w3)"> tickets sold</span></div>
+    <ul class="flag-list">
+      <li>Managed high-demand VIP sales</li>
+      <li>Seamless QR scanning entry</li>
+      <li>Multi-tier ticketing</li>
+    </ul>
+  </div>
+</div>
+<div class="flag-full" style="margin-top:.7rem">
+  <div class="flag-wide glass reveal">
+    <div class="flag-tag">Esports · Gaming</div>
+    <h3>CEGC — Chennai Esports Global Championship</h3>
+    <div class="flag-stat">50,000+<span style="font-size:.9rem;color:var(--w3)"> tickets sold</span></div>
+    <ul class="flag-list"><li>Seamless QR scanning entry</li><li>High-volume concurrent ticketing</li></ul>
+  </div>
+  <div class="flag-wide glass reveal">
+    <div class="flag-tag">Exhibition · Trade</div>
+    <h3>Chennai Book Fair 2026</h3>
+    <div class="flag-stat">300,000+<span style="font-size:.9rem;color:var(--w3)"> registrations</span></div>
+    <ul class="flag-list"><li>Seamless QR scanning entry</li><li>Largest registration event powered by KYN</li></ul>
+  </div>
+</div>
 
-        <div class="feature-card">
-            <div class="feature-icon">📊</div>
-            <h3>Real-Time Analytics</h3>
-            <p>Track attendance, vendor performance, booth traffic, and attendee engagement metrics in real-time.</p>
-            <ul class="feature-list">
-                <li>Live dashboards</li>
-                <li>Custom reports</li>
-                <li>Data export</li>
-            </ul>
-        </div>
+<div class="client-row reveal">
+  <span class="client-name">Elcot — Umagine</span>
+  <span class="client-name">TTDC</span>
+  <span class="client-name">Ilaiyaraaja Concert</span>
+  <span class="client-name">Chennai Book Fair</span>
+  <span class="client-name">CEGC Esports</span>
+</div>
+```
 
-        <div class="feature-card">
-            <div class="feature-icon">🔒</div>
-            <h3>Enterprise Security</h3>
-            <p>SOC 2 Type II certified, GDPR compliant. Data encrypted at rest and in transit.</p>
-            <ul class="feature-list">
-                <li>End-to-end encryption</li>
-                <li>Compliance ready</li>
-                <li>Regular audits</li>
-            </ul>
-        </div>
-
-        <div class="feature-card">
-            <div class="feature-icon">⚙️</div>
-            <h3>Flexible Deployment</h3>
-            <p>Client server hosting or secure KYN cloud deployment. Choose what works for you.</p>
-            <ul class="feature-list">
-                <li>On-premise options</li>
-                <li>Cloud hosting</li>
-                <li>Hybrid models</li>
-            </ul>
-        </div>
-    </div>
+  </div>
 </section>
 
-<!-- CAPABILITIES SECTION -->
-<section class="capabilities" id="capabilities">
-    <div class="section-header">
-        <h2>Platform Capabilities</h2>
-        <p>Complete toolkit for modern event management</p>
+<!-- ═══ CORE CAPABILITIES ═══ -->
+
+<section id="capabilities">
+  <div class="ctr">
+    <span class="sl c reveal">Core Capabilities</span>
+    <h2 class="st c reveal">Event Tech <em>Solutions</em></h2>
+    <p class="sd c reveal">Five pillars of technology that cover every aspect of your event — from the first ticket sold to the last attendee checked in.</p>
+    <div class="cap-grid">
+      <div class="cap glass-l reveal"><div class="cap-ico">🎫</div><h3>Ticketing Platform</h3><ul class="cap-list"><li>White-label ticketing</li><li>Dynamic pricing</li><li>International payments</li><li>Exhibitor portal</li></ul></div>
+      <div class="cap glass-l reveal"><div class="cap-ico">📋</div><h3>Event Registration</h3><ul class="cap-list"><li>Bulk uploads</li><li>QR-based confirmations</li><li>Custom forms & fields</li><li>Auto-email triggers</li></ul></div>
+      <div class="cap glass-l reveal"><div class="cap-ico">📲</div><h3>On-ground Tech</h3><ul class="cap-list"><li>QR scanning entry</li><li>Badge printing</li><li>Access control (VIP, zones)</li><li>Capacity management</li></ul></div>
+      <div class="cap glass-l reveal"><div class="cap-ico">📊</div><h3>Real-Time Dashboard</h3><ul class="cap-list"><li>Live ticket sales</li><li>Entry tracking</li><li>Revenue insights</li><li>Demographic analytics</li></ul></div>
+      <div class="cap glass-l reveal"><div class="cap-ico">🤝</div><h3>Customer Support</h3><ul class="cap-list"><li>Attendee support desk</li><li>Refund handling</li><li>Communication tools</li><li>WhatsApp integration</li></ul></div>
+      <div class="cap glass-l reveal"><div class="cap-ico">🌐</div><h3>Custom Solutions</h3><ul class="cap-list"><li>White-label event websites</li><li>Stall & vendor management</li><li>API integrations</li><li>Dedicated tech support</li></ul></div>
     </div>
-    <div class="capabilities-content">
-        <div class="capabilities-text">
-            <h2>Powered by Technology</h2>
-            <p>Our platform enables fully digital, paperless on-ground experiences with enterprise-grade infrastructure.</p>
-            <div class="capabilities-list">
-                <div class="capability-item">
-                    <h4>🏷️ Badge & Lanyard Printing</h4>
-                    <p>Automated printing for each attendee with consistent quality and branding.</p>
-                </div>
-                <div class="capability-item">
-                    <h4>📋 Attendee Database</h4>
-                    <p>Create new attendee databases or validate against existing ones for seamless integration.</p>
-                </div>
-                <div class="capability-item">
-                    <h4>✓ Real-Time Validation</h4>
-                    <p>Prevent duplicate or unauthorized access with instant QR validation.</p>
-                </div>
-                <div class="capability-item">
-                    <h4>📸 Photo ID Verification</h4>
-                    <p>Ensure accuracy and authenticity with optional photo ID verification at check-in.</p>
-                </div>
-            </div>
-        </div>
-        <div class="capabilities-visual">
-            <div class="visual-card">
-                <div class="visual-icon">⚡</div>
-                <h4>Faster Check-Ins</h4>
-                <p>Streamlined registration process with crowd control management</p>
-            </div>
-            <div class="visual-card">
-                <div class="visual-icon">🎯</div>
-                <h4>Accurate Tracking</h4>
-                <p>Complete attendance records with real-time validation</p>
-            </div>
-            <div class="visual-card">
-                <div class="visual-icon">📈</div>
-                <h4>Scalable</h4>
-                <p>Handle high-volume government & global events</p>
-            </div>
-            <div class="visual-card">
-                <div class="visual-icon">🔐</div>
-                <h4>Secure</h4>
-                <p>Prevent unauthorized access with digital validation</p>
-            </div>
-        </div>
-    </div>
+  </div>
 </section>
 
-<!-- ABOUT SECTION -->
-<section class="about" id="about">
-    <div class="section-header">
-        <h2>About KYN SaaS</h2>
-        <p>Building the future of event management</p>
+<!-- ═══ INDUSTRIES ═══ -->
+
+<section id="industries">
+  <div class="ctr">
+    <span class="sl c reveal">Industries</span>
+    <h2 class="st c reveal">Built for <em>Every Scale</em></h2>
+    <div class="ind-grid">
+      <div class="ind glass reveal"><div class="ind-ico">🏛️</div><h4>Government</h4><p>Summits · Conferences</p></div>
+      <div class="ind glass reveal"><div class="ind-ico">🎵</div><h4>Concerts</h4><p>Live Shows · Tours</p></div>
+      <div class="ind glass reveal"><div class="ind-ico">🖼️</div><h4>Exhibitions</h4><p>Trade Shows · Fairs</p></div>
+      <div class="ind glass reveal"><div class="ind-ico">🎓</div><h4>College Fests</h4><p>Cultural · Technical</p></div>
+      <div class="ind glass reveal"><div class="ind-ico">💼</div><h4>Corporate</h4><p>Conferences · Offsites</p></div>
     </div>
-    <div class="about-content">
-        <div class="about-inner">
-            <p>KYN SaaS is an enterprise-grade event management platform built for large-scale conferences and global summits. We serve government agencies, corporations, and event operators who demand reliability, scale, and control.</p>
-            <p>Our platform powers everything from vendor management and ticketing to real-time access control and analytics. With deployment flexibility, industry-leading security, and dedicated support, we enable event teams to focus on creating exceptional experiences rather than managing technology.</p>
-            
-            <div class="about-highlights">
-                <div class="highlight">
-                    <h4>Enterprise Grade</h4>
-                    <p>Built for complex, large-scale events with thousands of concurrent attendees and sophisticated operational requirements.</p>
-                </div>
-                <div class="highlight">
-                    <h4>White-Label Ready</h4>
-                    <p>Complete branding control across all platforms. Your brand, your identity. Clients never see KYN.</p>
-                </div>
-                <div class="highlight">
-                    <h4>24/7 Support</h4>
-                    <p>Dedicated technical support team available round-the-clock to ensure your events run flawlessly.</p>
-                </div>
-                <div class="highlight">
-                    <h4>Vendor Management</h4>
-                    <p>Streamlined vendor coordination, booth assignments, and real-time communication tools built-in.</p>
-                </div>
-            </div>
-        </div>
-    </div>
+  </div>
 </section>
 
-<!-- LIFECYCLE PHASES SECTION -->
-<section class="lifecycle" id="lifecycle">
-    <div class="section-header">
-        <h2>Event Management Lifecycle</h2>
-        <p>Comprehensive coverage at every stage of your event journey</p>
+<!-- ═══ WHY KYN ═══ -->
+
+<section id="why">
+  <div class="ctr">
+    <span class="sl c reveal">Why KYN</span>
+    <h2 class="st c reveal">The <em>Differentiator</em></h2>
+    <p class="sd c reveal">We're not just another ticketing tool. Here's what sets us apart.</p>
+    <div class="why-grid">
+      <div class="why glass reveal"><div class="why-ico">🔄</div><h4>End-to-End Ownership</h4><p>Not just ticketing. We own the entire event tech lifecycle.</p></div>
+      <div class="why glass reveal"><div class="why-ico">🏛️</div><h4>Government Scale</h4><p>Proven at 300K+ registrations for state-level events.</p></div>
+      <div class="why glass reveal"><div class="why-ico">⚡</div><h4>Real-Time Tech</h4><p>Live dashboards, instant scanning. Not manual ops.</p></div>
+      <div class="why glass reveal"><div class="why-ico">🛠️</div><h4>Custom Solutions</h4><p>Flexible to your needs. Not rigid SaaS templates.</p></div>
+      <div class="why glass reveal"><div class="why-ico">🎯</div><h4>On-Ground Execution</h4><p>We don't just build software. We show up at the venue.</p></div>
     </div>
-    <div class="phases-grid">
-        <div class="phase-card">
-            <div class="phase-number">01</div>
-            <div class="phase-icon">📋</div>
-            <h3>Pre-Event</h3>
-            <p>Build excitement and capture registrations with custom event websites, vendor management, and automated workflows.</p>
-            <ul class="phase-features">
-                <li>Custom event websites</li>
-                <li>Ticketing & registration</li>
-                <li>Vendor portal setup</li>
-                <li>Attendee database creation</li>
-                <li>Email automation</li>
-            </ul>
-        </div>
-
-        <div class="phase-card">
-            <div class="phase-number">02</div>
-            <div class="phase-icon">🔌</div>
-            <h3>Integration</h3>
-            <p>Seamless connectivity with your existing tools and systems for a unified event ecosystem.</p>
-            <ul class="phase-features">
-                <li>Zapier integration</li>
-                <li>Stripe payment processing</li>
-                <li>Mailchimp connectivity</li>
-                <li>API access</li>
-                <li>Custom integrations</li>
-            </ul>
-        </div>
-
-        <div class="phase-card">
-            <div class="phase-number">03</div>
-            <div class="phase-icon">⚡</div>
-            <h3>During Event</h3>
-            <p>Execute flawlessly with QR-based access control, real-time validation, and live analytics.</p>
-            <ul class="phase-features">
-                <li>QR badge scanning</li>
-                <li>Real-time check-in</li>
-                <li>Booth traffic tracking</li>
-                <li>Live dashboards</li>
-                <li>Instant analytics</li>
-            </ul>
-        </div>
-
-        <div class="phase-card">
-            <div class="phase-number">04</div>
-            <div class="phase-icon">📊</div>
-            <h3>Post-Event</h3>
-            <p>Learn and improve with comprehensive analytics, attendee insights, and detailed performance reports.</p>
-            <ul class="phase-features">
-                <li>Attendance reports</li>
-                <li>Vendor performance data</li>
-                <li>Attendee insights</li>
-                <li>ROI metrics</li>
-                <li>Custom reports</li>
-            </ul>
-        </div>
-    </div>
+  </div>
 </section>
 
-<!-- CONTACT SECTION -->
-<section class="contact" id="contact">
-    <h2>Get In Touch</h2>
-    <p>Ready to transform your event operations? Our team is ready to help you scale.</p>
-    <div class="contact-info">
-        <div class="contact-item">
-            <h4>📞 Phone</h4>
-            <a href="tel:+919840725798">+91 98407 25798</a>
-        </div>
-        <div class="contact-item">
-            <h4>📧 Email</h4>
-            <a href="/cdn-cgi/l/email-protection#036a6d6a646c6e6271682d6943687a6d6b6c6c672d606c6e"><span class="__cf_email__" data-cfemail="2b4245424c44464a594005416b4052454344444f05484446">[email&#160;protected]</span></a>
-        </div>
-        <div class="contact-item">
-            <h4>🚀 Ready?</h4>
-            <button class="btn-primary" style="width: 100%; text-align: center;">Start Free Trial</button>
-        </div>
+<!-- ═══ DEMO ═══ -->
+
+<section id="demo">
+  <div class="ctr">
+    <span class="sl reveal">Product Demo</span>
+    <div class="demo-box glass reveal">
+      <div class="demo-visual">
+        <div class="demo-play"></div>
+      </div>
+      <div class="demo-text">
+        <h3>See How It <em>Works</em></h3>
+        <p>From event setup to day-of execution — watch how KYN powers seamless events in under 2 minutes.</p>
+        <ul class="demo-steps">
+          <li><span class="num">01</span> Setup your event & ticketing in minutes</li>
+          <li><span class="num">02</span> Watch real-time sales on the dashboard</li>
+          <li><span class="num">03</span> On-ground QR scanning & badge printing</li>
+          <li><span class="num">04</span> Post-event analytics & revenue insights</li>
+        </ul>
+      </div>
     </div>
+  </div>
 </section>
 
-<!-- FOOTER -->
+<!-- ═══ PRICING ═══ -->
+
+<section id="pricing">
+  <div class="ctr">
+    <span class="sl c reveal">Pricing</span>
+    <h2 class="st c reveal">Flexible <em>Business Model</em></h2>
+    <p class="sd c reveal">SaaS fee or commission model. Pricing scales with your event.</p>
+    <div class="pgrid">
+      <div class="pc glass reveal"><div class="pc-name">Starter</div><div class="pc-desc">Small Events & Meetups</div><div class="pc-price">Commission</div><div class="pc-price-sub">% per ticket · no upfront cost</div><ul class="pc-feats"><li>Up to 5 events / month</li><li>Basic ticketing & registration</li><li>QR scanning entry</li><li>Standard dashboard</li><li>Email support</li></ul><button class="btn-pc btn-pg">Start Free</button></div>
+      <div class="pc glass pop reveal"><div class="pc-name">Professional</div><div class="pc-desc">Growing Organisations</div><div class="pc-price">SaaS + Reduced Fee</div><div class="pc-price-sub">Monthly subscription · lower commission</div><ul class="pc-feats"><li>Unlimited events</li><li>White-label ticketing</li><li>Badge printing & access control</li><li>Real-time analytics</li><li>Priority 24/7 support</li><li>Custom forms & branding</li></ul><button class="btn-pc btn-pf">Get Started</button></div>
+      <div class="pc glass reveal"><div class="pc-name">Enterprise</div><div class="pc-desc">Government & Large-Scale</div><div class="pc-price">Custom</div><div class="pc-price-sub">Tailored to your event scale</div><ul class="pc-feats"><li>Everything in Professional</li><li>Custom event websites</li><li>On-ground tech team</li><li>Stall & vendor management</li><li>Dedicated account manager</li><li>Custom SLA & support</li></ul><button class="btn-pc btn-pg">Contact Sales</button></div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ TESTIMONIALS ═══ -->
+
+<section>
+  <div class="ctr">
+    <span class="sl c reveal">Testimonials</span>
+    <h2 class="st c reveal">Trusted by <em>Industry Leaders</em></h2>
+    <div class="tgrid">
+      <div class="tc glass reveal"><div class="tc-stars">✦ ✦ ✦ ✦ ✦</div><blockquote>"KYN managed our entire 20K registration event with zero downtime. The badge printing and QR entry was flawless."</blockquote><div class="tc-auth"><div class="tc-av">GS</div><div><div class="tc-nm">Government Official</div><div class="tc-rl">Umagine 2026 · Elcot</div></div></div></div>
+      <div class="tc glass reveal"><div class="tc-stars">✦ ✦ ✦ ✦ ✦</div><blockquote>"Selling 20,000+ tickets for the Ilaiyaraaja concert with VIP tiers was seamless. Real-time dashboard gave us complete visibility."</blockquote><div class="tc-auth"><div class="tc-av">RP</div><div><div class="tc-nm">Concert Producer</div><div class="tc-rl">Ilaiyaraaja 50 · Chennai</div></div></div></div>
+      <div class="tc glass reveal"><div class="tc-stars">✦ ✦ ✦ ✦ ✦</div><blockquote>"300,000+ registrations for Book Fair with real-time QR scanning. KYN's on-ground team was outstanding."</blockquote><div class="tc-auth"><div class="tc-av">TK</div><div><div class="tc-nm">Event Director</div><div class="tc-rl">Chennai Book Fair 2026</div></div></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ CTA ═══ -->
+
+<div class="ctr">
+  <div class="cta-box glass reveal">
+    <h2>Ready to Power Your <em>Next Event</em>?</h2>
+    <p>Join government bodies, concert producers, and enterprise organisers who trust KYN.</p>
+    <div class="cta-btns">
+      <button class="btn-h btn-hp" onclick="document.getElementById('contact').scrollIntoView({behavior:'smooth'})">Book a Demo →</button>
+      <button class="btn-h btn-hs">Partner with KYN</button>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ CONTACT ═══ -->
+
+<section id="contact">
+  <div class="ctr">
+    <span class="sl reveal">Contact</span>
+    <h2 class="st reveal">Talk to <em>Sales</em></h2>
+    <p class="sd reveal">Book a demo, discuss your event, or explore a partnership.</p>
+    <div class="contact-grid">
+      <div class="c-items reveal">
+        <div class="ci"><div class="ci-ico">📍</div><div><h4>Headquarters</h4><p>Kynhood Technologies<br>Chennai, Tamil Nadu, India</p></div></div>
+        <div class="ci"><div class="ci-ico">✉️</div><div><h4>Email</h4><p><a href="mailto:partner@kynhood.com">partner@kynhood.com</a></p></div></div>
+        <div class="ci"><div class="ci-ico">📞</div><div><h4>Phone</h4><p>+91 44 XXXX XXXX</p></div></div>
+        <div class="ci"><div class="ci-ico">💬</div><div><h4>WhatsApp</h4><p><a href="#">Chat with us on WhatsApp →</a></p></div></div>
+        <div class="ci"><div class="ci-ico">🌐</div><div><h4>Socials</h4><p><a href="https://www.instagram.com/kynhood/" target="_blank">Instagram</a> · <a href="https://twitter.com/kyn_hood" target="_blank">X</a> · <a href="https://www.linkedin.com/company/kynhood/" target="_blank">LinkedIn</a></p></div></div>
+      </div>
+      <form class="c-form reveal" onsubmit="event.preventDefault();alert('Thanks! Our sales team will reach out within 24 hours.');">
+        <div class="c-row">
+          <input type="text" placeholder="Your name" required>
+          <input type="text" placeholder="Organisation" required>
+        </div>
+        <div class="c-row">
+          <input type="email" placeholder="Email address" required>
+          <input type="tel" placeholder="Phone number">
+        </div>
+        <select required>
+          <option value="" disabled selected>I'm looking for...</option>
+          <option>Event ticketing platform</option>
+          <option>Registration & badge printing</option>
+          <option>On-ground tech support</option>
+          <option>Custom event website</option>
+          <option>Full end-to-end management</option>
+          <option>Enterprise / Government event</option>
+          <option>Partnership opportunity</option>
+        </select>
+        <textarea placeholder="Tell us about your event..."></textarea>
+        <button type="submit" class="btn-sub">Request Demo →</button>
+      </form>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ FOOTER ═══ -->
+
 <footer>
-    <div class="footer-content">
-        <div class="footer-grid">
-            <div class="footer-section">
-                <h4>Product</h4>
-                <ul>
-                    <li><a href="#features">Features</a></li>
-                    <li><a href="#capabilities">Platform</a></li>
-                    <li><a href="#roadmap">Roadmap</a></li>
-                    <li><a href="#">Pricing</a></li>
-                </ul>
-            </div>
-            <div class="footer-section">
-                <h4>Company</h4>
-                <ul>
-                    <li><a href="#about">About</a></li>
-                    <li><a href="#">Blog</a></li>
-                    <li><a href="#contact">Contact</a></li>
-                    <li><a href="#">Careers</a></li>
-                </ul>
-            </div>
-            <div class="footer-section">
-                <h4>Legal</h4>
-                <ul>
-                    <li><a href="#">Privacy Policy</a></li>
-                    <li><a href="#">Terms of Service</a></li>
-                    <li><a href="#">Security</a></li>
-                    <li><a href="#">Compliance</a></li>
-                </ul>
-            </div>
-            <div class="footer-section">
-                <h4>Resources</h4>
-                <ul>
-                    <li><a href="#">Documentation</a></li>
-                    <li><a href="#">API Reference</a></li>
-                    <li><a href="#">Support</a></li>
-                    <li><a href="#">Community</a></li>
-                </ul>
-            </div>
-        </div>
-        <div class="footer-bottom">
-            <p>© 2024 KYN SaaS. Enterprise Event Management Platform. All rights reserved.</p>
-        </div>
+  <div class="ctr">
+    <div class="f-grid">
+      <div class="f-brand">
+        <a href="https://kynhood.com" class="logo"><div class="logo-t">KYN<span>HOOD</span></div></a>
+        <p>Complete event technology ecosystem. Ticketing, registration, on-ground tech, and analytics.</p>
+      </div>
+      <div class="f-col"><h4>Platform</h4><ul><li><a href="#capabilities">Solutions</a></li><li><a href="#pricing">Pricing</a></li><li><a href="#demo">Product Demo</a></li><li><a href="#flagships">Showcases</a></li></ul></div>
+      <div class="f-col"><h4>Company</h4><ul><li><a href="https://kynhood.com" target="_blank">Kynhood.com</a></li><li><a href="mailto:partner@kynhood.com">Partnerships</a></li><li><a href="#">Careers</a></li></ul></div>
+      <div class="f-col"><h4>Legal</h4><ul><li><a href="https://kynhood.com/privacy/kyn" target="_blank">Privacy</a></li><li><a href="https://kynhood.com/terms&condition/kyn" target="_blank">Terms</a></li><li><a href="https://kynhood.com/communityguidelines/kyn" target="_blank">Guidelines</a></li></ul></div>
     </div>
+    <div class="f-bottom">
+      <p>© 2026 Kynhood Technologies — All Rights Reserved</p>
+      <div class="f-soc">
+        <a href="https://www.instagram.com/kynhood/" target="_blank">IG</a>
+        <a href="https://twitter.com/kyn_hood" target="_blank">X</a>
+        <a href="https://www.linkedin.com/company/kynhood/" target="_blank">IN</a>
+        <a href="https://www.facebook.com/kynhoodofficial/" target="_blank">FB</a>
+      </div>
+    </div>
+  </div>
 </footer>
 
-<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
-    // Hamburger Menu Toggle
-    const hamburger = document.getElementById('hamburger');
-    const navMenu = document.getElementById('navMenu');
-
-    hamburger.addEventListener('click', function() {
-        hamburger.classList.toggle('active');
-        navMenu.classList.toggle('active');
-    });
-
-    // Close menu when a link is clicked
-    document.querySelectorAll('.nav-menu a').forEach(link => {
-        link.addEventListener('click', function() {
-            hamburger.classList.remove('active');
-            navMenu.classList.remove('active');
-        });
-    });
-
-    // Smooth scroll behavior
-    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-        anchor.addEventListener('click', function (e) {
-            const href = this.getAttribute('href');
-            if (href !== '#') {
-                e.preventDefault();
-                const target = document.querySelector(href);
-                if (target) {
-                    target.scrollIntoView({ behavior: 'smooth' });
-                }
-            }
-        });
-    });
-
-    // Add scroll animation
-    const observerOptions = {
-        threshold: 0.1,
-        rootMargin: '0px 0px -100px 0px'
-    };
-
-    const observer = new IntersectionObserver(function(entries) {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                entry.target.style.opacity = '1';
-                entry.target.style.transform = 'translateY(0)';
-            }
-        });
-    }, observerOptions);
-
-    document.querySelectorAll('.feature-card, .phase-card, .stat-card, .highlight').forEach(el => {
-        el.style.opacity = '0';
-        el.style.transform = 'translateY(20px)';
-        el.style.transition = 'all 0.6s ease';
-        observer.observe(el);
-    });
+<script>
+const nb=document.getElementById('nb');
+window.addEventListener('scroll',()=>nb.classList.toggle('scrolled',window.scrollY>40));
+const rvs=document.querySelectorAll('.reveal');
+const ob=new IntersectionObserver(es=>{es.forEach((e,i)=>{if(e.isIntersecting){setTimeout(()=>e.target.classList.add('vis'),i*55);ob.unobserve(e.target)}})},{threshold:.06,rootMargin:'0px 0px -40px 0px'});
+rvs.forEach(el=>ob.observe(el));
+document.querySelectorAll('a[href^="#"]').forEach(a=>{a.addEventListener('click',e=>{e.preventDefault();const t=document.querySelector(a.getAttribute('href'));if(t)t.scrollIntoView({behavior:'smooth'})})});
+document.querySelector('.ham').addEventListener('click',function(){const l=document.querySelector('.nav-l');if(l.style.display==='flex'){l.style.display='none'}else{l.style.display='flex';l.style.flexDirection='column';l.style.position='absolute';l.style.top='100%';l.style.left='0';l.style.right='0';l.style.background='rgba(14,6,8,.95)';l.style.backdropFilter='blur(30px)';l.style.padding='1.5rem 2rem';l.style.gap='1rem';l.style.borderBottom='1px solid rgba(201,169,110,.06)'}});
 </script>
-
 
 </body>
 </html>
